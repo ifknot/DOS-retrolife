@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\automata"
   ],
-  "SelectedNode": "\\main.cpp",
+  "SelectedNode": "\\automata\\cell_space.h",
   "PreviewInSolutionExplorer": false
 }
