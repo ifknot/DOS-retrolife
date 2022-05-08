@@ -1,0 +1,7 @@
+automata/cell_space.h(25): Error! E085: col(32) maximum class size has been exceeded
+automata/cell_space.h(25): Note! N393: col(32) included from main.cpp(3)
+automata/cell_space.h(25): Note! N633: col(32) template class instantiation for 'automata::cell_space<unsigned long,720,348>' was in: main.cpp(8) (col 44)
+automata/cell_space.h(27): Warning! W011: col(9) all members are private
+automata/cell_space.h(27): Note! N633: col(9) template class instantiation for 'automata::cell_space<unsigned long,720,348>' was in: main.cpp(8) (col 44)
+main.cpp(10): Warning! W014: col(1) no reference to symbol 'cells'
+main.cpp(8): Note! N392: col(44) definition: '<error> cells' in 'int main( void )'
