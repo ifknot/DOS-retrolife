@@ -64,7 +64,7 @@ namespace dos {
                 * The rest are obtained by issuing the "get extended error" function call
                 * \see INT 21, 59
                 */
-                static char messages[85][64] = {
+                char messages[85][64] = {
                         "00  Success ",
                         // DOS 2.0+
                         "01  Invalid function number ",
@@ -305,7 +305,7 @@ namespace dos {
                         */
                 };
 
-                static char classes[16][64] = {
+                char classes[16][64] = {
                         " 00  no error class ",
                         " 01  out of resource (storage space or I / O channels) ",
                         " 02  temporary situation (file or record lock) ",
@@ -324,7 +324,7 @@ namespace dos {
                         " 0F  time (undocumented) "
                 };
 
-                static char actions[8][64] = {
+                char actions[8][64] = {
                         " 00  no action ",
                         " 01  retry, attempt a few more times and re-prompt ",
                         " 02  delay retry, retry a few more times after a pause ",
@@ -335,7 +335,7 @@ namespace dos {
                         " 07  user intervention, retry after user fixes the problem "
                 };
 
-                static char locus[6][64] = {
+                char locus[6][64] = {
                         " 00  no locus ",
                         " 01  unknown or not appropriate ",
                         " 02  block device (disk error) ",

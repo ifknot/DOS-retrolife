@@ -27,75 +27,82 @@
 namespace test_hga {
 
         void fill_screen() {
-                for (int y = 0; y < 348; y += 2) {
-                        for (int x = 0; x < 720; x += 2) {
-                                hga::screen_bound::plot_point(x, y, hga::colour::white);
-                        }
+            for (int y = 0; y < 348; y += 2) {
+                for (int x = 0; x < 720; x += 2) {
+                    hga::screen_bound::plot_point(x, y, hga::colour::white);
                 }
+            }
         }
 
         void cross_hairs() {
-                for (int y = 0; y < 348; ++y) {
-                        hga::screen_bound::plot_point(360, y, hga::colour::white);
-                }
-                for (int x = 0; x < 720; ++x) {
-                        hga::screen_bound::plot_point(x, 174, hga::colour::white);
-                }
+            for (int y = 0; y < 348; ++y) {
+                    hga::screen_bound::plot_point(360, y, hga::colour::white);
+            }
+            for (int x = 0; x < 720; ++x) {
+                    hga::screen_bound::plot_point(x, 174, hga::colour::white);
+            }
         }
 
         void black_diagonals() {
-                int x = 12;
-                for (int y = 0; y < 348; ++y) {
-                        hga::screen_bound::plot_point(x, y, hga::colour::black);
-                        hga::screen_bound::plot_point(720 - x, y, hga::colour::black);
-                        x += 2;
-                }
+            int x = 12;
+            for (int y = 0; y < 348; ++y) {
+                    hga::screen_bound::plot_point(x, y, hga::colour::black);
+                    hga::screen_bound::plot_point(720 - x, y, hga::colour::black);
+                    x += 2;
+            }
         }
         void run() {
 
+            std::cout
+                << bios::video_adapter_names[bios::detect_video_adapter_type()] << " "
+                << hga::mode_names[hga::detect_mode()] << '\n'
+                << "\ntest Hercules... ";
+
+            /* {
                 std::cout
-                        << bios::video_adapter_names[bios::detect_video_adapter_type()] << " "
-                        << hga::mode_names[hga::detect_mode()] << '\n'
-                        << "\ntest Hercules... ";
+                        << "\nPen regs = "
+                        << hga::read_light_pen_registers() << '\n';
 
-                {
-                        std::cout
-                                << "\nPen regs = "
-                                << hga::read_light_pen_registers() << '\n';
+                uint8_t vdda[30];
+                bios::read_VDDA((uint32_t)vdda);
+                for (int i = 0; i < 30; ++i) std::cout << (int)vdda[i] << ' ';
+                std::cout << std::endl;
+            }
 
-                        uint8_t vdda[30];
-                        bios::read_VDDA((uint32_t)vdda);
-                        for (int i = 0; i < 30; ++i) std::cout << (int)vdda[i] << ' ';
-                        std::cout << std::endl;
-                }
+            {
+                dos::address_t p = 0xF000FC77;
+                uint8_t c = *(char*)p.address;
+                std::cout << std::hex << "BIOS mem " << p.memory.segment << ':' << p.memory.offset << ' ' << (int)*(uint8_t*)p.address << '\n';
 
-                {
-                        dos::address_t p = 0xF000FC77;
-                        uint8_t c = *(char*)p.address;
-                        std::cout << std::hex << "BIOS mem " << p.memory.segment << ':' << p.memory.offset << ' ' << (int)*(uint8_t*)p.address << '\n';
-                        std::cout << "\nswitch to gfx mode Press <ENTER>";                     
-                        hga::union_point_t xy(360, 174);
-                        std::getchar();
-                        /*
-                        hga::graphics_mode();
-                        hga::cls();
-                        cross_hairs();
-                        bios::set_system_clock_counter(0);
-                        uint32_t time = bios::read_system_clock_counter();
-                        fill_screen();
-                        time = bios::read_system_clock_counter() - time;
-                        black_diagonals();
+                std::cout << "\nswitch to gfx mode Press <ENTER>";
+                std::getchar();
+                        
+                hga::graphics_mode();
+                hga::cls();
 
-                        //std::cout << "\nPress <ENTER>";
-                        std::getchar();
-                        hga::text_mode();
-                        std::cout << "time = " << time << '\n';
-                        perror("error:");
-                        */
-                }
+                
+                bios::set_system_clock_counter(0);
+                cross_hairs();
+                uint32_t time = bios::read_system_clock_counter();
+                fill_screen();                
+                black_diagonals();
+                time = bios::read_system_clock_counter() - time;
+                
+                //std::cout << "\nPress <ENTER>";
+                std::getchar();
+                hga::text_mode();
+                std::cout << std::dec << "time = " << time << '\n';
+                perror("error:");
+                        
+            }*/
 
-
-                std::cout << "success!\n";
+            uint32_t points[16];
+            points[0] = 0;
+            dos::segoff_t mem = hga::screen_bound::plot_multi_point(points, 16);
+            std::cout << std::hex << mem.segment << ':' << mem.offset << '\n';
+            std::cout << points << '\n';
+            std::cout << points[0];
+            std::cout << "success!\n";
 
         }
 
