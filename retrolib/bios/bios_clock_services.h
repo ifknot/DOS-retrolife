@@ -65,7 +65,8 @@ namespace bios {
                         int             BIOS_CLOCK_SERVICES
                         mov             hi, cx
                         mov             lo, dx
-
+                        // mov ticks_since_midnight, cx
+                        // mov ticks_since_midnight + 2, dx
                 }
                 ticks_since_midnight = hi;
                 ticks_since_midnight <<= 16;
@@ -86,8 +87,8 @@ namespace bios {
                         .8086
 
                         mov             ah, SET_SYSTEM_CLOCK_COUNTER
-                        mov             cx, lo
-                        mov             dx, hi
+                        mov             cx, lo // ticks_since_midnight
+                        mov             dx, hi // ticks_since_midnight + 2
                         int             BIOS_CLOCK_SERVICES
 
                 }

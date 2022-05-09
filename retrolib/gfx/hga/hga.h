@@ -60,7 +60,7 @@ namespace hga {
 				mov		cx, 4000h		; 16K words VRAM buffer 32K bytes
 				xor		ax, ax			; zero ax
 				cld						; increment mode
-				rep stosw				; clear VRAM buffer
+				rep		stosw			; clear VRAM buffer
 			}
 		}
 		else {
@@ -72,7 +72,7 @@ namespace hga {
 				mov		cx, 4000h		; 16K words VRAM buffer 32K bytes
 				xor		ax, ax			; zero ax
 				cld						; increment mode
-				rep stosw				; clear VRAM buffer
+				rep		stosw			; clear VRAM buffer
 			}
 		}
 	}
@@ -111,7 +111,7 @@ namespace hga {
 			// bit 0 = 0 disable bit 1 of control register 03B8h
 			// bit 1 = 0 disable second 32k of RAM ("Full" mode)
 			mov		dx, HGA_CONFIG_REGISTER
-			mov		al, 00000000b; text mode single display page
+			mov		al, 00000000b				; text mode single display page
 			out		dx, al
 
 			// program text mode with screen off
@@ -120,17 +120,17 @@ namespace hga {
 			// bit 5 = 0 blink off
 			// bit 7 = 0 display page 1
 			mov		dx, HGA_CONTROL_REGISTER
-			mov		al, 00000000b; enter text "half" mode single display frame(mimic MDA)
+			mov		al, 00000000b				; enter text "half" mode single display frame(mimic MDA)
 			out		dx, al
 
 			// program the CRTC for text mode
 			lea		si, text_mode_6845
-			cld; increment mode
-			mov		cx, 16; 16 registers of the 6845
+			cld									; increment mode
+			mov		cx, 16						; 16 registers of the 6845
 			mov		dx, CRTC_ADDRESS_PORT
 
-			L0 : lodsw; al = register ah = data
-			out		dx, ax; write data to 6845 register
+	L0:		lodsw								; al = register ah = data
+			out		dx, ax						; write data to 6845 register
 			loop	L0
 
 			// screen on
@@ -176,7 +176,7 @@ namespace hga {
 			// bit 0 = 0 enable bit 1 of control register 03B8h
 			// bit 1 = 0 disable second 32k of RAM ("Full" mode)
 			mov		dx, HGA_CONFIG_REGISTER
-			mov		al, 00000011b; enable graphics "full" mode with 2 frame buffers
+			mov		al, 00000011b			; enable graphics "full" mode with 2 frame buffers
 			out		dx, al
 
 			// program graphics mode with screen off
@@ -185,22 +185,22 @@ namespace hga {
 			// bit 5 = 0 blink off
 			// bit 7 = 0 display page 1
 			mov		dx, HGA_CONTROL_REGISTER
-			mov		al, 00000010b; enter graphics mode display page 1
+			mov		al, 00000010b			; enter graphics mode display page 1
 			out		dx, al
 
 			// program the CRTC for graphics mode
 			lea		si, graphics_mode_6845
-			cld; increment mode
-			mov		cx, 16; 16 registers of the 6845
+			cld								; increment mode
+			mov		cx, 16					; 16 registers of the 6845
 			mov		dx, CRTC_ADDRESS_PORT
 
-			L0 : lodsw; al = register ah = data
-			out		dx, ax; write data to 6845 register
+	L0:		lodsw							; al = register ah = data
+			out		dx, ax					; write data to 6845 register
 			loop	L0
 
 			// screen on
 			mov		dx, HGA_CONTROL_REGISTER
-			mov		al, 00001010b; bit 3 = 0 screen on graphics mode page 1
+			mov		al, 00001010b			; bit 3 = 0 screen on graphics mode page 1
 			out		dx, al
 		}
 	}
