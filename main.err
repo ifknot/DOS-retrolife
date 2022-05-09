@@ -1,7 +1,24 @@
-automata/cell_space.h(25): Error! E085: col(32) maximum class size has been exceeded
-automata/cell_space.h(25): Note! N393: col(32) included from main.cpp(3)
-automata/cell_space.h(25): Note! N633: col(32) template class instantiation for 'automata::cell_space<unsigned long,720,348>' was in: main.cpp(8) (col 44)
-automata/cell_space.h(27): Warning! W011: col(9) all members are private
-automata/cell_space.h(27): Note! N633: col(9) template class instantiation for 'automata::cell_space<unsigned long,720,348>' was in: main.cpp(8) (col 44)
-main.cpp(10): Warning! W014: col(1) no reference to symbol 'cells'
-main.cpp(8): Note! N392: col(44) definition: '<error> cells' in 'int main( void )'
+retrolib/gfx/hga/hga_plot_point.h(177): Warning! W726: col(9) no reference to formal parameter 'x'
+retrolib/gfx/hga/hga_plot_point.h(177): Note! N393: col(9) included from retrolib/gfx/hga/test_hga.h(23)
+retrolib/gfx/hga/hga_plot_point.h(177): Note! N393: col(9) included from main.cpp(6)
+retrolib/gfx/hga/hga_plot_point.h(176): Note! N392: col(35) definition: 'unsigned short x' in 'void hga::screen_bound::plot_point( unsigned short, unsigned short, unsigned char, unsigned char )'
+retrolib/gfx/hga/hga_plot_point.h(177): Warning! W726: col(9) no reference to formal parameter 'y'
+retrolib/gfx/hga/hga_plot_point.h(176): Note! N392: col(48) definition: 'unsigned short y' in 'void hga::screen_bound::plot_point( unsigned short, unsigned short, unsigned char, unsigned char )'
+retrolib/gfx/hga/hga_plot_point.h(177): Warning! W726: col(9) no reference to formal parameter 'colour'
+retrolib/gfx/hga/hga_plot_point.h(176): Note! N392: col(60) definition: 'unsigned char colour' in 'void hga::screen_bound::plot_point( unsigned short, unsigned short, unsigned char, unsigned char )'
+retrolib/gfx/hga/hga_plot_point.h(177): Warning! W726: col(9) no reference to formal parameter 'page'
+retrolib/gfx/hga/hga_plot_point.h(176): Note! N392: col(76) definition: 'unsigned char page' in 'void hga::screen_bound::plot_point( unsigned short, unsigned short, unsigned char, unsigned char )'
+retrolib/gfx/hga/../../bios/bios_clock_services.h(83): Warning! W389: col(22) integral value may be truncated during assignment or initialization
+retrolib/gfx/hga/../../bios/bios_clock_services.h(84): Warning! W389: col(43) integral value may be truncated during assignment or initialization
+C:\WATCOM\h\memory(128): Warning! W014: col(61) no reference to symbol 'messages'
+retrolib/gfx/hga/../../bios/../dos/dos_error_messages.h(67): Note! N392: col(29) definition: 'char dos::error::messages[85][64]'
+C:\WATCOM\h\memory(128): Warning! W014: col(61) no reference to symbol 'classes'
+retrolib/gfx/hga/../../bios/../dos/dos_error_messages.h(308): Note! N392: col(29) definition: 'char dos::error::classes[16][64]'
+C:\WATCOM\h\memory(128): Warning! W014: col(61) no reference to symbol 'actions'
+retrolib/gfx/hga/../../bios/../dos/dos_error_messages.h(327): Note! N392: col(29) definition: 'char dos::error::actions[8][64]'
+C:\WATCOM\h\memory(128): Warning! W014: col(61) no reference to symbol 'locus'
+retrolib/gfx/hga/../../bios/../dos/dos_error_messages.h(338): Note! N392: col(29) definition: 'char dos::error::locus[6][64]'
+C:\WATCOM\h\memory(128): Warning! W014: col(61) no reference to symbol 'video_mode_names'
+retrolib/gfx/hga/../../bios/bios_video_services_constants.h(201): Note! N392: col(21) definition: 'char bios::video_mode_names[20][64]'
+C:\WATCOM\h\memory(128): Warning! W014: col(61) no reference to symbol 'video_display_names'
+retrolib/gfx/hga/../../bios/bios_video_services_constants.h(236): Note! N392: col(21) definition: 'char bios::video_display_names[7][255]'
