@@ -88,6 +88,18 @@ namespace test_hga {
                 time = bios::read_system_clock_counter() - time;
                 //black_diagonals();
 
+                uint32_t data[16];
+                hga::union_point_t points[16];
+                int x = 0;
+                for (int y = 0; y < 16; ++y) {
+                    points[y].pos.y = 100 + y;
+                    points[y].pos.x = 100 - x;
+                    x += 2;
+                    data[y] = points[y].dword;
+                }
+
+                hga::screen_bound::plot_multi_point(data, 16);
+
                 std::getchar();
                 hga::text_mode();
                 std::cout << std::dec << "time = " << time << '\n';
@@ -95,20 +107,7 @@ namespace test_hga {
 
             }
          
-            uint32_t data[16];
-            hga::union_point_t points[16];
-            int x = 0;
-            std::cout << std::hex;
-            for (int y = 0; y < 16; ++y) {
-                points[y].pos.y = y;
-                points[y].pos.x = 32 - x;
-                x += 2;
-                std::cout << points[y].pos.y << ' ' << points[y].pos.x << ' ' << points[y].dword << '\n';
-                data[y] = points[y].dword;
-            }
-            std::cout << std::dec << std::endl;
             
-            hga::screen_bound::plot_multi_point(data, 16);
 
             std::cout << "success!\n";
 
