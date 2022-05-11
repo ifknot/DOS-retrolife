@@ -29,25 +29,25 @@ namespace test_hga {
         void fill_screen() {
             for (int y = 0; y < 348; y += 2) {
                 for (int x = 0; x < 720; x += 2) {
-                    hga::screen_bound::plot_point(x, y, hga::colour::white);
+                    hga::screen_bound::write_pixel(x, y, hga::colour::white);
                 }
             }
         }
 
         void cross_hairs() {
             for (int y = 0; y < 348; ++y) {
-                    hga::screen_bound::plot_point(360, y, hga::colour::white);
+                    hga::screen_bound::write_pixel(360, y, hga::colour::white);
             }
             for (int x = 0; x < 720; ++x) {
-                    hga::screen_bound::plot_point(x, 174, hga::colour::white);
+                    hga::screen_bound::write_pixel(x, 174, hga::colour::white);
             }
         }
 
         void black_diagonals() {
             int x = 12;
             for (int y = 0; y < 348; ++y) {
-                    hga::screen_bound::plot_point(x, y, hga::colour::black);
-                    hga::screen_bound::plot_point(720 - x, y, hga::colour::black);
+                    hga::screen_bound::write_pixel(x, y, hga::colour::black);
+                    hga::screen_bound::write_pixel(720 - x, y, hga::colour::black);
                     x += 2;
             }
         }
@@ -57,57 +57,58 @@ namespace test_hga {
                 << bios::video_adapter_names[bios::detect_video_adapter_type()] << " "
                 << hga::mode_names[hga::detect_mode()] << '\n'
                 << "\ntest Hercules... ";
+            uint32_t time = 0;
 
+            // read the light pen registers
             /* {
                 std::cout
-                        << "\nPen regs = "
-                        << hga::read_light_pen_registers() << '\n';
-
+                    << "\nPen regs = "
+                    << hga::read_light_pen_registers() << '\n';
+            }
+            // print the HGA video display data area
+            {
                 uint8_t vdda[30];
                 bios::read_VDDA((uint32_t)vdda);
                 for (int i = 0; i < 30; ++i) std::cout << (int)vdda[i] << ' ';
                 std::cout << std::endl;
             }*/
-
+            // enter graphics mode
             {
-                dos::address_t p = 0xF000FC77;
-                uint8_t c = *(char*)p.address;
-                std::cout << std::hex << "BIOS mem " << p.memory.segment << ':' << p.memory.offset << ' ' << (int)*(uint8_t*)p.address << '\n';
-
                 std::cout << "\nswitch to gfx mode Press <ENTER>";
                 std::getchar();
-
                 hga::graphics_mode();
                 hga::cls();
-
-
+            }
+            // test write_pixel and time filling screen with every other pixel
+            /* {
                 bios::set_system_clock_counter(0);
                 cross_hairs();
-                uint32_t time = bios::read_system_clock_counter();
-                //fill_screen();
+                time = bios::read_system_clock_counter();
+                fill_screen();
                 time = bios::read_system_clock_counter() - time;
-                //black_diagonals();
-
+                black_diagonals();
+            }*/
+            // test plot pixels from array of dword points
+            {
                 uint32_t data[16];
-                hga::union_point_t points[16];
+                hga::union_point_t point;
                 int x = 0;
-                for (int y = 0; y < 16; ++y) {
-                    points[y].pos.y = 100 + y;
-                    points[y].pos.x = 100 - x;
+                for (int y = 0; y < 16; ++y) { // build multi-point data array
+                    point.word.y = 100 + y;
+                    point.word.x = 100 - x;
                     x += 2;
-                    data[y] = points[y].dword;
+                    data[y] = point.dword;
                 }
-
                 hga::screen_bound::plot_multi_point(data, 16);
-
+            }
+            // return to text mode
+            {
                 std::getchar();
                 hga::text_mode();
                 std::cout << std::dec << "time = " << time << '\n';
                 perror("error:");
 
             }
-         
-            
 
             std::cout << "success!\n";
 
