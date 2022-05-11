@@ -1,4 +1,0 @@
-retrolib/gfx/hga/hga_plot_point.h(322): Warning! W726: col(9) no reference to formal parameter 'size'
-retrolib/gfx/hga/hga_plot_point.h(322): Note! N393: col(9) included from retrolib/gfx/hga/test_hga.h(23)
-retrolib/gfx/hga/hga_plot_point.h(322): Note! N393: col(9) included from main.cpp(6)
-retrolib/gfx/hga/hga_plot_point.h(308): Note! N392: col(72) definition: 'unsigned short size' in 'dos::segoff_t hga::screen_bound::plot_multi_point( unsigned long *, unsigned short )'

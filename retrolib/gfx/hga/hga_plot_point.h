@@ -48,9 +48,10 @@ namespace hga {
 
     struct point_t {
 
-        uint16_t x, y;
+        uint16_t x, y;  // 32bits of 2 x 16 bit words, y is loaded first by the asm plot routine and little endian must be taken into account
 
     };
+
 
     union union_point_t {
 
@@ -246,6 +247,7 @@ namespace hga {
             uint16_t y = point.pos.y;
             __asm {
                 .8086
+
                 mov     ax, HGA_VIDEO_RAM_SEGMENT
                 mov     es, ax
                 mov     ax, y           ; load y into bx then perform screen clipping
@@ -301,24 +303,29 @@ namespace hga {
 #endif
                 and     es:[di], ah             ; plot point
 
-            END:
+        END:
             }
         }
 
-        dos::segoff_t plot_multi_point(uint32_t* memory_addr, uint16_t size) {
-            dos::segoff_t mem;
-            uint16_t mem_seg, mem_off;
+        void plot_multi_point(uint32_t* point_data, uint16_t size) {
             __asm {
                 .8086
-                lds     si, memory_addr
-                mov     ax, ds
-                mov     mem_seg, ax
-                mov     mem_off, si
-                mov     ds:[si], 255
+
+                lds     si, point_data          ; ds:[si] points to list of points to plot
+                mov     cx, size                ; number of points to plot
+        L0:     call    PLOT                    ; plot point
+                loop    L0                      ; until all points plotted
+                jmp     END
+
+        PLOT:   push    cx
+
+                
+
+                pop     cx
+                ret
+
+        END:
             }
-            mem.segment = mem_seg;
-            mem.offset = mem_off;
-            return mem;
         }
 
     }

@@ -3,8 +3,11 @@
     "",
     "\\automata",
     "\\retrolib",
-    "\\retrolib\\dos"
+    "\\retrolib\\bios",
+    "\\retrolib\\gfx",
+    "\\retrolib\\gfx\\cga",
+    "\\retrolib\\gfx\\hga"
   ],
-  "SelectedNode": "\\README.md",
+  "SelectedNode": "\\retrolib\\bios\\bios_clock_services.h",
   "PreviewInSolutionExplorer": false
 }

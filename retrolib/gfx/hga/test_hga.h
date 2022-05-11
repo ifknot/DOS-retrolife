@@ -67,7 +67,7 @@ namespace test_hga {
                 bios::read_VDDA((uint32_t)vdda);
                 for (int i = 0; i < 30; ++i) std::cout << (int)vdda[i] << ' ';
                 std::cout << std::endl;
-            }
+            }*/
 
             {
                 dos::address_t p = 0xF000FC77;
@@ -76,32 +76,40 @@ namespace test_hga {
 
                 std::cout << "\nswitch to gfx mode Press <ENTER>";
                 std::getchar();
-                        
+
                 hga::graphics_mode();
                 hga::cls();
 
-                
+
                 bios::set_system_clock_counter(0);
                 cross_hairs();
                 uint32_t time = bios::read_system_clock_counter();
-                fill_screen();                
-                black_diagonals();
+                //fill_screen();
                 time = bios::read_system_clock_counter() - time;
-                
-                //std::cout << "\nPress <ENTER>";
+                //black_diagonals();
+
                 std::getchar();
                 hga::text_mode();
                 std::cout << std::dec << "time = " << time << '\n';
                 perror("error:");
-                        
-            }*/
 
-            uint32_t points[16];
-            points[0] = 0;
-            dos::segoff_t mem = hga::screen_bound::plot_multi_point(points, 16);
-            std::cout << std::hex << mem.segment << ':' << mem.offset << '\n';
-            std::cout << points << '\n';
-            std::cout << points[0];
+            }
+         
+            uint32_t data[16];
+            hga::union_point_t points[16];
+            int x = 0;
+            std::cout << std::hex;
+            for (int y = 0; y < 16; ++y) {
+                points[y].pos.y = y;
+                points[y].pos.x = 32 - x;
+                x += 2;
+                std::cout << points[y].pos.y << ' ' << points[y].pos.x << ' ' << points[y].dword << '\n';
+                data[y] = points[y].dword;
+            }
+            std::cout << std::dec << std::endl;
+            
+            hga::screen_bound::plot_multi_point(data, 16);
+
             std::cout << "success!\n";
 
         }
