@@ -29,7 +29,7 @@ namespace test_hga {
         void fill_screen() {
             for (int y = 0; y < 348; y += 2) {
                 for (int x = 0; x < 720; x += 2) {
-                    hga::screen_bound::write_pixel(x, y, hga::colour::white);
+                    hga::screen_bound::write_pixel(x, y, hga::colour::white, 1);
                 }
             }
         }
@@ -56,7 +56,8 @@ namespace test_hga {
             std::cout
                 << bios::video_adapter_names[bios::detect_video_adapter_type()] << " "
                 << hga::mode_names[hga::detect_mode()] << '\n'
-                << "\ntest Hercules... ";
+                << "\ntest Hercules...\n";
+            
             uint32_t time = 0;
 
             // read the light pen registers
@@ -76,8 +77,7 @@ namespace test_hga {
             {
                 std::cout << "\nswitch to gfx mode Press <ENTER>";
                 std::getchar();
-                hga::graphics_mode();
-                hga::cls();
+                hga::graphics_mode();             
             }
             // test write_pixel and time filling screen with every other pixel
             /* {
@@ -100,6 +100,23 @@ namespace test_hga {
                     data[y] = point.dword;
                 }
                 hga::screen_bound::plot_multi_point(data, 16);
+                std::getchar();
+            }
+            //swap buffers
+            {
+                uint32_t data[16];
+                hga::union_point_t point;
+                int x = 0;
+                for (int y = 0; y < 16; ++y) { // build multi-point data array
+                    point.word.y = 100 + y;
+                    point.word.x = 100 + x;
+                    x += 2;
+                    data[y] = point.dword;
+                }
+                hga::cls(0);
+                hga::cls(1);
+                hga::screen_bound::plot_multi_point(data, 16, 1);
+                hga::swap_buffers();
             }
             // return to text mode
             {

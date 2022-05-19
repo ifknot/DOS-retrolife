@@ -87,14 +87,14 @@ namespace hga {
                 .8086
 
                 mov     ax, HGA_VIDEO_RAM_SEGMENT
-                mov     es, ax
+                test    buffer, 1               ; which buffer ?
+                jz      J0
+                add     ax, 800h                ; second buffer
+        J0:     mov     es, ax
                 mov     ax, y                   ; load y into bx then perform screen clipping
                 cmp     ax, SCREEN_Y_MAX        ; compare bx with y maximum boundry
                 jge     END                     ; nothing to plot
-                test    buffer, 1               ; which buffer?
-                jz      J0
-                add     ax, HGA_VRAM_PAGE_1_OFFSET
-        J0:     mov     dx, ax                  ; copy y
+                mov     dx, ax                  ; copy y
 #ifdef ENABLE_MUL
                 shr     ax, 1                   ; calculate y / 4
                 shr     ax, 1                   ; 8086 limited to single step shifts
@@ -179,14 +179,14 @@ namespace hga {
                 .8086
 
                 mov     ax, HGA_VIDEO_RAM_SEGMENT
-                mov     es, ax
+                test    buffer, 1               ; which buffer ?
+                jz      J0
+                add     ax, 800h                ; second buffer
+        J0:     mov     es, ax
                 mov     ax, y                   ; load y into bx then perform screen clipping
                 cmp     ax, SCREEN_Y_MAX        ; compare bx with y maximum boundry
                 jge     END                     ; nothing to plot
-                test    buffer, 1               ; which buffer?
-                jz      J0
-                add     ax, HGA_VRAM_PAGE_1_OFFSET
-        J0:     mov     dx, ax                  ; copy y
+                mov     dx, ax                  ; copy y
 #ifdef ENABLE_MUL
                 shr     ax, 1                   ; calculate y / 4
                 shr     ax, 1                   ; 8086 limited to single step shifts
@@ -247,15 +247,16 @@ namespace hga {
                 .8086
 
                 mov     ax, HGA_VIDEO_RAM_SEGMENT
-                mov     es, ax
+                test    buffer, 1               ; which buffer ?
+                jz      J0
+                add     ax, 800h                ; second buffer
+        J0:     mov     es, ax
                 mov     ax, y                   ; load y into bx then perform screen clipping
                 cmp     ax, SCREEN_Y_MAX        ; compare bx with y maximum boundry
                 jge     END                     ; nothing to plot
-                test    buffer, 1               ; which buffer?
-                jz      J0
-                add     ax, HGA_VRAM_PAGE_1_OFFSET
-        J0:     mov     dx, ax                  ; copy y
+                mov     dx, ax                  ; copy y
 #ifdef ENABLE_MUL
+
                 shr     ax, 1                   ; calculate y / 4
                 shr     ax, 1                   ; 8086 limited to single step shifts
                 mov     cl, BYTES_PER_LINE
@@ -319,14 +320,14 @@ namespace hga {
         L0:     push    cx                      ; preserve cx
 
                 mov     ax, HGA_VIDEO_RAM_SEGMENT
-                mov     es, ax
+                test    buffer, 1               ; which buffer ?
+                jz      J0
+                add     ax, 800h                ; second buffer
+        J0:     mov     es, ax
                 lodsw                           ; load y into ax from data, then perform screen clipping
                 cmp     ax, SCREEN_Y_MAX        ; compare bx with y maximum boundry
                 jge     END                     ; nothing to plot
-                test    buffer, 1               ; which buffer?
-                jz      J0
-                add     ax, HGA_VRAM_PAGE_1_OFFSET
-        J0:     mov     dx, ax                  ; copy y
+                mov     dx, ax                  ; copy y
 #ifdef ENABLE_MUL
                 shr     ax, 1                   ; calculate y / 4
                 shr     ax, 1                   ; 8086 limited to single step shifts

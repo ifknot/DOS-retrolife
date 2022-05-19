@@ -48,10 +48,10 @@ namespace hga {
 
 	enum video_mode_t { video_mode_text, video_mode_graphics };
 
-	bool active_buffer = 0;		// 0 = default B000:000 1 = B000:8000 second display page buffer
+	uint8_t active_buffer = 0;		// 0 = default B000:000 1 = B000:8000 second display page buffer
 
-	void cls() {
-		if (active_buffer) {
+	void cls(uint8_t buffer = 0) {
+		if (buffer) {
 			__asm {
 				.8086
 				mov		ax, HGA_VIDEO_RAM_SEGMENT
@@ -74,6 +74,21 @@ namespace hga {
 				cld						; increment mode
 				rep		stosw			; clear VRAM buffer
 			}
+		}
+	}
+
+	void swap_buffers() {
+		__asm {
+			xor		active_buffer, 1	; flip to other page 0 -> 1 usingxorand 1 -> 0
+			mov		dx, HGA_CONTROL_REGISTER
+			cmp		active_buffer, 1
+			je		L0
+			mov		al, 00001010b		; screen on graphics mode page 1
+			out		dx, al
+			jmp		END
+	L0:		mov		al, 10001010b		; screen on graphics mode page 2
+			out		dx, al
+	END:	
 		}
 	}
 
@@ -147,6 +162,7 @@ namespace hga {
 	 *  @note values as per Hercules recommended
 	 */
 	void graphics_mode() {
+		active_buffer = 0;
 		const uint8_t graphics_mode_6845[32] = {
 			// reg	value	meaning
 				0,	53, // horizontal character total 54 (0..53)

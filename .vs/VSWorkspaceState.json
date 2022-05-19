@@ -3,11 +3,9 @@
     "",
     "\\automata",
     "\\retrolib",
-    "\\retrolib\\bios",
     "\\retrolib\\gfx",
-    "\\retrolib\\gfx\\cga",
     "\\retrolib\\gfx\\hga"
   ],
-  "SelectedNode": "\\retrolib\\bios\\bios_clock_services.h",
+  "SelectedNode": "\\retrolib\\gfx\\hga\\hga_constants.h",
   "PreviewInSolutionExplorer": false
 }
