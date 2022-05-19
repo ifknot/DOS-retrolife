@@ -27,6 +27,7 @@ int main() {
 
   dos::segmented_memory_block<uint32_t> cells32(16);
   cells32.fill(0x41424344);
+  cells32[15] = 0x44434241;
   cells32.dump();
   std::cout << std::hex << cells32[15] << '\n';
   std::cout << "capacity " << cells32.capacity() << '\n'
