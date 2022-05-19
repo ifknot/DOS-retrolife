@@ -117,6 +117,8 @@ namespace test_hga {
                 hga::cls(1);
                 hga::screen_bound::plot_multi_point(data, 16, 1);
                 hga::swap_buffers();
+                std::getchar();
+                hga::screen_bound::unplot_multi_point(data, 16, 1);
             }
             // return to text mode
             {
