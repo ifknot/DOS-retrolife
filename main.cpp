@@ -13,7 +13,7 @@ int main() {
   
   
 
-  //test_hga::run();
+  test_hga::run();
   
 
 }

@@ -77,7 +77,8 @@ namespace test_hga {
             {
                 std::cout << "\nswitch to gfx mode Press <ENTER>";
                 std::getchar();
-                hga::graphics_mode();             
+                hga::graphics_mode();   
+                hga::cls();
             }
             // test write_pixel and time filling screen with every other pixel
             /* {
@@ -123,6 +124,7 @@ namespace test_hga {
             // return to text mode
             {
                 std::getchar();
+                hga::select_buffer(0);
                 hga::text_mode();
                 std::cout << std::dec << "time = " << time << '\n';
                 perror("error:");
