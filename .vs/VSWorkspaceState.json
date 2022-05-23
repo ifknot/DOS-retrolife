@@ -1,11 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\automata",
     "\\retrolib",
-    "\\retrolib\\gfx",
-    "\\retrolib\\gfx\\hga"
+    "\\retrolib\\file"
   ],
-  "SelectedNode": "\\retrolib\\gfx\\hga\\hga_types.h",
   "PreviewInSolutionExplorer": false
 }
