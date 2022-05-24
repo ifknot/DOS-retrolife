@@ -3,17 +3,14 @@
 #include <stdint.h>
 #include <vector>
 
-#include "retrolib/gfx/hga/test_hga.h"
+//#include "retrolib/dos/dos_segmented_memory_block.h"
+//#include "retrolib/gfx/hga/test_hga.h"
+#include "retrolib/file/test_file_utilities.h"
 
-#include "retrolib/dos/dos_segmented_memory_block.h"
+
 
 int main() {
-  std::cout << "Conway's Game of Life...\n";
-
   
-  
-
-  test_hga::run();
-  
+	test_file_utilities::run();
 
 }

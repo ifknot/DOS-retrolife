@@ -21,7 +21,7 @@ namespace test_file_utilities {
 		std::cout << "test_file_utilities... ";
 		//test filesystem::extension
 		{
-			assert(jtl::filesystem::extension("test.txt") == "txt");
+			assert(jtl::filesystem::extension("test.dat") == "dat");
 		}
 		std::cout << "success!\n";
 	}
