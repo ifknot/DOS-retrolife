@@ -1,7 +1,7 @@
 Open Watcom Linker Version 2.0 beta Nov  1 2017 20:56:49 (64-bit)
 Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
 Portions Copyright (c) 1985-2002 Sybase, Inc. All Rights Reserved.
-Created on:       22/05/24 22:39:35
+Created on:       22/05/24 23:07:13
 Executable Image: gamelife.exe
 creating a DOS executable
 
@@ -334,13 +334,12 @@ Module: main.obj(C:\Users\ifkno\DOSBOX\DOS16\GAMELIFE\main.cpp)
 1162:1760+     char __far dos::error::classes[][64]
 1162:1b60+     char __far dos::error::actions[][64]
 1162:1d60+     char __far dos::error::locus[][64]
-1162:26b0+     jtl::nullptr_t __far nullptr
 Module: C:\WATCOM\lib286\dos\clibl.lib(stk086.asm)
 0000:4145      __STK
 0000:4165      __STKOVERFLOW_
 Module: C:\WATCOM\lib286\plbxl.lib(cppdata.cpp)
-1162:26b2      __wint_thread_data
-1162:26d6      __compiled_under_generic
+1162:26b0      __wint_thread_data
+1162:26d4      __compiled_under_generic
 Module: C:\WATCOM\lib286\plbxl.lib(fsregist.cpp)
 0000:a370+     __wcpp_4_dispatch_dummy__
 0000:a3aa      __wcpp_4_fs_lookup__
@@ -996,4 +995,4 @@ C:\WATCOM\lib286\dos\clibl.lib
 Stack size:  0800 (2048.)
 Memory size:  00014720 (83744.)
 Entry point address: 0000:438c
-Link time: 00:00.22
+Link time: 00:00.28

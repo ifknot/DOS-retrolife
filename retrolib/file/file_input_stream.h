@@ -17,8 +17,6 @@
 
 #include "..\dos\dos_error_messages.h"
 
-#include "..\jtl\unique_ptr.h"
-
 #include "reader.h"
 
 namespace jtl {
@@ -28,29 +26,29 @@ namespace jtl {
 
         public:
 
-                file_input_stream(std::string file_path) {
-                        f = new std::ifstream(file_path.c_str());
-                        if (!f->is_open()) {
-                            ready_ = false;
-                            std::cerr << dos::error::messages[dos::error::FILE_NOT_FOUND] << file_path.c_str() << '\n';
-                            delete f;
-                        }
-                        else {
-                            ready_ = true;
-                        }
+                file_input_stream(std::string file_path) {   
+                    f = new std::ifstream(file_path.c_str());
+                    if (!f->is_open()) {
+                        ready_ = false;
+                        std::cerr << dos::error::messages[dos::error::FILE_NOT_FOUND] << file_path.c_str() << '\n';
+                        delete f;
+                    }
+                    else {
+                        ready_ = true;
+                    }
                 }
 
                 virtual void close() {
-                        if (f->is_open()) {
-                                f->close();
-                        }
-                        ready_ = false;
+                    if (f->is_open()) {
+                            f->close();
+                    }
+                    ready_ = false;
                 }
 
                 virtual void mark() {}
 
                 virtual bool markable() {
-                        return false;
+                    return false;
                 }
 
                 virtual T read() {
