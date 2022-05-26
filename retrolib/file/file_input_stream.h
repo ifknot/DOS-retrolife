@@ -41,7 +41,7 @@ namespace jtl {
                 }
 
                 virtual bool is_ready() {
-                    return f && f->is_open();
+                    return f && f->is_open() && f->good();
                 }
 
                 virtual void mark() {}

@@ -32,10 +32,23 @@ namespace test_file_streams {
                         std::cout << std::dec << f.size() << '\n';
                     }
                     {
-                        jtl::binary_file_output_stream f("resource/test.dat");
+                        jtl::binary_file_output_stream f("resource/test.dat", true);
                         assert(f.is_ready());
                         std::cout << std::dec << f.size() << '\n';
                         f.write('A');
+                        std::cout << std::dec << f.size() << '\n';
+                        f.write('B');
+                    } 
+                    {
+                        char data[20];
+                        for (int i = 0; i < 10; ++i) {
+                            data[10 + i] = i;
+                            data[i] = 'a' + i;
+                        }
+                        jtl::binary_file_output_stream f("resource/test.dat", true);
+                        assert(f.is_ready());
+                        std::cout << std::dec << f.size() << '\n';
+                        f.write(data, 10);
                         std::cout << std::dec << f.size() << '\n';
                     }
                 }

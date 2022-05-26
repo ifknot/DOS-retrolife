@@ -30,24 +30,22 @@ namespace jtl {
     template< typename T>
     struct writer {
 
-        //append(char c)  It appends the specified character to this writer.
+        //virtual void append(T datum) = 0;
 
-        //append(CharSequence csq)        It appends the specified character sequence to this writer
+        //virtual uint16_t append(const T* data, const uint16_t size) = 0;
 
-        //append(CharSequence csq, int start, int end)    It appends a subsequence of the specified character sequence to this writer.
+        //append(T* data, const uint16_t size, uin16_t offset) = 0;
 
         /**
         *  @brief Flushes then closes this stream and releases any system resources associated with it. If the stream is already closed then invoking this method has no effect.
         */
         virtual void close() = 0;
 
-
         /**
         *  @brief  Whether this stream is ready to be read from.
         *  @retval  - true/false
         */
         virtual bool is_ready() = 0;
-
 
         virtual void flush() = 0;
 
@@ -60,7 +58,7 @@ namespace jtl {
         */
         virtual void write(const T datum) = 0;
 
-        virtual uint16_t write(const T* data, const uint16_t size) = 0;
+        virtual void write(const T* data, const uint16_t size) = 0;
 
         //virtual bool write(T* data, const uint16_t size, uin16_t offset) = 0;
 
