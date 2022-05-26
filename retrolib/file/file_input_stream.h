@@ -31,7 +31,6 @@ namespace jtl {
                     if (!f->is_open()) {
                         ready_ = false;
                         std::cerr << dos::error::messages[dos::error::FILE_NOT_FOUND] << file_path.c_str() << '\n';
-                        delete f;
                     }
                     else {
                         ready_ = true;
@@ -60,19 +59,10 @@ namespace jtl {
                 virtual uint16_t read(T* data, const uint16_t size) {
                     for (uint16_t i = 0; i < size; ++i) {
                         if (f->eof()) {
-#ifndef NDEBUG
-                            std::cout << '\n';
-#endif
-                            return i;
+                              return i;
                         }
                         f->operator>>(data[i]);
-#ifndef NDEBUG
-                        std::cout << data[i] << ' ';
-#endif
                     }
-#ifndef NDEBUG
-                    std::cout << '\n';
-#endif
                     return size;
                 }
 
@@ -89,8 +79,8 @@ namespace jtl {
                 ~file_input_stream() {
                     if(f) {
                         close();
-                        delete f;
                     }
+                    delete f;
                 }
 
         private:

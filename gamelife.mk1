@@ -7,16 +7,13 @@ GAMELIFE\main.cpp .AUTODEPEND
 s -xr
 
 C:\Users\ifkno\DOSBOX\DOS16\GAMELIFE\gamelife.exe : C:\Users\ifkno\DOSBOX\DO&
-S16\GAMELIFE\main.obj C:\Users\ifkno\DOSBOX\DOS16\GAMELIFE\retrolib\dos\dos_&
-error_messages.h C:\Users\ifkno\DOSBOX\DOS16\GAMELIFE\retrolib\dos\dos_segme&
-nted_memory_block.h C:\Users\ifkno\DOSBOX\DOS16\GAMELIFE\retrolib\dos\dos_se&
-rvices.h C:\Users\ifkno\DOSBOX\DOS16\GAMELIFE\retrolib\dos\dos_services_cons&
-tants.h C:\Users\ifkno\DOSBOX\DOS16\GAMELIFE\retrolib\dos\dos_services_types&
-.h C:\Users\ifkno\DOSBOX\DOS16\GAMELIFE\retrolib\dos\test_memory_widgets.h C&
-:\Users\ifkno\DOSBOX\DOS16\GAMELIFE\retrolib\gfx\hga\hga.h C:\Users\ifkno\DO&
-SBOX\DOS16\GAMELIFE\retrolib\gfx\hga\hga_constants.h C:\Users\ifkno\DOSBOX\D&
-OS16\GAMELIFE\retrolib\gfx\hga\hga_plot_point.h C:\Users\ifkno\DOSBOX\DOS16\&
-GAMELIFE\retrolib\gfx\hga\test_hga.h .AUTODEPEND
+S16\GAMELIFE\main.obj C:\Users\ifkno\DOSBOX\DOS16\GAMELIFE\retrolib\file\bin&
+ary_file_input_stream.h C:\Users\ifkno\DOSBOX\DOS16\GAMELIFE\retrolib\file\f&
+ile_input_stream.h C:\Users\ifkno\DOSBOX\DOS16\GAMELIFE\retrolib\file\file_u&
+tilities.h C:\Users\ifkno\DOSBOX\DOS16\GAMELIFE\retrolib\file\reader.h C:\Us&
+ers\ifkno\DOSBOX\DOS16\GAMELIFE\retrolib\file\test_file_streams.h C:\Users\i&
+fkno\DOSBOX\DOS16\GAMELIFE\retrolib\file\test_file_utilities.h C:\Users\ifkn&
+o\DOSBOX\DOS16\GAMELIFE\retrolib\file\writer.h .AUTODEPEND
  @C:
  cd C:\Users\ifkno\DOSBOX\DOS16\GAMELIFE
  @%write gamelife.lk1 FIL main.obj

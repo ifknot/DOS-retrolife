@@ -1,9 +1,13 @@
 {
   "ExpandedNodes": [
     "",
+    "\\resource",
     "\\retrolib",
-    "\\retrolib\\file"
+    "\\retrolib\\file",
+    "\\retrolib\\math",
+    "\\retrolib\\memory",
+    "\\retrolib\\system"
   ],
-  "SelectedNode": "\\retrolib\\file\\reader.h",
+  "SelectedNode": "\\retrolib\\memory\\unique_ptr.h",
   "PreviewInSolutionExplorer": false
 }
