@@ -3,11 +3,8 @@
     "",
     "\\resource",
     "\\retrolib",
-    "\\retrolib\\file",
-    "\\retrolib\\math",
-    "\\retrolib\\memory",
-    "\\retrolib\\system"
+    "\\retrolib\\file"
   ],
-  "SelectedNode": "\\retrolib\\memory\\unique_ptr.h",
+  "SelectedNode": "\\retrolib\\file\\reader.h",
   "PreviewInSolutionExplorer": false
 }
