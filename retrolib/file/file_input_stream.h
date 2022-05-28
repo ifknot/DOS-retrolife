@@ -26,10 +26,10 @@ namespace jtl {
 
         public:
 
-                file_input_stream(std::string file_path) {   
-                    f = new std::ifstream(file_path.c_str());
+                file_input_stream(std::string file_path) :
+                    f(new std::ifstream(file_path.c_str()))
+                {
                     if (!f->is_open()) {
-                        ready_ = false;
                         std::cerr << dos::error::messages[dos::error::FILE_NOT_FOUND] << file_path.c_str() << '\n';
                     }
                 }
@@ -44,15 +44,9 @@ namespace jtl {
                     return f && f->is_open() && f->good();
                 }
 
-                virtual void mark() {}
-
-                virtual bool markable() {
-                    return false;
-                }               
-
                 virtual T read() {
                     T datum;
-                    assert(read(&datum, 1) == 1);                       
+                    assert(read(&datum, 1) == 1);
                     return datum;
                 }
 
@@ -66,20 +60,36 @@ namespace jtl {
                     return size;
                 }
 
-                //virtual bool read(T* data, const uint16_t size, uin16_t offset) = 0;
-
-                //virtual void reset() = 0;
-
-                virtual int size() {
-                    int size_ = 0;
-                    if (is_ready()) {
-                        f->seekg(0, f->end);
-                        size_ = f->tellg();
-                        f->seekg(0);
+                virtual uint16_t read(T* data, const uint16_t size, uint16_t offset) {
+                    for (uint16_t i = 0; i < size; ++i) {
+                        if (f->eof()) {
+                            return i;
+                        }
+                        f->operator>>(data[offset + i]);
                     }
+                    return size;
                 }
 
-                //virtual uint16_t skip(uint16_t n) = 0;
+                virtual void reset() {
+                    f->seekg(0);
+                }
+
+                virtual int size() {
+                    int size_ = -1;
+                    int mark = static_cast<int>(f->tellg());
+                    if (is_ready()) {
+                        f->seekg(0, f->end);
+                        size_ = static_cast<int>(f->tellg());
+                        f->seekg(mark);
+                    }
+                    return size_;
+                }
+
+                virtual int skip(int n) {
+                    n -= static_cast<int>(f->tellg());
+                    f->seekg(n);
+                    return static_cast<int>(f->tellg());
+                }
 
                 ~file_input_stream() {
                     close();

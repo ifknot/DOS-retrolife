@@ -18,7 +18,7 @@
 #include "binary_file_output_stream.h"
 #include "file_input_stream.h"
 
-#define T1
+#define T3
 
 namespace test_file_streams {
 
@@ -45,8 +45,10 @@ namespace test_file_streams {
                             data[10 + i] = i;
                             data[i] = 'a' + i;
                         }
-                        jtl::binary_file_output_stream f("resource/test.dat", true);
+                        jtl::binary_file_output_stream f("resource/test.dat");
                         assert(f.is_ready());
+                        std::cout << std::dec << f.size() << '\n';
+                        f.write(data, 10, 10);
                         std::cout << std::dec << f.size() << '\n';
                         f.write(data, 10);
                         std::cout << std::dec << f.size() << '\n';
@@ -100,6 +102,11 @@ namespace test_file_streams {
                 }
 #endif
 #ifdef T3 
+                {
+                    std::cout << "\ntest binary_file_output_stream\n";
+                    {
+                    }
+                }
 #endif
 #ifdef T4              
                 {

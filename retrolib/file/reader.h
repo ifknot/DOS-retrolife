@@ -52,12 +52,12 @@ namespace jtl {
                 *  @param  offset - into the data array
                 *  @retval uint16_t the number of items actually read
                 */
-                //virtual bool read(T* data, const uint16_t size, uin16_t offset) = 0;                
+                virtual uint16_t read(T* data, const uint16_t size, uint16_t offset) = 0;
 
                 /**
                 *  @brief Resets the stream.
                 */
-                //virtual void reset() = 0;
+                virtual void reset() = 0;
 
                 virtual int size() = 0;
 
@@ -66,7 +66,7 @@ namespace jtl {
                 *  @param  n - items to skip
                 *  @retval   - actual number skipped
                 */
-                //virtual uint16_t skip(uint16_t n) = 0;
+                virtual int skip(int n) = 0;
 
         };
 

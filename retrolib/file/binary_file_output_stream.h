@@ -26,13 +26,13 @@ namespace jtl {
 
         public:
 
-            binary_file_output_stream(std::string file_path, bool append = false) {
-                if (append) {
-                    f = new std::ofstream(file_path.c_str(), f->app | f->binary);
-                }
-                else {
-                    f = new std::ofstream(file_path.c_str());
-                }
+            binary_file_output_stream(std::string file_path, bool append = false) :
+                append(append),
+                f((append) 
+                    ? new std::ofstream(file_path.c_str(), f->app | f->binary)
+                    : new std::ofstream(file_path.c_str(), f->binary)
+                )
+            {
                 if (!f->is_open()) {
                     std::cerr << dos::error::messages[dos::error::FILE_NOT_FOUND] << file_path.c_str() << '\n';
                 }
@@ -55,10 +55,11 @@ namespace jtl {
 
             virtual int size() {
                 int size_ = -1;
+                int mark = static_cast<int>(f->tellp());
                 if (is_ready()) {
                     f->seekp(0, f->end);
                     size_ = static_cast<int>(f->tellp());
-                    f->seekp(0);
+                    f->seekp(mark);
                 }
                 return size_;
             }
@@ -73,6 +74,12 @@ namespace jtl {
                 assert(f->good());
             }
 
+            virtual void write(char* data, const uint16_t size, uint16_t offset) {
+                f->write(data + offset, size);
+                assert(f->good());
+            }
+
+
             ~binary_file_output_stream() {
                     close();
                     delete f;
@@ -80,7 +87,8 @@ namespace jtl {
 
         private:
 
-                std::ofstream* f;
+            bool append;
+            std::ofstream* f;
 
         };
 

@@ -30,12 +30,6 @@ namespace jtl {
     template< typename T>
     struct writer {
 
-        //virtual void append(T datum) = 0;
-
-        //virtual uint16_t append(const T* data, const uint16_t size) = 0;
-
-        //append(T* data, const uint16_t size, uin16_t offset) = 0;
-
         /**
         *  @brief Flushes then closes this stream and releases any system resources associated with it. If the stream is already closed then invoking this method has no effect.
         */
@@ -47,11 +41,8 @@ namespace jtl {
         */
         virtual bool is_ready() = 0;
 
+
         virtual void flush() = 0;
-
-        //void  write(char[] cbuf)      It writes an array of characters.
-
-        //abstract void write(char[] cbuf, int off, int len)    It writes a portion of an array of characters.
 
         /**
         * @brief Writes a single type T.
@@ -60,7 +51,7 @@ namespace jtl {
 
         virtual void write(const T* data, const uint16_t size) = 0;
 
-        //virtual bool write(T* data, const uint16_t size, uin16_t offset) = 0;
+        virtual void write(T* data, const uint16_t size, uint16_t offset) = 0;
 
     };
 

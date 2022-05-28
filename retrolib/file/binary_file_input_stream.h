@@ -26,8 +26,9 @@ namespace jtl {
 
         public:
 
-            binary_file_input_stream(std::string file_path) {
-                f = new std::ifstream(file_path.c_str(), f->binary);
+            binary_file_input_stream(std::string file_path) :
+                f(new std::ifstream(file_path.c_str(), f->binary))
+            {
                 if (!f->is_open()) {
                     std::cerr << dos::error::messages[dos::error::FILE_NOT_FOUND] << file_path.c_str() << '\n';
                 }
@@ -43,13 +44,6 @@ namespace jtl {
                 return f && f->is_open() && f->good();
             }
 
-            virtual void mark() {}
-
-            virtual bool markable() {
-                return false;
-            }
-
-
             virtual char read() {
                 char byte;
                 assert(read(&byte, 1) == 1);
@@ -61,21 +55,31 @@ namespace jtl {
                 return f->gcount();
             }
 
-            //virtual bool read(T* data, const uint16_t size, uin16_t offset) = 0;
+            virtual uint16_t read(char* data, const uint16_t size, uint16_t offset) {
+                f->read(data + offset, size);
+                return f->gcount();
+            }
 
-            //virtual void reset() = 0;
+            virtual void reset() {
+                f->seekg(0);
+            }
 
             virtual int size() {
-                int size_ = 0;
+                int size_ = -1;
+                int mark = static_cast<int>(f->tellg());
                 if (is_ready()) {
                     f->seekg(0, f->end);
                     size_ = static_cast<int>(f->tellg());
-                    f->seekg(0);
+                    f->seekg(mark);
                 }
                 return size_;
             }
 
-            //virtual uint16_t skip(uint16_t n) = 0;
+            virtual int skip(int n) {
+                n -= static_cast<int>(f->tellg());
+                f->seekg(n);
+                return static_cast<int>(f->tellg());
+            }
 
             ~binary_file_input_stream() {
                 close();
