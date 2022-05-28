@@ -19,7 +19,7 @@
 
 #include "reader.h"
 
-namespace jtl {
+namespace jtp {
 
         template<typename T>
         class file_input_stream : public reader<T> {
@@ -96,7 +96,7 @@ namespace jtl {
                     delete f;
                 }
 
-        private:
+        protected:
 
                 std::ifstream* f;
 

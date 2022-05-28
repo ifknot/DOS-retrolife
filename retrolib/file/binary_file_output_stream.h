@@ -20,7 +20,7 @@
 
 #include "writer.h"
 
-namespace jtl {
+namespace jtp {
 
         class binary_file_output_stream : public writer<char> {
 

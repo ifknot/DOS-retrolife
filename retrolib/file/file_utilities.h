@@ -13,7 +13,7 @@
 
 #include <string>
 
-namespace jtl {
+namespace jtp {
 
 	namespace filesystem {
 

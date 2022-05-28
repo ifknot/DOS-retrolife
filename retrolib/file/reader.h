@@ -13,7 +13,7 @@
 
 #include <stdint.h>
 
-namespace jtl {
+namespace jtp {
 
         template< typename T>
         struct reader {
