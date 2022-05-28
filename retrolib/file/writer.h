@@ -54,6 +54,10 @@ namespace jtp {
 
         virtual void write(const T* data, const uint16_t size, uint16_t offset) = 0;
 
+        virtual ~writer() {
+            std::cout << "writer destructor\n";
+        }
+
     };
 
 }

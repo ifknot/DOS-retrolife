@@ -68,6 +68,10 @@ namespace jtp {
                 */
                 virtual int skip(int n) = 0;
 
+                virtual ~reader() {
+                    std::cout << "reader destructor\n";
+                }
+
         };
 
 }

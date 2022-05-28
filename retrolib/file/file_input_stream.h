@@ -41,7 +41,7 @@ namespace jtp {
                 }
 
                 virtual bool is_ready() {
-                    return f && f->is_open() && f->good();
+                    return f && f->open() && f->good();
                 }
 
                 virtual T read() {

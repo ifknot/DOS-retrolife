@@ -19,10 +19,10 @@
 #include "file_input_stream.h"
 #include "file_output_stream.h"
 
-#define T3
+#define T2
 
 namespace test_file_streams {
-
+        
         void run() {
                 std::cout << "test_file_streams... ";
 #ifdef T1

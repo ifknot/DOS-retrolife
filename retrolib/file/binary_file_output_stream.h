@@ -40,7 +40,6 @@ namespace jtp {
                 assert(f->good());
             }
 
-
         };
 
 }
