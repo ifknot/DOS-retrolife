@@ -24,6 +24,8 @@ namespace jtp {
 
         struct binary_file_input_stream : public file_input_stream<char> {
 
+            binary_file_input_stream(std::string file_path) : file_input_stream<char>(file_path) {}
+
             virtual char read() {
                 char byte;
                 assert(read(&byte, 1) == 1);
@@ -31,8 +33,7 @@ namespace jtp {
             }
 
             virtual uint16_t read(char* data, const uint16_t size) {
-                f->read(data, size);
-                return f->gcount();
+                return read(data, size, 0);
             }
 
             virtual uint16_t read(char* data, const uint16_t size, uint16_t offset) {

@@ -51,19 +51,13 @@ namespace jtp {
                 }
 
                 virtual uint16_t read(T* data, const uint16_t size) {
-                    for (uint16_t i = 0; i < size; ++i) {
-                        if (f->eof()) {
-                              return i;
-                        }
-                        f->operator>>(data[i]);
-                    }
-                    return size;
+                    return read(data, size, 0);
                 }
 
-                virtual uint16_t read(T* data, const uint16_t size, uint16_t offset) {
+                virtual uint16_t read(T* data, const uint16_t size, const uint16_t offset) {
                     for (uint16_t i = 0; i < size; ++i) {
                         if (f->eof()) {
-                            return i;
+                            return i - 1;
                         }
                         f->operator>>(data[offset + i]);
                     }

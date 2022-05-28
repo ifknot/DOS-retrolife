@@ -17,8 +17,9 @@
 #include "binary_file_input_stream.h"
 #include "binary_file_output_stream.h"
 #include "file_input_stream.h"
+#include "file_output_stream.h"
 
-#define T1
+#define T3
 
 namespace test_file_streams {
 
@@ -38,6 +39,7 @@ namespace test_file_streams {
                         f.write('A');
                         std::cout << std::dec << f.size() << '\n';
                         f.write('B');
+                        std::cout << std::dec << f.size() << '\n';
                     } 
                     {
                         char data[20];
@@ -105,6 +107,35 @@ namespace test_file_streams {
                 {
                     std::cout << "\ntest file_output_stream\n";
                     {
+                        jtp::file_output_stream<float> f("none/testf.dat");
+                        std::cout << std::dec << f.size() << '\n';
+                    }
+                    {
+                        jtp::file_output_stream<float> f("resource/testf.dat", true);
+                        assert(f.is_ready());
+                        std::cout << std::dec << f.size() << '\n';
+                        f.write(3.14);
+                        std::cout << std::dec << f.size() << '\n';
+                        f.write(0.001);
+                        std::cout << std::dec << f.size() << '\n';
+                    }
+                    {
+                        double data[20];
+                        for (int i = 0; i < 20; ++i) {
+                            data[i] = 3.14 / (i + 1);
+                        }
+                        jtp::file_output_stream <double> f("resource/testf.dat", true);
+                        assert(f.is_ready());
+                        std::cout << std::dec << f.size() << '\n';
+                        for (int i = 0; i < 10; ++i) {
+                            f.seperator(',');
+                            f.write(data[i]);
+                            f.seperator('\n');
+                            f.write(data[i]);
+                        }
+                        
+                        std::cout << std::dec << f.size() << '\n';
+                        
                     }
                 }
 #endif
@@ -124,14 +155,31 @@ namespace test_file_streams {
                         assert(f.is_ready());
                         char data[10];
                         assert(f.read(data, 10) == 10);
+                        for (int i = 0; i < 10; ++i) {
+                            std::cout << data[i] << ' ';
+                        }
+                        std::cout << '\n';
                         assert(f.read(data, 10) == 10);
-                        assert(f.read(data, 10) != 10);
+                        for (int i = 0; i < 10; ++i) {
+                            std::cout << data[i] << ' ';
+                        }
+                        std::cout << '\n';
+                        uint16_t n = f.read(data, 10);
+                        assert(n != 10);
+                        for (int i = 0; i < n; ++i) {
+                            std::cout << data[i] << ' ';
+                        }
+                        std::cout << '\n';
                     }
                     {
                         jtp::file_input_stream<int> f("resource/ints.dat");
                         assert(f.is_ready());
                         int data[10];
                         assert(f.read(data, 10) == 10);
+                        for (int i = 0; i < 10; ++i) {
+                            std::cout << data[i] << ' ';
+                        }
+                        std::cout << '\n';
                     }
                     {
                         jtp::file_input_stream<uint16_t> f("resource/ints.dat");

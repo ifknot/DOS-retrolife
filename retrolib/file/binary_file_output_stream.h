@@ -18,77 +18,28 @@
 
 #include "..\dos\dos_error_messages.h"
 
-#include "writer.h"
+#include "file_output_stream.h"
 
 namespace jtp {
 
-        class binary_file_output_stream : public writer<char> {
+        struct binary_file_output_stream : public file_output_stream<char> {
 
-        public:
+            binary_file_output_stream(std::string file_path, bool append = false) : file_output_stream<char>(file_path, append) {}
 
-            binary_file_output_stream(std::string file_path, bool append = false) :
-                append(append),
-                f((append) 
-                    ? new std::ofstream(file_path.c_str(), f->app | f->binary)
-                    : new std::ofstream(file_path.c_str(), f->binary)
-                )
-            {
-                if (!f->is_open()) {
-                    std::cerr << dos::error::messages[dos::error::FILE_NOT_FOUND] << file_path.c_str() << '\n';
-                }
-            }
-
-            virtual void close() {
-                if (f->is_open()) {
-                    f->flush();
-                    f->close();
-                }
-            }
-
-            virtual bool is_ready() {
-                return f && f->is_open() && f->good();
-            }
-
-            virtual void flush() {
-                f->flush();
-            }
-
-            virtual int size() {
-                int size_ = -1;
-                int mark = static_cast<int>(f->tellp());
-                if (is_ready()) {
-                    f->seekp(0, f->end);
-                    size_ = static_cast<int>(f->tellp());
-                    f->seekp(mark);
-                }
-                return size_;
-            }
-
-            virtual void write(char byte) {
+            void write(const char byte) {
                 write(&byte, 1);
-                assert(f->good());
+
             }
 
-            virtual void write(const char* data, const uint16_t size) {
-                f->write(data, size);
-                assert(f->good());
+            void write(const char* data, const uint16_t size) {
+                write(data, size, 0);
             }
 
-            virtual void write(char* data, const uint16_t size, uint16_t offset) {
+            void write(const char* data, const uint16_t size, uint16_t offset) {
                 f->write(data + offset, size);
                 assert(f->good());
             }
 
-
-            ~binary_file_output_stream() {
-                    close();
-                    delete f;
-            }
-
-        private:
-
-            bool append;
-            std::ofstream* f;
 
         };
 

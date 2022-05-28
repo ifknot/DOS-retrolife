@@ -35,14 +35,15 @@ namespace jtp {
         */
         virtual void close() = 0;
 
+        virtual void flush() = 0;
+
         /**
         *  @brief  Whether this stream is ready to be read from.
         *  @retval  - true/false
         */
         virtual bool is_ready() = 0;
 
-
-        virtual void flush() = 0;
+        virtual int size() = 0;
 
         /**
         * @brief Writes a single type T.
@@ -51,7 +52,7 @@ namespace jtp {
 
         virtual void write(const T* data, const uint16_t size) = 0;
 
-        virtual void write(T* data, const uint16_t size, uint16_t offset) = 0;
+        virtual void write(const T* data, const uint16_t size, uint16_t offset) = 0;
 
     };
 
