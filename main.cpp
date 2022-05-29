@@ -6,10 +6,13 @@
 //#include "retrolib/dos/dos_segmented_memory_block.h"
 //#include "retrolib/gfx/hga/test_hga.h"
 //#include "retrolib/file/test_file_utilities.h"
-#include "retrolib/file/test_file_streams.h"
+//#include "retrolib/file/test_file_streams.h"
+#include "retrolib/statistics/test_data_vector.h"
+
 
 int main() {
   
-	test_file_streams::run();
+	test_data_vector::run();
+	//test_file_streams::run();
 
 }

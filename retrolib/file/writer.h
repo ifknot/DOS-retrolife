@@ -25,7 +25,7 @@ void    write(String str, int off, int len)     It writes a portion of a string.
 
 */
 
-namespace jtp {
+namespace jtl {
 
     template< typename T>
     struct writer {

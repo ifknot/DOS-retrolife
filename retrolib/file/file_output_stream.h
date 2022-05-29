@@ -20,7 +20,7 @@
 
 #include "writer.h"
 
-namespace jtp {
+namespace jtl {
 
         template<typename T>
         class file_output_stream : public writer<T> {
@@ -50,7 +50,7 @@ namespace jtp {
         }
 
         virtual bool is_ready() {
-            return f && f->open() && f->good();
+            return f && f->is_open() && f->good();
         }
 
         virtual void reset() {

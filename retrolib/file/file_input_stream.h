@@ -19,7 +19,7 @@
 
 #include "reader.h"
 
-namespace jtp {
+namespace jtl {
 
         template<typename T>
         class file_input_stream : public reader<T> {
@@ -41,7 +41,7 @@ namespace jtp {
                 }
 
                 virtual bool is_ready() {
-                    return f && f->open() && f->good();
+                    return f && f->is_open() && f->good();
                 }
 
                 virtual T read() {

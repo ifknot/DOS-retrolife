@@ -20,7 +20,7 @@
 
 #include "file_input_stream.h"
 
-namespace jtp {
+namespace jtl {
 
         struct binary_file_input_stream : public file_input_stream<char> {
 

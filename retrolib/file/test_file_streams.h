@@ -11,6 +11,7 @@
 #define TEST_FILE_STREAMS
 
 #include <cassert>
+#include <iostream>
 #include <string>
 
 
@@ -19,7 +20,7 @@
 #include "file_input_stream.h"
 #include "file_output_stream.h"
 
-#define T2
+#define T3
 
 namespace test_file_streams {
         
@@ -29,11 +30,11 @@ namespace test_file_streams {
                 {
                     std::cout << "\ntest binary_file_output_stream\n";
                     {
-                        jtp::binary_file_output_stream f("none/test.dat");
+                        jtl::binary_file_output_stream f("none/test.dat");
                         std::cout << std::dec << f.size() << '\n';
                     }
                     {
-                        jtp::binary_file_output_stream f("resource/test.dat", true);
+                        jtl::binary_file_output_stream f("resource/test.dat", true);
                         assert(f.is_ready());
                         std::cout << std::dec << f.size() << '\n';
                         f.write('A');
@@ -47,7 +48,7 @@ namespace test_file_streams {
                             data[10 + i] = i;
                             data[i] = 'a' + i;
                         }
-                        jtp::binary_file_output_stream f("resource/test.dat", true);
+                        jtl::binary_file_output_stream f("resource/test.dat", true);
                         assert(f.is_ready());
                         std::cout << std::dec << f.size() << '\n';
                         f.write(data, 10, 10);
@@ -61,24 +62,24 @@ namespace test_file_streams {
                 {
                     std::cout << "\ntest binary_file_input_stream\n";
                     {
-                        jtp::binary_file_input_stream f("nofile.dat");
+                        jtl::binary_file_input_stream f("nofile.dat");
                         std::cout << std::dec << f.size() << '\n';
                     }
                     {
-                        jtp::binary_file_input_stream f("resource/empty.dat");
+                        jtl::binary_file_input_stream f("resource/empty.dat");
                         assert(f.is_ready());
                         std::cout << std::dec << f.size() << '\n';
                         //std::cout << f.read();
                         // yes assert panic
                     }
                     {
-                        jtp::binary_file_input_stream f("resource/alphabet.dat");
+                        jtl::binary_file_input_stream f("resource/alphabet.dat");
                         assert(f.is_ready());
                         std::cout << std::dec << f.size() << '\n';
                         std::cout << f.read() <<'\n';
                     }
                     {
-                        jtp::binary_file_input_stream f("resource/alphabet.dat");
+                        jtl::binary_file_input_stream f("resource/alphabet.dat");
                         assert(f.is_ready());
                         std::cout << std::dec << f.size() << '\n';
                         char data[20];
@@ -91,7 +92,7 @@ namespace test_file_streams {
                         std::cout << f.read(data, 10) << '\n';
                     }
                     {
-                        jtp::binary_file_input_stream f("resource/hex.dat");
+                        jtl::binary_file_input_stream f("resource/hex.dat");
                         assert(f.is_ready());
                         std::cout << std::dec << f.size() << '\n';
                         char data[20];
@@ -107,11 +108,11 @@ namespace test_file_streams {
                 {
                     std::cout << "\ntest file_output_stream\n";
                     {
-                        jtp::file_output_stream<float> f("none/testf.dat");
+                        jtl::file_output_stream<float> f("none/testf.dat");
                         std::cout << std::dec << f.size() << '\n';
                     }
                     {
-                        jtp::file_output_stream<float> f("resource/testf.dat", true);
+                        jtl::file_output_stream<float> f("resource/testf.dat", true);
                         assert(f.is_ready());
                         std::cout << std::dec << f.size() << '\n';
                         f.write(3.14);
@@ -124,7 +125,7 @@ namespace test_file_streams {
                         for (int i = 0; i < 20; ++i) {
                             data[i] = 3.14 / (i + 1);
                         }
-                        jtp::file_output_stream <double> f("resource/testf.dat", true);
+                        jtl::file_output_stream <double> f("resource/testf.dat", true);
                         assert(f.is_ready());
                         std::cout << std::dec << f.size() << '\n';
                         for (int i = 0; i < 10; ++i) {
@@ -132,10 +133,8 @@ namespace test_file_streams {
                             f.write(data[i]);
                             f.seperator('\n');
                             f.write(data[i]);
-                        }
-                        
+                        }                        
                         std::cout << std::dec << f.size() << '\n';
-                        
                     }
                 }
 #endif
@@ -143,15 +142,15 @@ namespace test_file_streams {
                 {
                 std::cout << "\ntest file_input_stream\n";
                     {
-                        jtp::file_input_stream<char> f("nofile.dat");
+                        jtl::file_input_stream<char> f("nofile.dat");
                     }
                     {
-                        jtp::file_input_stream<char> f("resource/empty.dat");
+                        jtl::file_input_stream<char> f("resource/empty.dat");
                         assert(f.is_ready());
                         std::cout << f.read(); // why no assert panic?
                     }
                     {
-                        jtp::file_input_stream<char> f("resource/alphabet.dat");
+                        jtl::file_input_stream<char> f("resource/alphabet.dat");
                         assert(f.is_ready());
                         char data[10];
                         assert(f.read(data, 10) == 10);
@@ -172,7 +171,7 @@ namespace test_file_streams {
                         std::cout << '\n';
                     }
                     {
-                        jtp::file_input_stream<int> f("resource/ints.dat");
+                        jtl::file_input_stream<int> f("resource/ints.dat");
                         assert(f.is_ready());
                         int data[10];
                         assert(f.read(data, 10) == 10);
@@ -182,7 +181,7 @@ namespace test_file_streams {
                         std::cout << '\n';
                     }
                     {
-                        jtp::file_input_stream<uint16_t> f("resource/ints.dat");
+                        jtl::file_input_stream<uint16_t> f("resource/ints.dat");
                         assert(f.is_ready());
                         uint32_t data[5];
                         assert(f.read((uint16_t*)data, 10) == 10);

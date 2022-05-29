@@ -76,8 +76,8 @@ namespace test_array {
 				jtl::array<int, 3> a = { 1,2,3 };
 				jtl::array<int, 3> b = { 4,5,6 };
 				a.swap(b);
-				a.dump();
-				b.dump();
+				std::cout << a << '\n';
+				std::cout << b << '\n';
 				//for (int i = 0; i < a.size(); ++i) assert(a[i] == i + 4);
 				//for (int i = 0; i < b.size(); ++i) assert(a[i] == i + 1);
 

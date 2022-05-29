@@ -2,8 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\retrolib",
-    "\\retrolib\\file"
+    "\\retrolib\\gfx"
   ],
-  "SelectedNode": "\\retrolife.sln",
+  "SelectedNode": "\\retrolib\\file",
   "PreviewInSolutionExplorer": false
 }
