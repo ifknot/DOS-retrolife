@@ -16,6 +16,7 @@
 #include <istream>
 
 #include "size_t.h"
+#include "ptrdiff_t.h"
 #include "null_ptr_t.h"
 
 namespace jtl {
@@ -25,23 +26,38 @@ namespace jtl {
 
     public:
 
+// member types
+
         typedef T value_type;
-        typedef size_t size_type;
-        typedef size_type ptrdiff_t;
         typedef value_type& reference;
         typedef const value_type& const_reference;
         typedef value_type* pointer;
         typedef const value_type* const_pointer;
-
-        array& operator=(const array& other) {
-            assert(size() == other.size());
-            if (this != &other) {
-                for (size_type i = 0; i < size(); ++i) data_[i] = other.data_[i];
-            }
-            return *this;
-        }
+        typedef T* iterator;
+        typedef const T* const_iterator;
+        //reverse_iterator
+        //const_reverse_iterator
+        typedef T value_type;
+        typedef size_t size_type;
+        typedef ptrdiff_t difference_type;
 
 // iterators
+
+        inline iterator begin() {
+            return data_;
+        }
+
+        inline const_iterator begin() const {
+            return data_;
+        }
+
+        inline iterator end() {
+            return data_ + N;
+        }
+
+        inline const_iterator end() const {
+            return data_ + N;
+        }
 
 // capacity
 
@@ -68,7 +84,7 @@ namespace jtl {
         }
 
         //reference at(size_type n);
-        
+
         //const_reference at(size_type n) const;
 
         inline reference front() {
@@ -93,6 +109,14 @@ namespace jtl {
 
 // modifiers
 
+        array& operator=(const array& other) {
+            assert(size() == other.size());
+            if (this != &other) {
+                for (size_type i = 0; i < size(); ++i) data_[i] = other.data_[i];
+            }
+            return *this;
+        }
+
         void clear() {
             for (size_type i = 0; i < size(); ++i) data_[i] = 0;
         }
@@ -109,6 +133,22 @@ namespace jtl {
 
 // relational operators
 
+        bool operator==(const array& rhs) const {
+            assert(size() == rhs.size());
+            for (size_type i = 0; i < size(); ++i) {
+                if (data_[i] != rhs[i]) return false;
+            }
+            return true;
+        }
+
+        bool operator<(const array& rhs) const {
+            assert(size() == rhs.size());
+            for (size_type i = 0; i < size(); ++i) {
+                if (data_[i] >= rhs[i]) return false;
+            }
+            return true;
+        }
+
 // serialisation
 
         std::ostream& write(std::ostream& os) const {
@@ -120,7 +160,7 @@ namespace jtl {
 
         std::istream& read(std::istream& is) {
             T datum;
-            for (size_type i = 0; i < N; ++i) {                           
+            for (size_type i = 0; i < N; ++i) {
                 is >> datum;
                 if (is.eof()) break;
                 data_[i] = datum;
@@ -128,8 +168,8 @@ namespace jtl {
             return is;
         }
 
-    //private:
-    protected:
+    private:
+
         value_type data_[N];
 
     };
@@ -159,6 +199,8 @@ namespace jtl {
 
 // non-member function overloads
 
+
+
 template<typename T, jtl::size_t N>
 std::ostream& operator<<(std::ostream& os, const jtl::array<T, N>& a) {
         return a.write(os);
@@ -166,7 +208,27 @@ std::ostream& operator<<(std::ostream& os, const jtl::array<T, N>& a) {
 
 template<typename T, jtl::size_t N>
 std::istream& operator>>(std::istream& is, jtl::array<T, N>& a) {
-        return a.read(is);
+    return a.read(is);
+}
+
+template <class T, jtl::size_t N>
+bool operator!= (const jtl::array<T, N>& lhs, const jtl::array<T, N>& rhs) {
+    return !(lhs == rhs);
+}
+
+template <class T, jtl::size_t N>
+bool operator<= (const jtl::array<T, N>& lhs, const jtl::array<T, N>& rhs) {
+    return !(rhs < lhs);
+}
+
+template <class T, jtl::size_t N>
+bool operator>  (const jtl::array<T, N>& lhs, const jtl::array<T, N>& rhs) {
+    return rhs < lhs;
+}
+
+template <class T, jtl::size_t N>
+bool operator>= (const jtl::array<T, N>& lhs, const jtl::array<T, N>& rhs) {
+    return !(lhs < rhs);
 }
 
 #endif

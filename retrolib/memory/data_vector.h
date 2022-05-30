@@ -24,9 +24,20 @@ namespace jtl {
 
         public:
 
+// member types
+
+            typedef T value_type;
+            typedef value_type& reference;
+            typedef const value_type& const_reference;
+            typedef value_type* pointer;
+            typedef const value_type* const_pointer;
             typedef T* iterator;
             typedef const T* const_iterator;
-
+            //reverse_iterator
+            //const_reverse_iterator
+            typedef T value_type;
+            typedef size_t size_type;
+            typedef ptrdiff_t difference_type;
                 
 
 // iterators
@@ -53,7 +64,7 @@ namespace jtl {
 
 // element access
 
-//non-manipulating operations
+// relational operators
 
             bool operator==(const T rhs) const {
                     for (size_type i = 0; i < capacity(); ++i) {
@@ -62,12 +73,6 @@ namespace jtl {
                     return true;
             }
 
-            bool operator!=(const T rhs) const {
-                    for (size_type i = 0; i < capacity(); ++i) {
-                            if (data_[i] != rhs) return true;
-                    }
-                    return false;
-            }
 
             bool operator==(const data_vector& rhs) const {
                     assert(capacity() == rhs.capacity());
@@ -75,14 +80,6 @@ namespace jtl {
                             if (data_[i] != rhs[i]) return false;
                     }
                     return true;
-            }
-
-            bool operator!=(const data_vector& rhs) const {
-                    assert(capacity() == rhs.capacity());
-                    for (size_type i = 0; i < capacity(); ++i) {
-                            if (data_[i] != rhs[i]) return true;
-                    }
-                    return false;
             }
 
 //manipulating operations
