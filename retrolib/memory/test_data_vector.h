@@ -35,7 +35,7 @@ namespace test_data_vector {
                 std::cout << "iterators\n";
                 typedef jtl::array<char, 12> chars_t;
                 chars_t c = { 'a','b','c','d','e','f','g','h','i','j','k','l' };
-                vec_t a(c.begin(), c.end());
+                vec_t a(c.begin(), c.end());// , true);
                 char ch = 'a';
                 for (vec_t::const_iterator it = a.begin(); it < a.end(); ++it) {
                     assert(*it == ch++);
@@ -56,6 +56,8 @@ namespace test_data_vector {
                 assert(b.size() == 0);
                 assert(!a.empty());
                 assert(b.empty());
+                a.clear();
+                assert(a.empty());
             }
             {
                 std::cout << "element access\n"; 
@@ -76,7 +78,25 @@ namespace test_data_vector {
             {
                 std::cout << "modifiers\n";
             }
-            
+            {
+                std::cout << "realtional\n";
+                vec_t a(100);
+                jtl::data_vector<char> chars(100, 'a');
+                vec_t b(100, 123, true);
+                b += 123;
+                vec_t c(b);
+                assert(c == b);
+                //assert(a != b);
+                b += 1;
+                assert(c < b);
+                //assert(b > c);
+                c = b;
+                //assert(c <= b);
+                //assert(b >= c);
+            }
+            {
+                std::cout << "serialisation\n"; 
+            }
             std::cout << "success!\n";
         }
 

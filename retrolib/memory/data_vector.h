@@ -48,20 +48,20 @@ namespace jtl {
             {}
 
             // fill constructor
-            data_vector(size_type n, const value_type& val = value_type()) : 
+            explicit data_vector(size_type n, const value_type& val = value_type(), bool f = true) : 
                 size_(n), 
                 capacity_(size_),
                 data_(new T[N])
             {
-                assert(size_ <= N);
-                for (size_type i = 0; i < size_; ++i) {
-                    data_[i] = val;
+                assert(size_ <= N && f);
+                while (n) {
+                    data_[--n] = val;
                 }
             }
 
             // range constructor
             template<typename InputIterator>
-            data_vector(InputIterator first, InputIterator last) : 
+            data_vector(InputIterator first, const InputIterator last) :  
                 size_(last - first), 
                 capacity_(size_), 
                 data_(new T[N]) 
@@ -325,5 +325,7 @@ std::ostream& operator<<(std::ostream& os, const jtl::data_vector<T, N>& a) {
     }
     return os;
 }
+
+
 
 #endif
