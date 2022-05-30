@@ -24,7 +24,7 @@ namespace test_array {
                         // test Implicitly-defined member functions
                         {
                                 jtl::array<int, 3> a = { 1,2,3 };
-                                for (int i = 0; i < a.capacity(); ++i) assert(a[i] == i + 1);
+                                for (int i = 0; i < a.size(); ++i) assert(a[i] == i + 1);
                         }
                         // test element access
                         {
@@ -51,8 +51,8 @@ namespace test_array {
                                 // empty
                                 jtl::array<int, 4> numbers = { 3, 1, 4, 1 };
                                 jtl::array<int, 0> no_numbers;
-                                assert(numbers.capacity() == 4);
-                                assert(no_numbers.capacity() == 0);
+                                assert(numbers.size() == 4);
+                                assert(no_numbers.size() == 0);
                         }
                         // operations
                         {
@@ -63,8 +63,8 @@ namespace test_array {
                                 board.fill(row);
 
                                 std::cout << '\n';
-                                for (jtl::size_t i = 0; i < board.capacity(); ++i) {
-                                        for (jtl::size_t j = 0; j < board.front().capacity(); ++j) {
+                                for (jtl::size_t i = 0; i < board.size(); ++i) {
+                                        for (jtl::size_t j = 0; j < board.front().size(); ++j) {
                                                 std::cout << board[i][j];
                                         }
                                         std::cout << '\n';

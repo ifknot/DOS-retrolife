@@ -1,6 +1,6 @@
 /**
  *
- *  @brief     
+ *  @brief
  *  @details   ~
  *  @author    Jeremy Thornton
  *  @date      29.05.2022
@@ -20,40 +20,52 @@
 
 namespace test_data_vector {
 
-	void run() {
+        void run() {
 
-		std::cout << "test_data_vector... \n";
-		{
-			typedef jtl::data_vector<uint32_t,12> point_vector_t;
-			jtl::array<uint32_t, 12> dots = { 1,2,3,4,5,6,7,8,9,10,11,12 };
-			point_vector_t points(dots);
-			std::cout << points << '\n';
-			assert(points.capacity() == 12);
-			points.clear();
-			std::cout << points << '\n';
+                std::cout << "test_data_vector... \n";
+                /* {
+                    typedef jtl::data_vector<uint32_t,12> point_vector_t;
+                    jtl::array<uint32_t, 12> dots = { 1,2,3,4,5,6,7,8,9,10,11,12 };
+                    point_vector_t points(dots);
+                    std::cout << points << '\n';
+                    assert(points.capacity() == 12);
+                    points.clear();
+                    std::cout << points << '\n';
 
-			jtl::data_vector<float, 4> a, b;
-			a.clear();
-			b = a;
-			std::cout << a << '\n';
-			assert(a == 0);
-			assert(a == b);
-			std::ofstream odata("resource/dataf.dat");
-			odata << a;
-			std::ifstream idata("resource/testf.dat");
-			idata >> a;
-			b = a;
-			std::cout << a << '\n';
-			std::cout << b << '\n';
-			a += 10.0;
-			std::cout << a << '\n';
-			a += a;
-			std::cout << a << '\n';
-			jtl::data_vector<float, 4> c = a + b;
-			std::cout << c << '\n';
-		}
-		std::cout << "success!\n";
-	}
+                    jtl::data_vector<float, 4> a, b;
+                    a.clear();
+                    b = a;
+                    std::cout << a << '\n';
+                    assert(a == 0);
+                    assert(a == b);
+                    std::ofstream odata("resource/dataf.dat");
+                    odata << a;
+                    std::ifstream idata("resource/testf.dat");
+                    idata >> a;
+                    b = a;
+                    std::cout << a << '\n';
+                    std::cout << b << '\n';
+                    a += 10.0;
+                    std::cout << a << '\n';
+                    a += a;
+                    std::cout << a << '\n';
+                    jtl::data_vector<float, 4> c = a + b;
+                    std::cout << c << '\n';
+                }*/
+                {
+                    typedef jtl::data_vector<uint32_t, 12> point_vector_t;
+                    point_vector_t points = { 1,2,3,4,5,6,7,8,9,10,11,12 };
+                    std::cout << points << '\n';
+                    assert(points.size() == 12);
+
+                    for (point_vector_t::const_iterator it = points.begin();
+                        it < points.end(); it++) {
+                        std::cout << std::hex << (uint32_t)it << '\t' << std::dec << *it << '\n';
+                    }
+                    std::cout << std::endl;
+                }
+                std::cout << "success!\n";
+        }
 
 }
 

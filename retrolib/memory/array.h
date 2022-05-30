@@ -17,7 +17,6 @@
 
 #include "size_t.h"
 #include "null_ptr_t.h"
-#include "swap.h"
 
 namespace jtl {
 
@@ -28,19 +27,37 @@ namespace jtl {
 
         typedef T value_type;
         typedef size_t size_type;
-        //typedef ptrdiff_t     difference_type
+        typedef size_type ptrdiff_t;
         typedef value_type& reference;
         typedef const value_type& const_reference;
         typedef value_type* pointer;
         typedef const value_type* const_pointer;
 
         array& operator=(const array& other) {
-            assert(capacity() == other.capacity());
+            assert(size() == other.size());
             if (this != &other) {
-                for (size_type i = 0; i < capacity(); ++i) data_[i] = other.data_[i];
+                for (size_type i = 0; i < size(); ++i) data_[i] = other.data_[i];
             }
             return *this;
         }
+
+// iterators
+
+// capacity
+
+        inline size_type size() const {
+            return N;
+        }
+
+        inline size_type max_size() const {
+            return N;
+        }
+
+        inline bool empty() const {
+            return false;
+        }
+
+// element access
 
         inline reference operator[](size_type pos) {
             return data_[pos];
@@ -49,6 +66,10 @@ namespace jtl {
         inline const_reference operator[](size_type pos) const {
             return data_[pos];
         }
+
+        //reference at(size_type n);
+        
+        //const_reference at(size_type n) const;
 
         inline reference front() {
             return data_[0];
@@ -70,34 +91,36 @@ namespace jtl {
             return data_;
         }
 
-        inline size_type capacity() const {
-            return N;
-        }
+// modifiers
 
         void clear() {
-            for (size_type i = 0; i < capacity(); ++i) data_[i] = 0;
+            for (size_type i = 0; i < size(); ++i) data_[i] = 0;
         }
 
         void fill(const value_type& value) {
-            for (size_type i = 0; i < capacity(); ++i) data_[i] = value;
+            for (size_type i = 0; i < size(); ++i) data_[i] = value;
         }
 
         inline void swap(array& other) {
-            array<T,N> temp = *this;
+            array<T,N> temp_array = *this;
             *this = other;
-            other = temp;
+            other = temp_array;
         }
 
+// relational operators
+
+// serialisation
+
         std::ostream& write(std::ostream& os) const {
-            for (size_type i = 0; i < capacity(); ++i) {
+            for (size_type i = 0; i < N; ++i) {
                     os << data_[i] << ' ';
             }
-                return os;
+            return os;
         }
 
         std::istream& read(std::istream& is) {
             T datum;
-            for (size_type i = 0; i < capacity(); ++i) {                           
+            for (size_type i = 0; i < N; ++i) {                           
                 is >> datum;
                 if (is.eof()) break;
                 data_[i] = datum;
@@ -105,8 +128,8 @@ namespace jtl {
             return is;
         }
 
+    //private:
     protected:
-
         value_type data_[N];
 
     };
@@ -114,25 +137,27 @@ namespace jtl {
     template<typename T>
     struct array<T, 0> {
 
-        typedef T value_type;
         typedef size_t size_type;
-        //typedef ptrdiff_t     difference_type
-        typedef value_type& reference;
-        typedef const value_type& const_reference;
-        typedef value_type* pointer;
-        typedef const value_type* const_pointer;
 
-        inline size_type capacity() const {
+// capacity
+
+        inline size_type size() const {
             return 0;
         }
 
-        inline nullptr_t data() {
-            return nullptr;
+        inline size_type max_size() const {
+            return 0;
+        }
+
+        inline bool empty() const {
+            return true;
         }
 
     };
 
 }
+
+// non-member function overloads
 
 template<typename T, jtl::size_t N>
 std::ostream& operator<<(std::ostream& os, const jtl::array<T, N>& a) {
