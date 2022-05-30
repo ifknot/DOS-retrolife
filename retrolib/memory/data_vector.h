@@ -41,10 +41,18 @@ namespace jtl {
             typedef ptrdiff_t difference_type;
 
             // empty container constructor
-            data_vector() : size_(0), capacity_(0) {}
+            data_vector() : 
+                size_(0), 
+                capacity_(0), 
+                data_(new T[N]) 
+            {}
 
             // fill constructor
-            data_vector(size_type n, const value_type& val = value_type()) : size_(n), capacity_(size_) {
+            data_vector(size_type n, const value_type& val = value_type()) : 
+                size_(n), 
+                capacity_(size_),
+                data_(new T[N])
+            {
                 assert(size_ <= N);
                 for (size_type i = 0; i < size_; ++i) {
                     data_[i] = val;
@@ -53,7 +61,11 @@ namespace jtl {
 
             // range constructor
             template<typename InputIterator>
-            data_vector(InputIterator first, InputIterator last) : size_(last - first), capacity_(size_) {
+            data_vector(InputIterator first, InputIterator last) : 
+                size_(last - first), 
+                capacity_(size_), 
+                data_(new T[N]) 
+            {
                 assert(size_ <= N);
                 size_type i = 0;
                 while (first < last) {
@@ -62,9 +74,17 @@ namespace jtl {
             }
 
             //copy constructor
-            data_vector(const data_vector& other) : size_(other.size()), capacity_(other.capacity()) {
+            data_vector(const data_vector& other) : 
+                size_(other.size()), 
+                capacity_(other.capacity()),
+                data_(new T[N])
+            {
                 assert(size_ <= N);
                 for (size_type i = 0; i < size_; ++i) data_[i] = other.data_[i];
+            }
+
+            ~data_vector() {
+                delete[] data_;
             }
 
 // iterators
@@ -97,7 +117,7 @@ namespace jtl {
 
             // resize
 
-            inline size_type capacity() {
+            inline size_type capacity() const {
                 return capacity_;
             }
 
@@ -272,7 +292,7 @@ namespace jtl {
             size_type size_;
             size_type capacity_;
 
-            value_type data_[N];
+            value_type* data_;
 
         };
 

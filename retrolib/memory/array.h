@@ -117,7 +117,7 @@ namespace jtl {
             return *this;
         }
 
-        void clear() {
+        void zero() {
             for (size_type i = 0; i < size(); ++i) data_[i] = 0;
         }
 

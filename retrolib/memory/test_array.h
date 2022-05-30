@@ -50,7 +50,7 @@ namespace test_array {
                 jtl::array<int, 100> a;
                 for (int i = 0; i < 100; ++i) a[i] = i + 1;
                 jtl::array<int, 100> b;
-                b.clear();
+                b.zero();
                 jtl::array<int, 100> c;
                 c.fill(123);
 
@@ -97,7 +97,7 @@ namespace test_array {
                 std::cout << "serialisation\n";
                 jtl::array<uint32_t, 12> a = { 1,2,3,4,5,6,7,8,9,10,11,12 };
                 jtl::array<uint32_t, 12> b;
-                b.clear();
+                b.zero();
                 std::cout << a << '\n';
                 std::cout << b << '\n';
                 std::ofstream os("resource/array.dat");

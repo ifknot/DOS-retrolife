@@ -40,6 +40,11 @@ namespace test_data_vector {
                 for (vec_t::const_iterator it = a.begin(); it < a.end(); ++it) {
                     assert(*it == ch++);
                 }
+                vec_t b(a);
+                ch = 'a';
+                for (vec_t::const_iterator it = a.begin(); it < a.end(); ++it) {
+                    assert(*it == ch++);
+                }
             }
             {
                 std::cout << "capacity\n";
@@ -53,18 +58,25 @@ namespace test_data_vector {
                 assert(b.empty());
             }
             {
+                std::cout << "element access\n"; 
+                vec_t v;
+                int sum = 0;
+                v.push_back(10);                
+                v.push_back(10);               
+                v.push_back(30); 
+                v[1] += 10;
+                v = v * v;
+                v *= 2;
+                while (!v.empty()) {
+                    sum += v.back();
+                    v.pop_back();                 
+                }
+                assert(sum == 2800);
+            }
+            {
                 std::cout << "modifiers\n";
             }
-            {
-                std::cout << "element access\n";
-            }
-            {
-                std::cout << "relational\n";
-
-            }
-            {
-                std::cout << "serialisation\n";
-            }
+            
             std::cout << "success!\n";
         }
 
