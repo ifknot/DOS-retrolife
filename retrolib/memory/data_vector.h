@@ -20,7 +20,7 @@
 
 namespace jtl {
 
-        template<typename T, size_t N>
+        template<typename T, size_t N = 256>
         class data_vector {
 
         public:
@@ -39,12 +39,12 @@ namespace jtl {
             typedef T value_type;
             typedef size_t size_type;
             typedef ptrdiff_t difference_type;
-              
+
             // empty container constructor
-            data_vector() : size_(0), capacity_(0) {} 
+            data_vector() : size_(0), capacity_(0) {}
 
             // fill constructor
-            data_vector(size_type n, const value_type& val = value_type()) : size_(n), capacity_(n) {
+            data_vector(size_type n, const value_type& val = value_type()) : size_(n), capacity_(size_) {
                 assert(size_ <= N);
                 for (size_type i = 0; i < size_; ++i) {
                     data_[i] = val;
@@ -53,11 +53,11 @@ namespace jtl {
 
             // range constructor
             template<typename InputIterator>
-            data_vector(InputIterator first, InputIterator last) : size_(last - first), capacity_(last - first) {
+            data_vector(InputIterator first, InputIterator last) : size_(last - first), capacity_(size_) {
                 assert(size_ <= N);
                 size_type i = 0;
                 while (first < last) {
-
+                    data_[i++] = *first++;
                 }
             }
 
@@ -145,7 +145,7 @@ namespace jtl {
 
 // modifiers
 
-            array& operator=(const array& other) {
+            data_vector& operator=(const data_vector& other) {
                 assert(size() == other.size());
                 if (this != &other) {
                     for (size_type i = 0; i < size_; ++i) data_[i] = other.data_[i];
@@ -153,11 +153,39 @@ namespace jtl {
                 return *this;
             }
 
-            inline void swap(array& other) {
-                data_vector<T, N> temp_array = *this;
-                *this = other;
-                other = temp_array;
+            // asign
+
+            void push_back(const value_type& val) {
+                ++size_;
+                assert(size_ <= N);
+                if (size_ > capacity_) {
+                    capacity_ = size_;
+                }
+                back() = val;
             }
+
+            void pop_back() {
+                assert(size_ > 0);
+                --size_;
+            }
+
+            // insert
+
+            // erase
+
+            inline void swap(data_vector& other) {
+                data_vector<T, N> temp_data_vector = *this;
+                *this = other;
+                other = temp_data_vector;
+            }
+
+            void clear() {
+                size_ = 0;
+            }
+
+            // emplace
+
+            // emplace_back
 
 // relational operators
 

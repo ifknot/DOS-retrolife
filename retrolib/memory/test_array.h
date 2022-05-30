@@ -36,14 +36,14 @@ namespace test_array {
             }
             {
                 std::cout << "capacity\n";
-                jtl::array<int, 4> numbers = { 3, 1, 4, 1 };
-                jtl::array<int, 0> no_numbers;
-                assert(numbers.size() == 4);
-                assert(no_numbers.size() == 0);
-                assert(numbers.size() == 4);
-                assert(no_numbers.size() == 0);
-                assert(!numbers.empty());
-                assert(no_numbers.empty());
+                jtl::array<int, 4> a = { 3, 1, 4, 1 };
+                jtl::array<int, 0> b;
+                assert(a.size() == 4);
+                assert(b.size() == 0);
+                assert(a.size() == 4);
+                assert(b.size() == 0);
+                assert(!a.empty());
+                assert(b.empty());
             }
             {
                 std::cout << "modifiers\n";
