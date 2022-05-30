@@ -22,8 +22,8 @@ namespace jtl {
 		data_vector() : array() {}
 
 		data_vector(array<T, N> other) {
-			assert(size() == other.size());
-			for (size_type i = 0; i < size(); ++i) {
+			assert(capacity() == other.capacity());
+			for (size_type i = 0; i < capacity(); ++i) {
 				data_[i] = other[i];
 			}
 		}
@@ -31,15 +31,15 @@ namespace jtl {
 //non-manipulating operations
 
 		bool operator==(const T rhs) const {
-			for (size_type i = 0; i < size(); ++i) {
+			for (size_type i = 0; i < capacity(); ++i) {
 				if (data_[i] != rhs) return false;
 			}
 			return true;
 		}
 
 		bool operator==(const data_vector& rhs) const {
-			assert(size() == rhs.size());
-			for (size_type i = 0; i < size(); ++i) {
+			assert(capacity() == rhs.capacity());
+			for (size_type i = 0; i < capacity(); ++i) {
 				if (data_[i] != rhs[i]) return false;
 			}
 			return true;
@@ -48,60 +48,60 @@ namespace jtl {
 //manipulating operations
 
 		data_vector& operator+=(const T rhs) {
-			for (size_type i = 0; i < size(); ++i) {
+			for (size_type i = 0; i < capacity(); ++i) {
 				data_[i] += rhs;
 			}
 			return *this;
 		}
 
 		data_vector& operator+=(const data_vector& rhs) {
-			assert(size() == rhs.size());
-			for (size_type i = 0; i < size(); ++i) {
+			assert(capacity() == rhs.capacity());
+			for (size_type i = 0; i < capacity(); ++i) {
 				data_[i] += rhs[i];
 			}
 			return *this;
 		}
 
 		data_vector& operator-=(const T rhs) {
-			for (size_type i = 0; i < size(); ++i) {
+			for (size_type i = 0; i < capacity(); ++i) {
 				data_[i] -= rhs;
 			}
 			return *this;
 		}
 
 		data_vector& operator-=(const data_vector& rhs) {
-			assert(size() == rhs.size());
-			for (size_type i = 0; i < size(); ++i) {
+			assert(capacity() == rhs.capacity());
+			for (size_type i = 0; i < capacity(); ++i) {
 				data_[i] -= rhs[i];
 			}
 			return *this;
 		}
 
 		data_vector& operator*=(const T rhs) {
-			for (size_type i = 0; i < size(); ++i) {
+			for (size_type i = 0; i < capacity(); ++i) {
 				data_[i] *= rhs;
 			}
 			return *this;
 		}
 
 		data_vector& operator*=(const data_vector& rhs) {
-			assert(size() == rhs.size());
-			for (size_type i = 0; i < size(); ++i) {
+			assert(capacity() == rhs.capacity());
+			for (size_type i = 0; i < capacity(); ++i) {
 				data_[i] *= rhs[i];
 			}
 			return *this;
 		}
 
 		data_vector& operator/=(const T rhs) {
-			for (size_type i = 0; i < size(); ++i) {
+			for (size_type i = 0; i < capacity(); ++i) {
 				data_[i] /= rhs;
 			}
 			return *this;
 		}
 
 		data_vector& operator/=(const data_vector& rhs) {
-			assert(size() == rhs.size());
-			for (size_type i = 0; i < size(); ++i) {
+			assert(capacity() == rhs.capacity());
+			for (size_type i = 0; i < capacity(); ++i) {
 				data_[i] /= rhs[i];
 			}
 			return *this;

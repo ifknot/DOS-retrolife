@@ -2,8 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\retrolib",
-    "\\retrolib\\gfx"
+    "\\retrolib\\file",
+    "\\retrolib\\gfx",
+    "\\retrolib\\math",
+    "\\retrolib\\memory",
+    "\\retrolib\\statistics"
   ],
-  "SelectedNode": "\\retrolib\\file",
+  "SelectedNode": "\\retrolib\\memory\\test_array.h",
   "PreviewInSolutionExplorer": false
 }

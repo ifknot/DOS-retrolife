@@ -28,7 +28,7 @@ namespace test_data_vector {
 			jtl::array<uint32_t, 12> dots = { 1,2,3,4,5,6,7,8,9,10,11,12 };
 			point_vector_t points(dots);
 			std::cout << points << '\n';
-			assert(points.size() == 12);
+			assert(points.capacity() == 12);
 			points.clear();
 			std::cout << points << '\n';
 

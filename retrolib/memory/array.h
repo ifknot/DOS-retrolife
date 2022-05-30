@@ -35,9 +35,9 @@ namespace jtl {
         typedef const value_type* const_pointer;
 
         array& operator=(const array& other) {
-            assert(size() == other.size());
+            assert(capacity() == other.capacity());
             if (this != &other) {
-                for (size_type i = 0; i < size(); ++i) data_[i] = other.data_[i];
+                for (size_type i = 0; i < capacity(); ++i) data_[i] = other.data_[i];
             }
             return *this;
         }
@@ -70,20 +70,16 @@ namespace jtl {
             return data_;
         }
 
-        inline size_type size() const {
+        inline size_type capacity() const {
             return N;
         }
 
-        inline bool empty() const {
-            return N == 0;
-        }
-
         void clear() {
-            for (size_type i = 0; i < size(); ++i) data_[i] = 0;
+            for (size_type i = 0; i < capacity(); ++i) data_[i] = 0;
         }
 
         void fill(const value_type& value) {
-            for (size_type i = 0; i < size(); ++i) data_[i] = value;
+            for (size_type i = 0; i < capacity(); ++i) data_[i] = value;
         }
 
         inline void swap(array& other) {
@@ -93,7 +89,7 @@ namespace jtl {
         }
 
         std::ostream& write(std::ostream& os) const {
-            for (size_type i = 0; i < size(); ++i) {
+            for (size_type i = 0; i < capacity(); ++i) {
                     os << data_[i] << ' ';
             }
                 return os;
@@ -101,7 +97,7 @@ namespace jtl {
 
         std::istream& read(std::istream& is) {
             T datum;
-            for (size_type i = 0; i < size(); ++i) {                           
+            for (size_type i = 0; i < capacity(); ++i) {                           
                 is >> datum;
                 if (is.eof()) break;
                 data_[i] = datum;
@@ -126,12 +122,8 @@ namespace jtl {
         typedef value_type* pointer;
         typedef const value_type* const_pointer;
 
-        inline size_type size() const {
+        inline size_type capacity() const {
             return 0;
-        }
-
-        inline bool empty() const {
-            return true;
         }
 
         inline nullptr_t data() {
