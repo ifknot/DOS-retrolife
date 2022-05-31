@@ -86,16 +86,31 @@ namespace test_data_vector {
                 b += 123;
                 vec_t c(b);
                 assert(c == b);
-                //assert(a != b);
+                assert(a != b);
                 b += 1;
                 assert(c < b);
-                //assert(b > c);
+                assert(b > c);
                 c = b;
-                //assert(c <= b);
-                //assert(b >= c);
+                assert(c <= b);
+                assert(b >= c);
             }
             {
                 std::cout << "serialisation\n"; 
+                jtl::data_vector<char> a(100, 'a');
+                jtl::data_vector<char> b(100);
+                std::cout << a << '\n';
+                std::cout << b << '\n';
+                for (int i = 0; i < 50; ++i) a.pop_back();
+                std::cout << a << '\n';
+                for (int i = 0; i < 50; ++i) a.push_back('A' + i);
+                std::cout << a << '\n';
+                std::ofstream os("resource/data_vec.dat");
+                os << a;
+                os.close();
+                std::ifstream is("resource/data_vec.dat");
+                is >> b;
+                assert(a == b);
+
             }
             std::cout << "success!\n";
         }

@@ -8,6 +8,6 @@
     "\\retrolib\\memory",
     "\\retrolib\\statistics"
   ],
-  "SelectedNode": "\\retrolib\\memory\\test_array.h",
+  "SelectedNode": "\\retrolib\\file\\test_file_streams.h",
   "PreviewInSolutionExplorer": false
 }

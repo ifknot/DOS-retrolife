@@ -199,8 +199,6 @@ namespace jtl {
 
 // non-member function overloads
 
-
-
 template<typename T, jtl::size_t N>
 std::ostream& operator<<(std::ostream& os, const jtl::array<T, N>& a) {
         return a.write(os);

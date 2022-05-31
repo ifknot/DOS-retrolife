@@ -225,6 +225,12 @@ namespace jtl {
                 return true;
             }
 
+// ordering operations
+
+            // sort
+
+            // shuffle
+
 //manipulating operations
 
             data_vector& operator+=(const T rhs) {
@@ -287,6 +293,25 @@ namespace jtl {
                     return *this;
             }
 
+// serialisation
+
+            std::ostream& write(std::ostream& os) const {
+                for (size_type i = 0; i < size_; ++i) {
+                    os << data_[i] << ' ';
+                }
+                return os;
+            }
+
+            std::istream& read(std::istream& is) {
+                T datum;
+                for (size_type i = 0; i < capacity_; ++i) {
+                    is >> datum;
+                    if (is.eof()) break;
+                    data_[i] = datum;
+                }
+                return is;
+            }
+
         private:
 
             size_type size_;
@@ -296,6 +321,38 @@ namespace jtl {
 
         };
 
+}
+
+// non-member function overloads
+
+template<typename T, jtl::size_t N>
+std::ostream& operator<<(std::ostream& os, const jtl::data_vector<T, N>& a) {
+    return a.write(os);
+}
+
+template<typename T, jtl::size_t N>
+std::istream& operator>>(std::istream& is, jtl::data_vector<T, N>& a) {
+    return a.read(is);
+}
+
+template <class T, jtl::size_t N>
+bool operator!= (const jtl::data_vector<T, N>& lhs, const jtl::data_vector<T, N>& rhs) {
+    return !(lhs == rhs);
+}
+
+template <class T, jtl::size_t N>
+bool operator<= (const jtl::data_vector<T, N>& lhs, const jtl::data_vector<T, N>& rhs) {
+    return !(rhs < lhs);
+}
+
+template <class T, jtl::size_t N>
+bool operator>  (const jtl::data_vector<T, N>& lhs, const jtl::data_vector<T, N>& rhs) {
+    return rhs < lhs;
+}
+
+template <class T, jtl::size_t N>
+bool operator>= (const jtl::data_vector<T, N>& lhs, const jtl::data_vector<T, N>& rhs) {
+    return !(lhs < rhs);
 }
 
 template<typename T, jtl::size_t N>
@@ -317,15 +374,5 @@ template<typename T, jtl::size_t N>
 const jtl::data_vector<T, N> operator/ (const jtl::data_vector<T, N>& lhs, const jtl::data_vector<T, N>& rhs) {
         return jtl::data_vector<T, N>(lhs) /= jtl::data_vector<T, N>(rhs);
 }
-
-template<typename T, jtl::size_t N>
-std::ostream& operator<<(std::ostream& os, const jtl::data_vector<T, N>& a) {
-    for (jtl::size_t i = 0; i < a.size(); ++i) {
-        os << a[i] << ' ';
-    }
-    return os;
-}
-
-
 
 #endif
