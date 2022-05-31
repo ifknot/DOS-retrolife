@@ -50,48 +50,70 @@ namespace hga {
 
         void cls(uint8_t buffer = 0) {
                 __asm {
-                        .8086
-                        mov     ax, HGA_VIDEO_RAM_SEGMENT
-            test    buffer, 1               ; which buffer ?
-            jz      J0
-            add     ax, 800h                ; second buffer
-    J0:     mov     es, ax
-                        xor             di, di
-                        mov             cx, 4000h               ; 16K words VRAM buffer 32K bytes
-                        xor             ax, ax                  ; zero ax
-                        cld                                             ; increment mode
-                        rep             stosw                   ; clear VRAM buffer
+                    .8086
+                    push    ax
+                    push    es
+                    push    di
+                    push    cx
+
+                    mov     ax, HGA_VIDEO_RAM_SEGMENT
+                    test    buffer, 1               ; which buffer ?
+                    jz      J0
+                    add     ax, 800h                ; second buffer
+    J0:             mov     es, ax
+                    xor     di, di
+                    mov     cx, 4000h               ; 16K words VRAM buffer 32K bytes
+                    xor     ax, ax                  ; zero ax
+                    cld                                             ; increment mode
+                    rep     stosw                   ; clear VRAM buffer
+
+                    pop     cx
+                    pop     di
+                    pop     es
+                    pop     ax
                 }
         }
 
 
         void swap_buffers() {
                 __asm {
-                        xor             active_buffer, 1        ; flip to other page  using xor 0 -> 1 so 1 -> 0
-                        mov             dx, HGA_CONTROL_REGISTER
-                        cmp             active_buffer, 1
-                        je              L0
-                        mov             al, 00001010b           ; screen on
-                        out             dx, al
-                        jmp             END
-        L0:             mov             al, 10001010b           ; screen on
-                        out             dx, al
-        END:
+                    .8086
+                    push dx
+                    push ax
+
+                    xor     active_buffer, 1        ; flip to other page  using xor 0 -> 1 so 1 -> 0
+                    mov     dx, HGA_CONTROL_REGISTER
+                    cmp     active_buffer, 1
+                    je      L0
+                    mov     al, 00001010b           ; screen on
+                    out     dx, al
+                    jmp     END
+    L0:             mov     al, 10001010b           ; screen on
+                    out     dx, al
+    
+    END:            pop     ax
+                    pop     dx
                 }
         }
 
         void select_buffer(uint8_t buffer) {
                 active_buffer = buffer;
                 __asm {
-                        mov             dx, HGA_CONTROL_REGISTER
-                        cmp             buffer, 1
-                        je              L0
-                        mov             al, 00001010b           ; screen on graphics mode page 1
-                        out             dx, al
-                        jmp             END
-        L0:             mov             al, 10001010b           ; screen on graphics mode page 2
-                        out             dx, al
-        END:
+                    .8086
+                    push dx
+                    push ax
+
+                    mov     dx, HGA_CONTROL_REGISTER
+                    cmp     buffer, 1
+                    je      L0
+                    mov     al, 00001010b           ; screen on graphics mode page 1
+                    out     dx, al
+                    jmp     END
+    L0:             mov     al, 10001010b           ; screen on graphics mode page 2
+                    out     dx, al
+        
+    END:            pop     ax
+                    pop     dx
                 }
         }
 
@@ -103,58 +125,68 @@ namespace hga {
          */
         void text_mode() {
                 const uint8_t text_mode_6845[32] = {
-                        // reg  value   meaning
-                                0,      97, // horizontal character seeded
-                                1,      80, // horizontal character displayed
-                                2,      82, // horizontal sync signal after character
-                                3,      15, // horizontal sync signal width
-                                4,      25, // vertical character seeded
-                                5,       6, // vertical character justified
-                                6,      25, // vertical character displayed
-                                7,      25, // vertical sync signal after character
-                                8,       2, // interlace mode
-                                9,      13, // scan-lines per line
-                                10,     11, // starting line of blinking cursor
-                                11,     12, // ending line of blinking cursor
-                                12,  0, // hi byte of screen page start address
-                                13,      0, // lo byte of screen page start address
-                                14,      0, // hi byte of blinking cursor character address
-                                15,      0  // lo byte of blinking cursor character address
-                        //  16      reserved
-                        //  17      reserved
+                // reg  value   meaning
+                    0,      97, // horizontal character seeded
+                    1,      80, // horizontal character displayed
+                    2,      82, // horizontal sync signal after character
+                    3,      15, // horizontal sync signal width
+                    4,      25, // vertical character seeded
+                    5,       6, // vertical character justified
+                    6,      25, // vertical character displayed
+                    7,      25, // vertical sync signal after character
+                    8,       2, // interlace mode
+                    9,      13, // scan-lines per line
+                    10,     11, // starting line of blinking cursor
+                    11,     12, // ending line of blinking cursor
+                    12,  0, // hi byte of screen page start address
+                    13,      0, // lo byte of screen page start address
+                    14,      0, // hi byte of blinking cursor character address
+                    15,      0  // lo byte of blinking cursor character address
+                //  16      reserved
+                //  17      reserved
                 };
                 __asm {
-                        .8086
-                        // enable text mode via the Hercules control register 3B8h
-                        // bit 0 = 0 disable bit 1 of control register 03B8h
-                        // bit 1 = 0 disable second 32k of RAM ("Full" mode)
-                        mov             dx, HGA_CONFIG_REGISTER
-                        mov             al, 00000000b                           ; text mode single display page
-                        out             dx, al
+                    .8086
+                    push    dx
+                    push    ax
+                    push    si
+                    push    cx
 
-                        // program text mode with screen off
-                        // bit 1 = 0 set text mode
-                        // bit 3 = 0 screen off
-                        // bit 5 = 0 blink off
-                        // bit 7 = 0 display page 1
-                        mov             dx, HGA_CONTROL_REGISTER
-                        mov             al, 00000000b                           ; enter text "half" mode single display frame(mimic MDA)
-                        out             dx, al
+                    // enable text mode via the Hercules control register 3B8h
+                    // bit 0 = 0 disable bit 1 of control register 03B8h
+                    // bit 1 = 0 disable second 32k of RAM ("Full" mode)
+                    mov     dx, HGA_CONFIG_REGISTER
+                    mov     al, 00000000b                           ; text mode single display page
+                    out     dx, al
 
-                        // program the CRTC for text mode
-                        lea             si, text_mode_6845
-                        cld                                                                     ; increment mode
-                        mov             cx, 16                                          ; 16 registers of the 6845
-                        mov             dx, CRTC_ADDRESS_PORT
+                    // program text mode with screen off
+                    // bit 1 = 0 set text mode
+                    // bit 3 = 0 screen off
+                    // bit 5 = 0 blink off
+                    // bit 7 = 0 display page 1
+                    mov     dx, HGA_CONTROL_REGISTER
+                    mov     al, 00000000b                           ; enter text "half" mode single display frame(mimic MDA)
+                    out     dx, al
 
-        L0:             lodsw                                                           ; al = register ah = data
-                        out             dx, ax                                          ; write data to 6845 register
-                        loop    L0
+                    // program the CRTC for text mode
+                    lea     si, text_mode_6845
+                    cld                                                                     ; increment mode
+                    mov     cx, 16                                  ; 16 registers of the 6845
+                    mov     dx, CRTC_ADDRESS_PORT
 
-                        // screen on
-                        mov             dx, HGA_CONTROL_REGISTER
-                        mov             al, 00001000b; bit 3 = 0 screen on text mode page 1
-                        out             dx, al
+    L0:             lodsw                                           ; al = register ah = data
+                    out     dx, ax                                  ; write data to 6845 register
+                    loop    L0
+
+                    // screen on
+                    mov     dx, HGA_CONTROL_REGISTER
+                    mov     al, 00001000b                           ; bit 3 = 0 screen on text mode page 1
+                    out     dx, al
+
+                    pop     cx
+                    pop     si
+                    pop     ax
+                    pop     dx
                 }
         }
 
@@ -189,6 +221,11 @@ namespace hga {
                 };
                 __asm {
                         .8086
+                        push    dx
+                        push    ax
+                        push    si
+                        push    cx
+
                         // enable graphics mode via the Hercules control register 3B8h
                         // Set bit 0 of 3BFh to enable bit 1 of 3B8h
                         // Set bit 1 of 3BFh to enable bit 7 of 3B8h and the second 32k of RAM ("Full" mode).
@@ -221,6 +258,11 @@ namespace hga {
                         mov             dx, HGA_CONTROL_REGISTER
                         mov             al, 00001010b                   ; bit 3 = 0 screen on graphics mode page 1
                         out             dx, al
+
+                        pop     cx
+                        pop     si
+                        pop     ax
+                        pop     dx
                 }
         }
 
@@ -232,45 +274,49 @@ namespace hga {
                 uint16_t pen_regs = 0;
                 __asm {
                         .8086
+                        push dx
+                        push ax
 
-                        mov             dx, CRTC_LIGHT_PEN_RESET        ; reset the CRTC light pen latch
-                        out             dx, al                                          ; writing anything to this port resets the light pen
+                        mov     dx, CRTC_LIGHT_PEN_RESET        ; reset the CRTC light pen latch
+                        out     dx, al                                          ; writing anything to this port resets the light pen
 
-                        mov             dx, CRTC_STATUS_PORT            ; wait for start of vertical retrace
-        L1:             in              al, dx                                          ; read status port
+                        mov     dx, CRTC_STATUS_PORT            ; wait for start of vertical retrace
+        L1:             in      al, dx                                          ; read status port
                         test    al, 80h                                         ; is horizontal retrace active?
-                        jnz             L1                                                      ; retrace still active
+                        jnz     L1                                                      ; retrace still active
 
-        L2:             in              al, dx                                          ; read status port again
+        L2:             in      al, dx                                          ; read status port again
                         test    al, 80h                                         ; is horizontal retrace active?
-                        jz              L2                                                      ; not yet
+                        jz      L2                                                      ; not yet
 
                         cli                                                                     ; disable interupts
-        L3:             in              al, dx                                          ; read status port again
+        L3:             in      al, dx                                          ; read status port again
                         test    al, 80h                                         ; is horizontal retrace active ?
                         jnz             L3                                                      ; wait for it to to finish
 
-                        mov             dx, CRTC_LIGHT_PEN_LATCH        ; latch the light pen register counter
-                        out             dx, al                                          ; writing anything captures
+                        mov     dx, CRTC_LIGHT_PEN_LATCH        ; latch the light pen register counter
+                        out     dx, al                                          ; writing anything captures
                         sti                                                                     ; re-enable interupts
 
-                        mov             dx, CRTC_ADDRESS_PORT
-                        mov             al, 10h                                         ; Light Pen high register number
-                        out             dx, al                                          ; latch high register
+                        mov     dx, CRTC_ADDRESS_PORT
+                        mov     al, 10h                                         ; Light Pen high register number
+                        out     dx, al                                          ; latch high register
 
-                        mov             dx, CRTC_DATA_PORT
-                        in              al, dx                                          ; high reg in al
-                        mov             ah, al                                          ; copy to ah
+                        mov     dx, CRTC_DATA_PORT
+                        in      al, dx                                          ; high reg in al
+                        mov     ah, al                                          ; copy to ah
 
-                        mov             dx, CRTC_ADDRESS_PORT
-                        mov             al, 11h                                         ; Light Pen low register number
+                        mov     dx, CRTC_ADDRESS_PORT
+                        mov     al, 11h                                         ; Light Pen low register number
                         out             dx, al                                          ; latch low register
 
-                        mov             dx, CRTC_DATA_PORT
-                        in              al, dx                                          ; low reg in al
+                        mov     dx, CRTC_DATA_PORT
+                        in      al, dx                                          ; low reg in al
 
-                        mov             pen_regs, ax
+                        mov     pen_regs, ax
 
+                        pop     ax
+                        pop     dx
                 }
                 return pen_regs;
         }

@@ -40,34 +40,13 @@
 #ifndef HGA_PLOT_POINT_H
 #define HGA_PLOT_POINT_H
 
+#include "../point_2d.h"
+
 #include "hga_constants.h"
 
 //#define ENABLE_MUL
 
 namespace hga {
-
-    struct point_t {
-
-        uint16_t y, x;  // 32bits of 2 x 16 bit words, y is loaded first by the asm plot routine and little endian must be taken into account
-
-    };
-
-
-    union union_point_t {
-
-        uint32_t dword;
-        point_t word;
-
-        union_point_t() : dword(0) {}
-
-        union_point_t(uint32_t dword) : dword(dword) {}
-
-        union_point_t(uint16_t x, uint16_t y) {
-            word.x = x;
-            word.y = y;
-        }
-
-    };
 
     namespace screen_bound {
 
@@ -85,6 +64,12 @@ namespace hga {
         void write_pixel(size_type x, size_type y, colour_t colour, uint8_t buffer = 0) {
             __asm {
                 .8086
+                push    ax
+                push    es
+                push    dx
+                push    bx
+                push    cx
+                push    di
 
                 mov     ax, HGA_VIDEO_RAM_SEGMENT
                 test    buffer, 1               ; which buffer ?
@@ -155,10 +140,10 @@ namespace hga {
 #ifdef SYNCHRONISED     // will need al so cost an extra mov reg, reg to copy into cl
                 mov     cl, al                  ; copy mask byte
                 mov     dx, CGA_STATUS_REG      ; CGA status reg
-        L0:     in      al, dx                  ; read status
+        S0:     in      al, dx                  ; read status
                 test    al, 1000b               ; is bit 3 set ? (in a vertical retrace interval)
                 jnz     L0                      ; yes, keep waiting
-        L1:     in      al, dx                  ; read status
+        S1:     in      al, dx                  ; read status
                 test    al, 1000b               ; is bit 3 set ? (just started a vertical retrace interval)
                 jnz     L1                      ; no, keep waiting
 
@@ -168,15 +153,26 @@ namespace hga {
 #endif
                 or      es:[di], ah             ; plot point
 
-        END:
+         END:   pop     di
+                pop     cx
+                pop     bx
+                pop     dx
+                pop     es
+                pop     ax
             }
         }
 
-        void plot_point(union_point_t point, uint8_t buffer = 0) {
+        void plot_point(jtl::union_point_t point, uint8_t buffer = 0) {
             uint16_t x = point.word.x;
             uint16_t y = point.word.y;
             __asm {
                 .8086
+                push    ax
+                push    es
+                push    dx
+                push    bx
+                push    cx
+                push    di
 
                 mov     ax, HGA_VIDEO_RAM_SEGMENT
                 test    buffer, 1               ; which buffer ?
@@ -227,24 +223,35 @@ namespace hga {
 #ifdef SYNCHRONISED
 
                 mov     dx, CGA_STATUS_REG      ; CGA status reg
-        L0:     in      al, dx                  ; read status
+        S0:     in      al, dx                  ; read status
                 test    al, 1000b               ; is bit 3 set ? (in a vertical retrace interval)
                 jnz     L0                      ; yes, keep waiting
-        L1:     in      al, dx                  ; read status
+        S1:     in      al, dx                  ; read status
                 test    al, 1000b               ; is bit 3 set ? (just started a vertical retrace interval)
                 jnz     L1                      ; no, keep waiting
 #endif
                 or      es:[di], ah             ; plot point
 
-            END:
+        END:    pop     di
+                pop     cx
+                pop     bx
+                pop     dx
+                pop     es
+                pop     ax
             }
         }
 
-        void unplot_point(union_point_t point, uint8_t buffer = 0) {
+        void unplot_point(jtl::union_point_t point, uint8_t buffer = 0) {
             uint16_t x = point.word.x;
             uint16_t y = point.word.y;
             __asm {
                 .8086
+                push    ax
+                push    es
+                push    dx
+                push    bx
+                push    cx
+                push    di
 
                 mov     ax, HGA_VIDEO_RAM_SEGMENT
                 test    buffer, 1               ; which buffer ?
@@ -296,24 +303,38 @@ namespace hga {
 #ifdef SYNCHRONISED
 
                 mov     dx, CGA_STATUS_REG      ; CGA status reg
-        L0:     in      al, dx                  ; read status
+        S0:     in      al, dx                  ; read status
                 test    al, 1000b               ; is bit 3 set ? (in a vertical retrace interval)
                 jnz     L0                      ; yes, keep waiting
-        L1:     in      al, dx                  ; read status
+        S1:     in      al, dx                  ; read status
                 test    al, 1000b               ; is bit 3 set ? (just started a vertical retrace interval)
                 jnz     L1                      ; no, keep waiting
 #endif
                 and     es:[di], ah             ; unplot point
 
-        END:
+        END:    pop     di
+                pop     cx
+                pop     bx
+                pop     dx
+                pop     es
+                pop     ax
             }
         }
 
         void plot_multi_point(uint32_t* point_data, uint16_t size, uint8_t buffer = 0) {
             __asm {
                 .8086
+                push    ds
+                push    si
+                push    ax
+                push    es
+                push    dx
+                push    bx
+                push    cx
+                push    di
 
                 lds     si, point_data          ; ds:[si] points to list of points to plot
+                // NB must compile memory model large
                 mov     cx, size                ; number of points to plot
                 cld                             ; increment mode
 
@@ -326,7 +347,7 @@ namespace hga {
         J0:     mov     es, ax
                 lodsw                           ; load y into ax from data, then perform screen clipping
                 cmp     ax, SCREEN_Y_MAX        ; compare bx with y maximum boundry
-                jge     END                     ; nothing to plot
+                jge     L1                     ; nothing to plot
                 mov     dx, ax                  ; copy y
 #ifdef ENABLE_MUL
                 shr     ax, 1                   ; calculate y / 4
@@ -357,7 +378,7 @@ namespace hga {
                 lodsw                           ; load x from data
                 mov     di, ax                  ; move x into di and clip to screen bounds
                 cmp     di, SCREEN_X_MAX        ; compare di with x maximum boundry
-                jge     END                     ; nothing to plot
+                jge     L1                     ; nothing to plot
                 mov     cx, di                  ; copy of x in cx
                 shr     di, 1                   ; calculate column byte x / 8
                 shr     di, 1                   ; 8086 limited to single step shifts
@@ -369,27 +390,43 @@ namespace hga {
                 shr     ah, cl                  ; shift single bit along by x mod 8
 #ifdef SYNCHRONISED
                 mov     dx, CGA_STATUS_REG      ; CGA status reg
-        L0:     in      al, dx                  ; read status
+        S0:     in      al, dx                  ; read status
                 test    al, 1000b               ; is bit 3 set ? (in a vertical retrace interval)
                 jnz     L0                      ; yes, keep waiting
-        L1:     in      al, dx                  ; read status
+        S1:     in      al, dx                  ; read status
                 test    al, 1000b               ; is bit 3 set ? (just started a vertical retrace interval)
                 jnz     L1                      ; no, keep waiting
 #endif
                 or      es:[di], ah             ; plot point
 
-                pop     cx                      ; restore the counter from stack
+        L1:     pop     cx                      ; restore the counter from stack
                 loop    L0                      ; plot next point until all done
-
-        END:
+            
+                pop     di
+                pop     cx
+                pop     bx
+                pop     dx
+                pop     es
+                pop     ax
+                pop     si
+                pop     ds
             }
         }
 
         void unplot_multi_point(uint32_t* point_data, uint16_t size, uint8_t buffer = 0) {
             __asm {
                 .8086
+                push    ds
+                push    si
+                push    ax
+                push    es
+                push    dx
+                push    bx
+                push    cx
+                push    di               
 
                 lds     si, point_data          ; ds:[si] points to list of points to plot
+                // NB must compile memory model large
                 mov     cx, size                ; number of points to plot
                 cld                             ; increment mode
 
@@ -402,7 +439,7 @@ namespace hga {
         J0:     mov     es, ax
                 lodsw                           ; load y into ax from data, then perform screen clipping
                 cmp     ax, SCREEN_Y_MAX        ; compare bx with y maximum boundry
-                jge     END                     ; nothing to plot
+                jge     L1                    ; nothing to plot
                 mov     dx, ax                  ; copy y
 #ifdef ENABLE_MUL
                 shr     ax, 1                   ; calculate y / 4
@@ -433,7 +470,7 @@ namespace hga {
                 lodsw                           ; load x from data
                 mov     di, ax                  ; move x into di and clip to screen bounds
                 cmp     di, SCREEN_X_MAX        ; compare di with x maximum boundry
-                jge     END                     ; nothing to plot
+                jge     L1                     ; nothing to plot
                 mov     cx, di                  ; copy of x in cx
                 shr     di, 1                   ; calculate column byte x / 8
                 shr     di, 1                   ; 8086 limited to single step shifts
@@ -445,19 +482,26 @@ namespace hga {
                 ror     ah, cl                  ; roll mask around by x mod 8
 #ifdef SYNCHRONISED
                 mov     dx, CGA_STATUS_REG      ; CGA status reg
-        L0:     in      al, dx                  ; read status
+        S0:     in      al, dx                  ; read status
                 test    al, 1000b               ; is bit 3 set ? (in a vertical retrace interval)
                 jnz     L0                      ; yes, keep waiting
-        L1:     in      al, dx                  ; read status
+        S1:     in      al, dx                  ; read status
                 test    al, 1000b               ; is bit 3 set ? (just started a vertical retrace interval)
                 jnz     L1                      ; no, keep waiting
 #endif
                 and     es:[di], ah             ; unplot point
 
-                pop     cx                      ; restore the counter from stack
+        L1:     pop     cx                      ; restore the counter from stack
                 loop    L0                      ; plot next point until all done
 
-        END:
+                pop     di
+                pop     cx
+                pop     bx
+                pop     dx
+                pop     es
+                pop     ax
+                pop     si
+                pop     ds
             }
         }
 

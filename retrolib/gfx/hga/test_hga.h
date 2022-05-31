@@ -16,20 +16,24 @@
 #include <cmath>
 #include <stdio.h>
 
+#include "../../bios/bios_clock_services.h"
 #include "../../bios/bios_video_services.h"
-#include "../../jtl/array.h"
+
+#include "../../memory/array.h"
+
+#include "../point_2d.h"
 
 #include "hga.h"
 #include "hga_plot_point.h"
 
-#include "../../bios/bios_clock_services.h"
+
 
 namespace test_hga {
 
         void fill_screen() {
             for (int y = 0; y < 348; y += 2) {
                 for (int x = 0; x < 720; x += 2) {
-                    hga::screen_bound::write_pixel(x, y, hga::colour::white, 1);
+                    hga::screen_bound::write_pixel(x, y, hga::colour::white);
                 }
             }
         }
@@ -51,6 +55,7 @@ namespace test_hga {
                     x += 2;
             }
         }
+
         void run() {
 
             std::cout
@@ -59,7 +64,7 @@ namespace test_hga {
                 << "\ntest Hercules...\n";
             
             uint32_t time = 0;
-
+          
             // read the light pen registers
             /* {
                 std::cout
@@ -81,18 +86,19 @@ namespace test_hga {
                 hga::cls();
             }
             // test write_pixel and time filling screen with every other pixel
-            /* {
+            {
                 bios::set_system_clock_counter(0);
                 cross_hairs();
                 time = bios::read_system_clock_counter();
-                fill_screen();
+                //fill_screen();
                 time = bios::read_system_clock_counter() - time;
-                black_diagonals();
-            }*/
+                //black_diagonals();
+                //std::getchar();
+            }
             // test plot pixels from array of dword points
             {
                 uint32_t data[16];
-                hga::union_point_t point;
+                jtl::union_point_t point;
                 int x = 0;
                 for (int y = 0; y < 16; ++y) { // build multi-point data array
                     point.word.y = 100 + y;
@@ -106,7 +112,7 @@ namespace test_hga {
             //swap buffers
             {
                 uint32_t data[16];
-                hga::union_point_t point;
+                jtl::union_point_t point;
                 int x = 0;
                 for (int y = 0; y < 16; ++y) { // build multi-point data array
                     point.word.y = 100 + y;
@@ -128,7 +134,7 @@ namespace test_hga {
                 hga::text_mode();
                 std::cout << std::dec << "time = " << time << '\n';
                 perror("error:");
-
+                
             }
 
             std::cout << "success!\n";
@@ -138,40 +144,3 @@ namespace test_hga {
 }
 
 #endif
-
-/*
-
-{
-                        const double PI = 3.14159;
-
-                        double w = 141;
-                        double h = 141;
-                        double xstep = 1;
-                        double ystep = 3;
-                        double delta = 70;
-                        double k = 80;
-                        double factor = -0.001;
-                        jtl::size_t xnudge = 300;
-                        jtl::size_t ynudge = 180;
-                        jtl::array<jtl::size_t, 255> m;
-                        m.clear();
-
-                        double a = std::cos(PI / 4);
-                        for (double y = 1; y < h; y += ystep) {
-                                double e = a * y;
-                                double c = y - delta;
-                                c = c * c;
-                                for (double x = 1; x < w; x += xstep) {
-                                        double d = x - delta;
-                                        double z = k * std::exp(factor * (c + d * d));
-                                        jtl::size_t x1 = static_cast<jtl::size_t>(x + e);
-                                        jtl::size_t y1 = static_cast<jtl::size_t>(z + e);
-                                        if (y1 >= m[x1]) {
-                                                m[x1] = y1;
-                                                hga::screen_bound::plot_point(x1 + xnudge, ynudge - y1, hga::colour::white);
-                                        }
-                                }
-                        }
-                }
-
-*/
