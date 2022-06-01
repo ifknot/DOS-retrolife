@@ -163,8 +163,8 @@ namespace hga {
         }
 
         void plot_point(jtl::union_point_t point, uint8_t buffer = 0) {
-            uint16_t x = point.word.x;
-            uint16_t y = point.word.y;
+            uint16_t x = point.p.x;
+            uint16_t y = point.p.y;
             __asm {
                 .8086
                 push    ax
@@ -242,8 +242,8 @@ namespace hga {
         }
 
         void unplot_point(jtl::union_point_t point, uint8_t buffer = 0) {
-            uint16_t x = point.word.x;
-            uint16_t y = point.word.y;
+            uint16_t x = point.p.x;
+            uint16_t y = point.p.y;
             __asm {
                 .8086
                 push    ax

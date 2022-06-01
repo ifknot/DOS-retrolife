@@ -21,7 +21,13 @@ namespace test_point_vector_2d {
 	void run() {
 		std::cout << "test_point_vector_2d... \n";
 		{
+			jtl::point_vector_2d<256> a;
+			std::cout << std::hex;
+			std::cout << a.size() << ' ' << a << '\n';
+			a.add(0xDEAD, 0xBEEF);
+			std::cout << a.size() << ' ' << a << '\n';
 
+			
 		}
 		std::cout << "success!\n";
 	}

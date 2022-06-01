@@ -101,8 +101,8 @@ namespace test_hga {
                 jtl::union_point_t point;
                 int x = 0;
                 for (int y = 0; y < 16; ++y) { // build multi-point data array
-                    point.word.y = 100 + y;
-                    point.word.x = 100 - x;
+                    point.p.y = 100 + y;
+                    point.p.x = 100 - x;
                     x += 2;
                     data[y] = point.dword;
                 }
@@ -115,8 +115,8 @@ namespace test_hga {
                 jtl::union_point_t point;
                 int x = 0;
                 for (int y = 0; y < 16; ++y) { // build multi-point data array
-                    point.word.y = 100 + y;
-                    point.word.x = 100 + x;
+                    point.p.y = 100 + y;
+                    point.p.x = 100 + x;
                     x += 2;
                     data[y] = point.dword;
                 }

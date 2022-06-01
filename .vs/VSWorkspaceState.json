@@ -4,10 +4,10 @@
     "\\retrolib",
     "\\retrolib\\file",
     "\\retrolib\\gfx",
+    "\\retrolib\\gfx\\hga",
     "\\retrolib\\math",
-    "\\retrolib\\memory",
     "\\retrolib\\statistics"
   ],
-  "SelectedNode": "\\retrolib\\file\\test_file_streams.h",
+  "SelectedNode": "\\retrolib\\gfx\\hga\\hga_plot_point.h",
   "PreviewInSolutionExplorer": false
 }

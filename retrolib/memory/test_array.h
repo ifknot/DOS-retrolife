@@ -16,6 +16,7 @@
 #include <fstream>
 
 #include "array.h"
+#include "../file/checksum.h"
 
 namespace test_array {
 
@@ -96,6 +97,7 @@ namespace test_array {
             {
                 std::cout << "serialisation\n";
                 jtl::array<uint32_t, 12> a = { 1,2,3,4,5,6,7,8,9,10,11,12 };
+                assert(jtl::checksum(a.data(), (uint16_t)12) == 78); // ap_sum
                 jtl::array<uint32_t, 12> b;
                 b.zero();
                 std::cout << a << '\n';

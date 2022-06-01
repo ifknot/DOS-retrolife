@@ -24,15 +24,15 @@ namespace jtl {
     union union_point_t {
 
         uint32_t dword;
-        point_t word;
+        point_t p;
 
         union_point_t() : dword(0) {}
 
         union_point_t(uint32_t dword) : dword(dword) {}
 
         union_point_t(uint16_t x, uint16_t y) {
-            word.x = x;
-            word.y = y;
+            p.x = x;
+            p.y = y;
         }
 
     };

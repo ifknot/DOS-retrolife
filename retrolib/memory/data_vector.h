@@ -37,9 +37,10 @@ namespace jtl {
             typedef const T* const_iterator;
             //reverse_iterator
             //const_reverse_iterator
-            typedef T value_type;
             typedef size_t size_type;
             typedef ptrdiff_t difference_type;
+
+// construction
 
             // empty container constructor
             data_vector() : 
@@ -116,7 +117,11 @@ namespace jtl {
                 return N;
             }
 
-            // resize
+            void resize(size_type n, value_type val = value_type()) {
+                assert(n <= N);
+                size_(n),
+                capacity_(size_),
+            }
 
             inline size_type capacity() const {
                 return capacity_;
@@ -327,13 +332,13 @@ namespace jtl {
 // non-member function overloads
 
 template<typename T, jtl::size_t N>
-std::ostream& operator<<(std::ostream& os, const jtl::data_vector<T, N>& a) {
-    return a.write(os);
+std::ostream& operator<<(std::ostream& os, const jtl::data_vector<T, N>& v) {
+    return v.write(os);
 }
 
 template<typename T, jtl::size_t N>
-std::istream& operator>>(std::istream& is, jtl::data_vector<T, N>& a) {
-    return a.read(is);
+std::istream& operator>>(std::istream& is, jtl::data_vector<T, N>& v) {
+    return v.read(is);
 }
 
 template <class T, jtl::size_t N>
