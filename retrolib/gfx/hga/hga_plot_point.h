@@ -323,7 +323,7 @@ namespace hga {
             }
         }
 
-        void plot_multi_point(uint32_t* point_data, uint16_t size, uint8_t buffer = 0) {
+        void plot_multi_point(const uint32_t* point_data, uint16_t size, uint8_t buffer = 0) {
             __asm {
                 .8086
                 push    ds
@@ -415,7 +415,7 @@ namespace hga {
             }
         }
 
-        void unplot_multi_point(uint32_t* point_data, uint16_t size, uint8_t buffer = 0) {
+        void unplot_multi_point(const uint32_t* point_data, uint16_t size, uint8_t buffer = 0) {
             __asm {
                 .8086
                 push    ds

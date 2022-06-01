@@ -1,0 +1,2 @@
+retrolib/gfx/../memory/data_vector.h(162): Warning! W014: col(13) no reference to symbol 'mode_names'
+retrolib/gfx/../gfx/hga/hga_constants.h(122): Note! N392: col(16) definition: 'char const hga::mode_names[2][255]'
