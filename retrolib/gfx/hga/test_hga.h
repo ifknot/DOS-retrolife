@@ -105,8 +105,9 @@ namespace test_hga {
                     point.p.x = 100 - x;
                     x += 2;
                     data[y] = point.dword;
+                    hga::screen_bound::plot_point(point.dword);
                 }
-                hga::screen_bound::plot_multi_point(data, 16);
+                //hga::screen_bound::plot_multi_point(data, 16);
                 std::getchar();
             }
             //swap buffers

@@ -12,13 +12,19 @@
 
 #include <stdint.h>
 
+#define LITTLE_ENDIAN
+
 namespace jtl {
+
+#ifdef LITTLE_ENDIAN
 
 	struct word_t {
 
 		int8_t hi, lo; 
 
 	};
+
+#endif
 
 	union union_word_t {
 
@@ -37,11 +43,15 @@ namespace jtl {
 
 	};
 
+#ifdef LITTLE_ENDIAN
+
 	struct dword_t {
 
 		int16_t hi, lo;
 
 	};
+
+#endif
 
 	union union_dword_t {
 

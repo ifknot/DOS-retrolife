@@ -13,10 +13,14 @@
 #include <fstream>
 #include <string>
 
-#include "..\dos\dos_error_messages.h"
+#include "../dos/dos_error_messages.h"
+
+#include "../file/checksum.h"
 
 #include "../memory/data_vector.h"
+#include "../memory/memory_unions.h"
 #include "../memory/size_t.h"
+
 
 #include "point_2d.h"
 
@@ -47,16 +51,14 @@ namespace jtl{
 
 // element access
 
-                inline const_pointer data() {
+                inline const_pointer data() const {
                         return points.data();
                 }
 
 // modifiers
 
                 void add(size_type x, size_type y) {
-                        union_point_t point;
-                        point.p.x = x;
-                        point.p.y = y;
+                        union_point_t point(x, y);
                         points.push_back(point.dword);
                 }
 
@@ -89,20 +91,32 @@ namespace jtl{
             return points.write(os);
         }
 
-        void save(std::string file_path) {
-            std::ofstream os(file_path.c_str(), std::ofstream::binary);
-            if (!f->is_open()) {
+        void read(std::string file_path) {
+            std::ifstream is(file_path.c_str(), std::ofstream::binary);
+            if (!is.is_open()) {
                 std::cerr << dos::error::messages[dos::error::FILE_NOT_FOUND] << file_path.c_str() << '\n';
             }
+            union_dword_t header;
+            is.read(reinterpret_cast<char*>(&header.word), sizeof(header.word));
+            points.resize(header.word.hi);
+            is.read(reinterpret_cast<char*>(points.data()), size() * sizeof(point_vector_t::value_type));
         }
 
-        void load(std::string file_path) {
-
+        void write(std::string file_path) {
+            std::ofstream os(file_path.c_str(), std::ofstream::binary);
+            if (!os.is_open()) {
+                std::cerr << dos::error::messages[dos::error::FILE_NOT_FOUND] << file_path.c_str() << '\n';
+            }
+            uint16_t sum = checksum(points.data(), size());
+            union_dword_t header(size(), sum);
+            os.write(reinterpret_cast<const char*>(&header.dword), sizeof(header.dword));
+            os.write(reinterpret_cast<const char*>(points.data()), size() * sizeof(point_vector_t::value_type));
         }
 
         private:
 
                 point_vector_t points;
+
 
         };
 

@@ -16,7 +16,7 @@ namespace jtl {
 
     struct point_t {
 
-        uint16_t y, x;  // 32bits of 2 x 16 bit words, y is loaded first by the asm plot routine and little endian must be taken into account
+        uint16_t y , x;  
 
     };
 

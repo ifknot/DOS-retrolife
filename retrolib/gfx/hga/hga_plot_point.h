@@ -162,9 +162,10 @@ namespace hga {
             }
         }
 
-        void plot_point(jtl::union_point_t point, uint8_t buffer = 0) {
-            uint16_t x = point.p.x;
-            uint16_t y = point.p.y;
+        void plot_point(uint32_t point, uint8_t buffer = 0) {
+            uint16_t y = static_cast<uint16_t>(point);
+            point >>= 16;
+            uint16_t x = static_cast<uint16_t>(point);
             __asm {
                 .8086
                 push    ax
@@ -241,9 +242,10 @@ namespace hga {
             }
         }
 
-        void unplot_point(jtl::union_point_t point, uint8_t buffer = 0) {
-            uint16_t x = point.p.x;
-            uint16_t y = point.p.y;
+        void unplot_point(uint32_t point, uint8_t buffer = 0) {
+            uint16_t y = static_cast<uint16_t>(point);
+            point >>= 16;
+            uint16_t x = static_cast<uint16_t>(point);
             __asm {
                 .8086
                 push    ax
@@ -347,7 +349,7 @@ namespace hga {
         J0:     mov     es, ax
                 lodsw                           ; load y into ax from data, then perform screen clipping
                 cmp     ax, SCREEN_Y_MAX        ; compare bx with y maximum boundry
-                jge     L1                     ; nothing to plot
+                jge     L1                      ; nothing to plot
                 mov     dx, ax                  ; copy y
 #ifdef ENABLE_MUL
                 shr     ax, 1                   ; calculate y / 4

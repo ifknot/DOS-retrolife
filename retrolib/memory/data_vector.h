@@ -43,15 +43,15 @@ namespace jtl {
 // construction
 
             // empty container constructor
-            data_vector() : 
-                size_(0), 
-                capacity_(0), 
-                data_(new T[N]) 
+            data_vector() :
+                size_(0),
+                capacity_(0),
+                data_(new T[N])
             {}
 
             // fill constructor
-            explicit data_vector(size_type n, const value_type& val = value_type(), bool f = true) : 
-                size_(n), 
+            explicit data_vector(size_type n, const value_type& val = value_type(), bool f = true) :
+                size_(n),
                 capacity_(size_),
                 data_(new T[N])
             {
@@ -63,10 +63,10 @@ namespace jtl {
 
             // range constructor
             template<typename InputIterator>
-            data_vector(InputIterator first, const InputIterator last) :  
-                size_(last - first), 
-                capacity_(size_), 
-                data_(new T[N]) 
+            data_vector(InputIterator first, const InputIterator last) :
+                size_(last - first),
+                capacity_(size_),
+                data_(new T[N])
             {
                 assert(size_ <= N);
                 size_type i = 0;
@@ -76,8 +76,8 @@ namespace jtl {
             }
 
             //copy constructor
-            data_vector(const data_vector& other) : 
-                size_(other.size()), 
+            data_vector(const data_vector& other) :
+                size_(other.size()),
                 capacity_(other.capacity()),
                 data_(new T[N])
             {
@@ -117,10 +117,10 @@ namespace jtl {
                 return N;
             }
 
-            void resize(size_type n, value_type val = value_type()) {
+            void resize(size_type n) { // TODO: , value_type val = value_type()) {
                 assert(n <= N);
-                size_(n),
-                capacity_(size_),
+                size_ = n;
+                capacity_ = size_;
             }
 
             inline size_type capacity() const {
@@ -165,7 +165,11 @@ namespace jtl {
                 return data_[size_ - 1];
             }
 
-            inline const_pointer data() {
+            inline pointer data() {
+                return data_;
+            }
+
+            inline const_pointer data() const {
                 return data_;
             }
 

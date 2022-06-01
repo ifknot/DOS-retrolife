@@ -9,13 +9,12 @@
 //#include "retrolib/file/test_file_streams.h"
 //#include "retrolib/memory/test_array.h"
 //#include "retrolib/memory/test_data_vector.h"
-//#include "retrolib/gfx/test_point_vector_2d.h"
-#include "retrolib/memory/test_memory_unions.h"
+#include "retrolib/gfx/test_point_vector_2d.h"
+//#include "retrolib/memory/test_memory_unions.h"
 
 int main() {
   
-	//test_point_vector_2d::run();
-
-	test_memory_unions::run();
+	test_point_vector_2d::run();
+	//test_hga::run();
 
 }
