@@ -46,24 +46,24 @@ namespace jtl{
 // capacity
 
                 inline size_type size() const {
-                        return points.size();
+                    return points.size();
                 }
 
 // element access
 
                 inline const_pointer data() const {
-                        return points.data();
+                    return points.data();
                 }
 
 // modifiers
 
                 void add(size_type x, size_type y) {
-                        union_point_t point(x, y);
-                        points.push_back(point.dword);
+                    union_point_t point(x, y);
+                    points.push_back(point.dword);
                 }
 
                 inline void clear() {
-                        points.clear();
+                    points.clear();
                 }
 
 // relational operators
@@ -73,12 +73,10 @@ namespace jtl{
 //manipulating operations
 
                 void translate(size_type x, size_type y) {
-                        union_point_t p;
-                        p.p.x = x;
-                        p.p.y = y;
-                        for (point_vector_t::iterator it = points.begin(); it < points.end(); ++it) {
-                                *it += p.dword;
-                        }
+                    union_point_t point(x, y);
+                    for (point_vector_t::iterator it = points.begin(); it < points.end(); ++it) {
+                            *it += point.dword;
+                    }
                 }
 
 // serialisation
@@ -92,7 +90,7 @@ namespace jtl{
         }
 
         void read(std::string file_path) {
-            std::ifstream is(file_path.c_str(), std::ofstream::binary);
+            std::ifstream is(file_path.c_str());
             if (!is.is_open()) {
                 std::cerr << dos::error::messages[dos::error::FILE_NOT_FOUND] << file_path.c_str() << '\n';
             }
@@ -103,7 +101,7 @@ namespace jtl{
         }
 
         void write(std::string file_path) {
-            std::ofstream os(file_path.c_str(), std::ofstream::binary);
+            std::ofstream os(file_path.c_str());
             if (!os.is_open()) {
                 std::cerr << dos::error::messages[dos::error::FILE_NOT_FOUND] << file_path.c_str() << '\n';
             }

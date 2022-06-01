@@ -28,7 +28,12 @@ namespace test_point_vector_2d {
 			jtl::point_vector_2d<256> a, b;
 			std::cout << std::hex;
 			std::cout << a.size() << ' ' << a << '\n';
-			a.add(100, 10);
+			a.add(0, 0);
+			a.add(1, 1);
+			a.add(2, 1);
+			a.add(0, 2);
+			a.add(1, 2);
+			a.translate(100, 100);
 			std::cout << a.size() << ' ' << a << '\n';
 
 			a.write("resource/pvec.dat");
@@ -41,7 +46,7 @@ namespace test_point_vector_2d {
 			hga::graphics_mode();
 			hga::cls();
 
-			hga::screen_bound::plot_multi_point(b.data(), 1);
+			hga::screen_bound::plot_multi_point(b.data(), b.size());
 
 			std::getchar();
 			hga::text_mode();
