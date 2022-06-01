@@ -86,10 +86,39 @@ namespace jtl{
         }
 
         std::ostream& write(std::ostream& os) const {
-            return points.write(os);
+            for (size_t i = 0; i < points.size(); ++i) {
+                union_point_t point(points[i]);
+                os << point.p.x << ' ' << point.p.y << ' ';
+            }
+            return os;
         }
 
         void read(std::string file_path) {
+            std::ifstream is(file_path.c_str());
+            if (!is.is_open()) {
+                std::cerr << dos::error::messages[dos::error::FILE_NOT_FOUND] << file_path.c_str() << '\n';
+            }
+            point_vector_t::size_type size;
+            is >> size;
+            points.resize(size);
+            for (size_t i = 0; i < points.size(); ++i) {
+                union_point_t point;
+                is >> point.p.x;
+                is >> point.p.y;
+                points[i] = point.dword;
+            }
+        }
+
+        void write(std::string file_path) {
+            std::ofstream os(file_path.c_str());
+            if (!os.is_open()) {
+                std::cerr << dos::error::messages[dos::error::FILE_NOT_FOUND] << file_path.c_str() << '\n';
+            }
+            os << size() << ' ';
+            write(os);
+        }
+
+        void read_binary(std::string file_path) {
             std::ifstream is(file_path.c_str());
             if (!is.is_open()) {
                 std::cerr << dos::error::messages[dos::error::FILE_NOT_FOUND] << file_path.c_str() << '\n';
@@ -100,7 +129,7 @@ namespace jtl{
             is.read(reinterpret_cast<char*>(points.data()), size() * sizeof(point_vector_t::value_type));
         }
 
-        void write(std::string file_path) {
+        void write_binary(std::string file_path) {
             std::ofstream os(file_path.c_str());
             if (!os.is_open()) {
                 std::cerr << dos::error::messages[dos::error::FILE_NOT_FOUND] << file_path.c_str() << '\n';

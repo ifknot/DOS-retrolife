@@ -33,13 +33,19 @@ namespace test_point_vector_2d {
 			a.add(2, 1);
 			a.add(0, 2);
 			a.add(1, 2);
-			a.translate(100, 100);
 			std::cout << a.size() << ' ' << a << '\n';
 
-			a.write("resource/pvec.dat");
+			//a.write("resource/pvec.dat");
+			a.write_binary("resource/pvec.bin");
+			
+			//b.read("resource/pvec.dat");
+			b.read_binary("resource/pvec.bin");
 
-			b.read("resource/pvec.dat");
 			std::cout << b.size() << ' ' << b << '\n';
+			b.translate(100, 100);
+			std::cout << b.size() << ' ' << b << '\n';
+
+
 			std::cout << "\nswitch to gfx mode Press <ENTER>";
 			
 			std::getchar();
@@ -50,7 +56,7 @@ namespace test_point_vector_2d {
 
 			std::getchar();
 			hga::text_mode();
-
+			
 		}
 		std::cout << "success!\n";
 	}
