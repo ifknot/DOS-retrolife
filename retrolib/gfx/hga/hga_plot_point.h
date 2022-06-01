@@ -162,6 +162,8 @@ namespace hga {
             }
         }
 
+        colour_t read_pixel(size_type x, size_type y, uint8_t buffer = 0) {}
+
         void plot_point(uint32_t point, uint8_t buffer = 0) {
             uint16_t y = static_cast<uint16_t>(point);
             point >>= 16;
@@ -506,6 +508,8 @@ namespace hga {
                 pop     ds
             }
         }
+
+        bool is_plot_point(uint32_t point, uint8_t buffer = 0) {}
 
     }
 
