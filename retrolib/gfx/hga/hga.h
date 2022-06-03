@@ -51,11 +51,12 @@ namespace hga {
         void cls(uint8_t buffer = 0) {
                 __asm {
                     .8086
+#ifdef STACKING
                     push    ax
                     push    es
                     push    di
                     push    cx
-
+#endif
                     mov     ax, HGA_VIDEO_RAM_SEGMENT
                     test    buffer, 1               ; which buffer ?
                     jz      J0
@@ -66,11 +67,12 @@ namespace hga {
                     xor     ax, ax                  ; zero ax
                     cld                                             ; increment mode
                     rep     stosw                   ; clear VRAM buffer
-
+#ifdef STACKING
                     pop     cx
                     pop     di
                     pop     es
                     pop     ax
+#endif
                 }
         }
 
@@ -78,9 +80,10 @@ namespace hga {
         void swap_buffers() {
                 __asm {
                     .8086
+#ifdef STACKING
                     push dx
                     push ax
-
+#endif
                     xor     active_buffer, 1        ; flip to other page  using xor 0 -> 1 so 1 -> 0
                     mov     dx, HGA_CONTROL_REGISTER
                     cmp     active_buffer, 1
@@ -91,8 +94,12 @@ namespace hga {
     L0:             mov     al, 10001010b           ; screen on
                     out     dx, al
     
-    END:            pop     ax
+    END:            
+                    
+#ifdef STACKING
+                    pop     ax
                     pop     dx
+#endif
                 }
         }
 
@@ -100,9 +107,10 @@ namespace hga {
                 active_buffer = buffer;
                 __asm {
                     .8086
+#ifdef STACKING
                     push dx
                     push ax
-
+#endif
                     mov     dx, HGA_CONTROL_REGISTER
                     cmp     buffer, 1
                     je      L0
@@ -112,8 +120,12 @@ namespace hga {
     L0:             mov     al, 10001010b           ; screen on graphics mode page 2
                     out     dx, al
         
-    END:            pop     ax
+    END:            
+                    
+#ifdef STACKING
+                    pop     ax
                     pop     dx
+#endif
                 }
         }
 
@@ -147,11 +159,12 @@ namespace hga {
                 };
                 __asm {
                     .8086
+#ifdef STACKING
                     push    dx
                     push    ax
                     push    si
                     push    cx
-
+#endi
                     // enable text mode via the Hercules control register 3B8h
                     // bit 0 = 0 disable bit 1 of control register 03B8h
                     // bit 1 = 0 disable second 32k of RAM ("Full" mode)
@@ -182,11 +195,12 @@ namespace hga {
                     mov     dx, HGA_CONTROL_REGISTER
                     mov     al, 00001000b                           ; bit 3 = 0 screen on text mode page 1
                     out     dx, al
-
+#ifdef STACKING
                     pop     cx
                     pop     si
                     pop     ax
                     pop     dx
+#end    
                 }
         }
 
@@ -221,10 +235,12 @@ namespace hga {
                 };
                 __asm {
                         .8086
+#ifdef STACKING
                         push    dx
                         push    ax
                         push    si
                         push    cx
+#endif
 
                         // enable graphics mode via the Hercules control register 3B8h
                         // Set bit 0 of 3BFh to enable bit 1 of 3B8h
@@ -258,11 +274,12 @@ namespace hga {
                         mov             dx, HGA_CONTROL_REGISTER
                         mov             al, 00001010b                   ; bit 3 = 0 screen on graphics mode page 1
                         out             dx, al
-
+#ifdef STACKING
                         pop     cx
                         pop     si
                         pop     ax
                         pop     dx
+#endif
                 }
         }
 
@@ -274,9 +291,10 @@ namespace hga {
                 uint16_t pen_regs = 0;
                 __asm {
                         .8086
+#ifdef STACKING
                         push dx
                         push ax
-
+#endif
                         mov     dx, CRTC_LIGHT_PEN_RESET        ; reset the CRTC light pen latch
                         out     dx, al                                          ; writing anything to this port resets the light pen
 
@@ -314,9 +332,10 @@ namespace hga {
                         in      al, dx                                          ; low reg in al
 
                         mov     pen_regs, ax
-
+#ifdef STACKING
                         pop     ax
                         pop     dx
+#endif
                 }
                 return pen_regs;
         }

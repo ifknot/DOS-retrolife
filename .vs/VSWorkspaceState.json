@@ -6,8 +6,9 @@
     "\\retrolib\\gfx",
     "\\retrolib\\gfx\\hga",
     "\\retrolib\\math",
+    "\\retrolib\\memory",
     "\\retrolib\\statistics"
   ],
-  "SelectedNode": "\\retrolib\\gfx\\hga\\hga_plot_point.h",
+  "SelectedNode": "\\retrolib\\gfx\\hga\\hga_constants.h",
   "PreviewInSolutionExplorer": false
 }

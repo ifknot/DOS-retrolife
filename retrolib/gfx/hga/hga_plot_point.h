@@ -64,13 +64,14 @@ namespace hga {
         void write_pixel(size_type x, size_type y, colour_t colour, uint8_t buffer = 0) {
             __asm {
                 .8086
+#ifdef STACKING
                 push    ax
                 push    es
                 push    dx
                 push    bx
                 push    cx
                 push    di
-
+#endif
                 mov     ax, HGA_VIDEO_RAM_SEGMENT
                 test    buffer, 1               ; which buffer ?
                 jz      J0
@@ -153,16 +154,22 @@ namespace hga {
 #endif
                 or      es:[di], ah             ; plot point
 
-         END:   pop     di
+        END:
+
+#ifdef STACKING
+                pop     di
                 pop     cx
                 pop     bx
                 pop     dx
                 pop     es
                 pop     ax
+#endif
             }
         }
 
-        colour_t read_pixel(size_type x, size_type y, uint8_t buffer = 0) {}
+        colour_t read_pixel(size_type x, size_type y, uint8_t buffer = 0) {
+            return 0;
+        }
 
         void plot_point(uint32_t point, uint8_t buffer = 0) {
             uint16_t y = static_cast<uint16_t>(point);
@@ -170,13 +177,14 @@ namespace hga {
             uint16_t x = static_cast<uint16_t>(point);
             __asm {
                 .8086
+#ifdef STACKING
                 push    ax
                 push    es
                 push    dx
                 push    bx
                 push    cx
                 push    di
-
+#endif
                 mov     ax, HGA_VIDEO_RAM_SEGMENT
                 test    buffer, 1               ; which buffer ?
                 jz      J0
@@ -235,12 +243,16 @@ namespace hga {
 #endif
                 or      es:[di], ah             ; plot point
 
-        END:    pop     di
+        END:
+
+#ifdef STACKING
+                pop     di
                 pop     cx
                 pop     bx
                 pop     dx
                 pop     es
                 pop     ax
+#endif
             }
         }
 
@@ -250,13 +262,14 @@ namespace hga {
             uint16_t x = static_cast<uint16_t>(point);
             __asm {
                 .8086
+#ifdef STACKING
                 push    ax
                 push    es
                 push    dx
                 push    bx
                 push    cx
                 push    di
-
+#endif
                 mov     ax, HGA_VIDEO_RAM_SEGMENT
                 test    buffer, 1               ; which buffer ?
                 jz      J0
@@ -316,18 +329,23 @@ namespace hga {
 #endif
                 and     es:[di], ah             ; unplot point
 
-        END:    pop     di
+        END:
+
+#ifdef STACKING
+                pop     di
                 pop     cx
                 pop     bx
                 pop     dx
                 pop     es
                 pop     ax
+#endif
             }
         }
 
         void plot_multi_point(const uint32_t* point_data, uint16_t size, uint8_t buffer = 0) {
             __asm {
                 .8086
+#ifdef STACKING
                 push    ds
                 push    si
                 push    ax
@@ -336,7 +354,7 @@ namespace hga {
                 push    bx
                 push    cx
                 push    di
-
+#endif
                 lds     si, point_data          ; ds:[si] points to list of points to plot
                 // NB must compile memory model large
                 mov     cx, size                ; number of points to plot
@@ -405,7 +423,7 @@ namespace hga {
 
         L1:     pop     cx                      ; restore the counter from stack
                 loop    L0                      ; plot next point until all done
-            
+#ifdef STACKING
                 pop     di
                 pop     cx
                 pop     bx
@@ -414,12 +432,14 @@ namespace hga {
                 pop     ax
                 pop     si
                 pop     ds
+#endif
             }
         }
 
         void unplot_multi_point(const uint32_t* point_data, uint16_t size, uint8_t buffer = 0) {
             __asm {
                 .8086
+#ifdef STACKING
                 push    ds
                 push    si
                 push    ax
@@ -427,8 +447,8 @@ namespace hga {
                 push    dx
                 push    bx
                 push    cx
-                push    di               
-
+                push    di
+#endif
                 lds     si, point_data          ; ds:[si] points to list of points to plot
                 // NB must compile memory model large
                 mov     cx, size                ; number of points to plot
@@ -497,7 +517,7 @@ namespace hga {
 
         L1:     pop     cx                      ; restore the counter from stack
                 loop    L0                      ; plot next point until all done
-
+#ifdef STACKING
                 pop     di
                 pop     cx
                 pop     bx
@@ -506,10 +526,13 @@ namespace hga {
                 pop     ax
                 pop     si
                 pop     ds
+#endif
             }
         }
 
-        bool is_plot_point(uint32_t point, uint8_t buffer = 0) {}
+        bool is_plot_point(uint32_t point, uint8_t buffer = 0) {
+            return false;
+        }
 
     }
 

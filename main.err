@@ -1,2 +1,12 @@
-retrolib/gfx/../memory/data_vector.h(162): Warning! W014: col(13) no reference to symbol 'mode_names'
-retrolib/gfx/../gfx/hga/hga_constants.h(122): Note! N392: col(16) definition: 'char const hga::mode_names[2][255]'
+retrolib/gfx/hga/hga_plot_point.h(172): Warning! W726: col(9) no reference to formal parameter 'x'
+retrolib/gfx/hga/hga_plot_point.h(172): Note! N393: col(9) included from retrolib/gfx/hga/test_hga.h(27)
+retrolib/gfx/hga/hga_plot_point.h(172): Note! N393: col(9) included from main.cpp(7)
+retrolib/gfx/hga/hga_plot_point.h(170): Note! N392: col(39) definition: 'unsigned short x' in 'unsigned char hga::screen_bound::read_pixel( unsigned short, unsigned short, unsigned char )'
+retrolib/gfx/hga/hga_plot_point.h(172): Warning! W726: col(9) no reference to formal parameter 'y'
+retrolib/gfx/hga/hga_plot_point.h(170): Note! N392: col(52) definition: 'unsigned short y' in 'unsigned char hga::screen_bound::read_pixel( unsigned short, unsigned short, unsigned char )'
+retrolib/gfx/hga/hga_plot_point.h(172): Warning! W726: col(9) no reference to formal parameter 'buffer'
+retrolib/gfx/hga/hga_plot_point.h(170): Note! N392: col(63) definition: 'unsigned char buffer' in 'unsigned char hga::screen_bound::read_pixel( unsigned short, unsigned short, unsigned char )'
+retrolib/gfx/hga/hga_plot_point.h(535): Warning! W726: col(9) no reference to formal parameter 'point'
+retrolib/gfx/hga/hga_plot_point.h(533): Note! N392: col(37) definition: 'unsigned long point' in 'bool hga::screen_bound::is_plot_point( unsigned long, unsigned char )'
+retrolib/gfx/hga/hga_plot_point.h(535): Warning! W726: col(9) no reference to formal parameter 'buffer'
+retrolib/gfx/hga/hga_plot_point.h(533): Note! N392: col(52) definition: 'unsigned char buffer' in 'bool hga::screen_bound::is_plot_point( unsigned long, unsigned char )'
