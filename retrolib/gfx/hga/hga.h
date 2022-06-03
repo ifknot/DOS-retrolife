@@ -164,7 +164,7 @@ namespace hga {
                     push    ax
                     push    si
                     push    cx
-#endi
+#endif
                     // enable text mode via the Hercules control register 3B8h
                     // bit 0 = 0 disable bit 1 of control register 03B8h
                     // bit 1 = 0 disable second 32k of RAM ("Full" mode)
@@ -200,7 +200,7 @@ namespace hga {
                     pop     si
                     pop     ax
                     pop     dx
-#end    
+#endif    
                 }
         }
 

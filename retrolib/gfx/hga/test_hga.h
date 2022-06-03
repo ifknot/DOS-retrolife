@@ -127,11 +127,27 @@ namespace test_hga {
                 hga::swap_buffers();
                 std::getchar();
                 hga::screen_bound::unplot_multi_point(data, 16, 1);
+                hga::swap_buffers();
+            }
+            // is_plot_point
+            {
+                hga::cls(0);
+                cross_hairs(); // y = 348 x = 174
+                jtl::union_point_t point(0, 0);
+                assert(!hga::screen_bound::is_plot_point(point.dword));
+                hga::screen_bound::plot_point(point.dword);
+                assert(hga::screen_bound::is_plot_point(point.dword));
+                /*
+                for (int y = 0; y < 348; ++y) {
+                    assert(!hga::screen_bound::is_plot_point(360, y));
+                }
+                for (int x = 0; x < 720; ++x) {
+                    assert(!hga::screen_bound::is_plot_point(x, 174));
+                }*/
             }
             // return to text mode
             {
                 std::getchar();
-                hga::select_buffer(0);
                 hga::text_mode();
                 std::cout << std::dec << "time = " << time << '\n';
                 perror("error:");
