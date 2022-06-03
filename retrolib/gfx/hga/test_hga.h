@@ -132,18 +132,21 @@ namespace test_hga {
             // is_plot_point
             {
                 hga::cls(0);
-                cross_hairs(); // y = 348 x = 174
+                cross_hairs(); // y = 360 x = 174
                 jtl::union_point_t point(0, 0);
                 assert(!hga::screen_bound::is_plot_point(point.dword));
                 hga::screen_bound::plot_point(point.dword);
                 assert(hga::screen_bound::is_plot_point(point.dword));
-                /*
+                point.p.x = 360;
                 for (int y = 0; y < 348; ++y) {
-                    assert(!hga::screen_bound::is_plot_point(360, y));
+                    point.p.y = y;
+                    assert(hga::screen_bound::is_plot_point(point.dword));
                 }
+                point.p.y = 174;
                 for (int x = 0; x < 720; ++x) {
-                    assert(!hga::screen_bound::is_plot_point(x, 174));
-                }*/
+                    point.p.x = x;
+                    assert(hga::screen_bound::is_plot_point(point.dword));
+                }
             }
             // return to text mode
             {
