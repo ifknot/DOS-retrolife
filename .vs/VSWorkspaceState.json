@@ -2,13 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\retrolib",
-    "\\retrolib\\file",
     "\\retrolib\\gfx",
-    "\\retrolib\\gfx\\hga",
+    "\\retrolib\\gfx\\cga\\mode4",
     "\\retrolib\\math",
-    "\\retrolib\\memory",
     "\\retrolib\\statistics"
   ],
-  "SelectedNode": "\\retrolib\\gfx\\hga\\hga_constants.h",
+  "SelectedNode": "\\retrolib\\gfx",
   "PreviewInSolutionExplorer": false
 }
