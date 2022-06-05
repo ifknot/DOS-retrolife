@@ -3,10 +3,10 @@
     "",
     "\\retrolib",
     "\\retrolib\\gfx",
-    "\\retrolib\\gfx\\cga\\mode4",
+    "\\retrolib\\gfx\\automata",
     "\\retrolib\\math",
     "\\retrolib\\statistics"
   ],
-  "SelectedNode": "\\retrolib\\gfx",
+  "SelectedNode": "\\retrolib\\gfx\\automata\\count_neighbours.h",
   "PreviewInSolutionExplorer": false
 }

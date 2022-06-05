@@ -41,6 +41,49 @@ namespace jtl {
         typedef size_t size_type;
         typedef ptrdiff_t difference_type;
 
+// construction
+
+        // empty container constructor
+        array() :
+            data_(new T[N])
+        {}
+
+        // fill constructor
+        explicit array(size_type n, const value_type& val = value_type(), bool f = true) :
+            data_(new T[N])
+        {
+            assert(n <= N && f);
+            while (n) {
+                data_[--n] = val;
+            }
+        }
+
+        // range constructor
+        template<typename InputIterator>
+        array(InputIterator first, const InputIterator last) :
+            data_(new T[N])
+        {
+            assert(last - first <= N);
+            size_type i = 0;
+            while (first < last) {
+                data_[i++] = *first++;
+            }
+        }
+
+        //copy constructor
+        array(const array& other) :
+            data_(new T[N])
+        {
+            assert(other.size() <= N);
+            for (size_type i = 0; i < other.size(); ++i) {
+                data_[i] = other.data_[i];
+            }
+        }
+
+        ~array() {
+            delete[] data_;
+        }
+
 // iterators
 
         inline iterator begin() {
@@ -48,7 +91,7 @@ namespace jtl {
         }
 
         inline const_iterator begin() const {
-            return data_;
+            return &data_;
         }
 
         inline iterator end() {
@@ -170,7 +213,7 @@ namespace jtl {
 
     private:
 
-        value_type data_[N];
+        value_type* data_;
 
     };
 

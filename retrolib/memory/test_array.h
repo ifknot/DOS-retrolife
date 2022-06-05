@@ -23,6 +23,25 @@ namespace test_array {
         void run() {
             std::cout << "test_array...\n";
             {
+                std::cout << "constructors\n";
+                // zero size
+                jtl::array<int, 0> z;
+                // 64K 
+                jtl::array<char, 65535> big;
+                // fill
+                jtl::array<char, 1024> a(1024);
+                std::cout << a << '\n';
+                jtl::array<char, 1024> b(1024,'!');
+                std::cout << b << '\n';
+                // range constructor
+                int data[4] = { 3, 1, 4, 1 };
+                jtl::array<int, 4> c(data, data + 4);
+                std::cout << c << '\n';
+                //copy constructor
+                jtl::array<char, 1024> d(b);
+                std::cout << d << '\n';
+            }
+            {
                 std::cout << "iterators\n";
                 typedef jtl::array<char, 12> chars_t;
                 char c = 'a';
@@ -37,10 +56,10 @@ namespace test_array {
             }
             {
                 std::cout << "capacity\n";
-                jtl::array<int, 4> a = { 3, 1, 4, 1 };
+                int data[4] = { 3, 1, 4, 1 };
+                jtl::array<int, 4> a(data, data + 4);
                 jtl::array<int, 0> b;
-                assert(a.size() == 4);
-                assert(b.size() == 0);
+                std::cout << a << '\n';
                 assert(a.size() == 4);
                 assert(b.size() == 0);
                 assert(!a.empty());
@@ -96,7 +115,8 @@ namespace test_array {
             }
             {
                 std::cout << "serialisation\n";
-                jtl::array<uint32_t, 12> a = { 1,2,3,4,5,6,7,8,9,10,11,12 };
+                int data[12] = { 1,2,3,4,5,6,7,8,9,10,11,12 };
+                jtl::array<uint32_t, 12> a(data, data + 12);
                 assert(jtl::checksum(a.data(), (uint16_t)12) == 78); // ap_sum
                 jtl::array<uint32_t, 12> b;
                 b.zero();
