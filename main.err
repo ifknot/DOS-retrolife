@@ -1,3 +1,2 @@
-retrolib/memory/test_array.h(43): Warning! W014: col(13) no reference to symbol 'z'
-retrolib/memory/test_array.h(43): Note! N393: col(13) included from main.cpp(10)
-retrolib/memory/test_array.h(28): Note! N392: col(36) definition: 'jtl::array<int,0> z' in 'void test_array::run( void )'
+retrolib/gfx/../memory/data_vector.h(162): Warning! W014: col(13) no reference to symbol 'mode_names'
+retrolib/gfx/../gfx/hga/hga_constants.h(122): Note! N392: col(16) definition: 'char const hga::mode_names[2][255]'

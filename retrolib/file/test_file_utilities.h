@@ -12,6 +12,7 @@
 #define TEST_FILE_UTILITIES_H
 
 #include <cassert>
+#include <iostream>
 
 #include "file_utilities.h"
 

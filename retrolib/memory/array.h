@@ -23,7 +23,7 @@ namespace jtl {
 
     template<typename T, size_t N>
     class array {
-
+        
     public:
 
 // member types
@@ -46,12 +46,15 @@ namespace jtl {
         // empty container constructor
         array() :
             data_(new T[N])
-        {}
+        {
+            assert(N <= max_size());
+        }
 
         // fill constructor
         explicit array(size_type n, const value_type& val = value_type(), bool f = true) :
             data_(new T[N])
         {
+            assert(N <= max_size());
             assert(n <= N && f);
             while (n) {
                 data_[--n] = val;
@@ -63,6 +66,7 @@ namespace jtl {
         array(InputIterator first, const InputIterator last) :
             data_(new T[N])
         {
+            assert(N <= max_size());
             assert(last - first <= N);
             size_type i = 0;
             while (first < last) {
@@ -74,6 +78,7 @@ namespace jtl {
         array(const array& other) :
             data_(new T[N])
         {
+            assert(N <= max_size());
             assert(other.size() <= N);
             for (size_type i = 0; i < other.size(); ++i) {
                 data_[i] = other.data_[i];
@@ -109,7 +114,7 @@ namespace jtl {
         }
 
         inline size_type max_size() const {
-            return N;
+            return 0xFFFF; //64K
         }
 
         inline bool empty() const {

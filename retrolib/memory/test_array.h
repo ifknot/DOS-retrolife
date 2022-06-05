@@ -30,16 +30,16 @@ namespace test_array {
                 jtl::array<char, 65535> big;
                 // fill
                 jtl::array<char, 1024> a(1024);
-                std::cout << a << '\n';
+                //std::cout << a << '\n';
                 jtl::array<char, 1024> b(1024,'!');
-                std::cout << b << '\n';
+                //std::cout << b << '\n';
                 // range constructor
                 int data[4] = { 3, 1, 4, 1 };
                 jtl::array<int, 4> c(data, data + 4);
-                std::cout << c << '\n';
+                //std::cout << c << '\n';
                 //copy constructor
                 jtl::array<char, 1024> d(b);
-                std::cout << d << '\n';
+                //std::cout << d << '\n';
             }
             {
                 std::cout << "iterators\n";
@@ -59,6 +59,7 @@ namespace test_array {
                 int data[4] = { 3, 1, 4, 1 };
                 jtl::array<int, 4> a(data, data + 4);
                 jtl::array<int, 0> b;
+                //jtl::array<int, 65536> c; // assert fail               
                 std::cout << a << '\n';
                 assert(a.size() == 4);
                 assert(b.size() == 0);
