@@ -13,12 +13,19 @@
 #include <cassert>
 #include <iostream>
 
+#include "neighbourhoods.h"
+
 namespace test_count_neighbours {
 
 	void run() {
 		std::cout << "test_count_neighbours...\n";
 		{
-		
+			jtl::union_point_t point(10, 10);
+			std::cout << point.coord.x << ',' << point.coord.y << '\n';
+			int16_t a = -1;
+			point.coord.x += a;
+			std::cout << point.coord.x << ',' << point.coord.y << '\n';
+
 		}
 		std::cout << "success!\n";
 	}

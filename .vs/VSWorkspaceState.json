@@ -3,10 +3,9 @@
     "",
     "\\retrolib",
     "\\retrolib\\gfx",
-    "\\retrolib\\gfx\\automata",
-    "\\retrolib\\math",
+    "\\retrolib\\memory",
     "\\retrolib\\statistics"
   ],
-  "SelectedNode": "\\retrolib\\gfx\\automata\\count_neighbours.h",
+  "SelectedNode": "\\retrolib\\gfx\\test_point_vector_2d.h",
   "PreviewInSolutionExplorer": false
 }

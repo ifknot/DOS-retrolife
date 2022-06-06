@@ -93,16 +93,17 @@ namespace test_hga {
                 //fill_screen();
                 time = bios::read_system_clock_counter() - time;
                 //black_diagonals();
-                //std::getchar();
+                std::getchar();
             }
             // test plot pixels from array of dword points
             {
+                hga::cls();
                 uint32_t data[16];
                 jtl::union_point_t point;
                 int x = 0;
                 for (int y = 0; y < 16; ++y) { // build multi-point data array
-                    point.p.y = 100 + y;
-                    point.p.x = 100 - x;
+                    point.coord.y = 100 + y;
+                    point.coord.x = 100 - x;
                     x += 2;
                     data[y] = point.dword;
                     hga::screen_bound::plot_point(point.dword);
@@ -116,8 +117,8 @@ namespace test_hga {
                 jtl::union_point_t point;
                 int x = 0;
                 for (int y = 0; y < 16; ++y) { // build multi-point data array
-                    point.p.y = 100 + y;
-                    point.p.x = 100 + x;
+                    point.coord.y = 100 + y;
+                    point.coord.x = 100 + x;
                     x += 2;
                     data[y] = point.dword;
                 }
@@ -137,15 +138,21 @@ namespace test_hga {
                 assert(!hga::screen_bound::is_plot_point(point.dword));
                 hga::screen_bound::plot_point(point.dword);
                 assert(hga::screen_bound::is_plot_point(point.dword));
-                point.p.x = 360;
+                point.coord.x = 360;
                 for (int y = 0; y < 348; ++y) {
-                    point.p.y = y;
+                    point.coord.y = y;
                     assert(hga::screen_bound::is_plot_point(point.dword));
+                    //if (hga::screen_bound::is_plot_point(point.dword)) {
+                        //hga::screen_bound::unplot_point(point.dword);
+                    //}
                 }
-                point.p.y = 174;
+                point.coord.y = 174;
                 for (int x = 0; x < 720; ++x) {
-                    point.p.x = x;
+                    point.coord.x = x;
                     assert(hga::screen_bound::is_plot_point(point.dword));
+                    if (hga::screen_bound::is_plot_point(point.dword)) {
+                        hga::screen_bound::unplot_point(point.dword);
+                    }
                 }
             }
             // return to text mode

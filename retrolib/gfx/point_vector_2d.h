@@ -88,7 +88,7 @@ namespace jtl{
             std::ostream& write(std::ostream& os) const {
                 for (size_t i = 0; i < points.size(); ++i) {
                     union_point_t point(points[i]);
-                    os << point.p.x << ' ' << point.p.y << ' ';
+                    os << point.coord.x << ' ' << point.coord.y << ' ';
                 }
                 return os;
             }
@@ -103,8 +103,8 @@ namespace jtl{
                 points.resize(size);
                 for (size_t i = 0; i < points.size(); ++i) {
                     union_point_t point;
-                    is >> point.p.x;
-                    is >> point.p.y;
+                    is >> point.coord.x;
+                    is >> point.coord.y;
                     points[i] = point.dword;
                 }
             }

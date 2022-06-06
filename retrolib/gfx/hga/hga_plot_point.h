@@ -45,6 +45,7 @@
 #include "hga_constants.h"
 
 //#define ENABLE_MUL
+//#define STACKING
 
 namespace hga {
 
@@ -148,9 +149,9 @@ namespace hga {
                 test    al, 1000b               ; is bit 3 set ? (just started a vertical retrace interval)
                 jnz     L1                      ; no, keep waiting
 
-                and     es:[di], cl             ; mask out the pixel bits
+                and     es:[di], cl             ; mask out the pixel bit
 #else
-                and     es:[di], al             ; mask out the pixel bits
+                and     es:[di], al             ; mask out the pixel bit
 #endif
                 or      es:[di], ah             ; plot point
 
@@ -280,7 +281,6 @@ namespace hga {
                 jge     END                     ; nothing to plot
                 mov     dx, ax                  ; copy y
 #ifdef ENABLE_MUL
-
                 shr     ax, 1                   ; calculate y / 4
                 shr     ax, 1                   ; 8086 limited to single step shifts
                 mov     cl, BYTES_PER_LINE
@@ -312,11 +312,11 @@ namespace hga {
                 shr     di, 1                   ; calculate column byte x / 8
                 shr     di, 1                   ; 8086 limited to single step shifts
                 shr     di, 1                   ; x / 8
-                add     di, bx                  ; + (y / 4) * 90
+                add     di, ax                  ; + (y / 4) * 90
                 add     di, dx                  ; + (y mod 4) * 2000h
                 and     cx, 7h                  ; mask off 0111 lower bits i.e.mod 8 (thanks powers of 2)
-                mov     ah, 01111111b           ; load ah with a single pixel mask
-                ror     ah, cl                  ; roll mask around by x mod 8
+                mov     ah, 01111111b           ; load ah with mask single pixel at msb
+                shr     ah, cl                  ; shift single bit along by x mod 8
 #ifdef SYNCHRONISED
 
                 mov     dx, CGA_STATUS_REG      ; CGA status reg
@@ -327,7 +327,7 @@ namespace hga {
                 test    al, 1000b               ; is bit 3 set ? (just started a vertical retrace interval)
                 jnz     L1                      ; no, keep waiting
 #endif
-                and     es:[di], ah             ; unplot point
+                and     es:[di], ah             ; mask out the pixel bit
 
         END:
 
@@ -343,7 +343,7 @@ namespace hga {
         }
 
         bool is_plot_point(uint32_t point, uint8_t buffer = 0) {
-            char flag = 0;
+            uint8_t flag = 0;
             uint16_t y = static_cast<uint16_t>(point);
             point >>= 16;
             uint16_t x = static_cast<uint16_t>(point);
@@ -367,7 +367,6 @@ namespace hga {
                 jge     END                     ; nothing to plot
                 mov     dx, ax                  ; copy y
 #ifdef ENABLE_MUL
-
                 shr     ax, 1                   ; calculate y / 4
                 shr     ax, 1                   ; 8086 limited to single step shifts
                 mov     cl, BYTES_PER_LINE
@@ -399,11 +398,11 @@ namespace hga {
                 shr     di, 1                   ; calculate column byte x / 8
                 shr     di, 1                   ; 8086 limited to single step shifts
                 shr     di, 1                   ; x / 8
-                add     di, bx                  ; + (y / 4) * 90
+                add     di, ax                  ; + (y / 4) * 90
                 add     di, dx                  ; + (y mod 4) * 2000h
                 and     cx, 7h                  ; mask off 0111 lower bits i.e.mod 8 (thanks powers of 2)
-                mov     ah, 10000000b           ; load ah with a single pixel at msb
-                shr     ah, cl                  ; shift single bit along by x mod 8
+                mov     ah, 10000000b           ; load ah with single pixel at msb
+                ror     ah, cl                  ; shift single bit along by x mod 8
 #ifdef SYNCHRONISED
 
                 mov     dx, CGA_STATUS_REG      ; CGA status reg
@@ -414,9 +413,9 @@ namespace hga {
                 test    al, 1000b               ; is bit 3 set ? (just started a vertical retrace interval)
                 jnz     L1                      ; no, keep waiting
 #endif
-                mov     al, es:[di]             ; grab the byte from video memory
-                and     al, ah                  ; mask off only the pixel of interest
-                mov     flag, al                ; store masked off byte in flag variable
+                mov     al, es:[di]             ; load video buffer byte containing target pixel
+                and     al, ah                  ; mask off only the target pixel
+                mov     flag, al                ; store in flag
 
         END:
 
@@ -429,7 +428,7 @@ namespace hga {
                 pop     ax
 #endif
             }
-            return static_cast<bool>(flag);
+            return (bool)flag;
         }
 
         void plot_multi_point(const uint32_t* point_data, uint16_t size, uint8_t buffer = 0) {
@@ -499,7 +498,7 @@ namespace hga {
                 add     di, dx                  ; + (y mod 4) * 2000h
                 and     cx, 7h                  ; mask off 0111 lower bits i.e.mod 8 (thanks powers of 2)
                 mov     ah, 10000000b           ; load ah with a single pixel at msb
-                shr     ah, cl                  ; shift single bit along by x mod 8
+                ror     ah, cl                  ; shift single bit along by x mod 8
 #ifdef SYNCHRONISED
                 mov     dx, CGA_STATUS_REG      ; CGA status reg
         S0:     in      al, dx                  ; read status
