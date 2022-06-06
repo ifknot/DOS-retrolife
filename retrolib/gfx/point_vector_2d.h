@@ -41,29 +41,44 @@ namespace jtl{
 
 // construction
 
+            point_vector_2d() : points(new point_vector_t) {}
+
+            point_vector_2d(std::string file_path, bool binary = false) : points(new point_vector_t) {
+                if (binary) {
+                    read_binary(file_path);
+                }
+                else {
+                    read(file_path);
+                }
+            }
+
+            ~point_vector_2d() {
+                delete points;
+            }
+
 // iterators
 
 // capacity
 
             inline size_type size() const {
-                return points.size();
+                return points->size();
             }
 
 // element access
 
             inline const_pointer data() const {
-                return points.data();
+                return points->data();
             }
 
 // modifiers
 
             void add(size_type x, size_type y) {
                 union_point_t point(x, y);
-                points.push_back(point.dword);
+                points->push_back(point.dword);
             }
 
             inline void clear() {
-                points.clear();
+                points->clear();
             }
 
 // relational operators
@@ -74,7 +89,7 @@ namespace jtl{
 
             void translate(size_type x, size_type y) {
                 union_point_t point(x, y);
-                for (point_vector_t::iterator it = points.begin(); it < points.end(); ++it) {
+                for (point_vector_t::iterator it = points->begin(); it < points->end(); ++it) {
                         *it += point.dword;
                 }
             }
@@ -82,12 +97,12 @@ namespace jtl{
 // serialisation
 
             std::istream& read(std::istream& is) {
-                return points.read(is);
+                return points->read(is);
             }
 
             std::ostream& write(std::ostream& os) const {
-                for (size_t i = 0; i < points.size(); ++i) {
-                    union_point_t point(points[i]);
+                for (size_t i = 0; i < points->size(); ++i) {
+                    union_point_t point(points->operator[](i));
                     os << point.coord.x << ' ' << point.coord.y << ' ';
                 }
                 return os;
@@ -100,12 +115,12 @@ namespace jtl{
                 }
                 point_vector_t::size_type size;
                 is >> size;
-                points.resize(size);
-                for (size_t i = 0; i < points.size(); ++i) {
+                points->resize(size);
+                for (size_t i = 0; i < points->size(); ++i) {
                     union_point_t point;
                     is >> point.coord.x;
                     is >> point.coord.y;
-                    points[i] = point.dword;
+                    points->operator[](i) = point.dword;
                 }
             }
 
@@ -125,8 +140,8 @@ namespace jtl{
                 }
                 union_dword_t header;
                 is.read(reinterpret_cast<char*>(&header.word), sizeof(header.word));
-                points.resize(header.word.hi);
-                is.read(reinterpret_cast<char*>(points.data()), size() * sizeof(point_vector_t::value_type));
+                points->resize(header.word.hi);
+                is.read(reinterpret_cast<char*>(points->data()), size() * sizeof(point_vector_t::value_type));
             }
 
             void write_binary(std::string file_path) {
@@ -134,15 +149,15 @@ namespace jtl{
                 if (!os.is_open()) {
                     std::cerr << dos::error::messages[dos::error::FILE_NOT_FOUND] << file_path.c_str() << '\n';
                 }
-                uint16_t sum = checksum(points.data(), size());
+                uint16_t sum = checksum(points->data(), size());
                 union_dword_t header(size(), sum);
                 os.write(reinterpret_cast<const char*>(&header.dword), sizeof(header.dword));
-                os.write(reinterpret_cast<const char*>(points.data()), size() * sizeof(point_vector_t::value_type));
+                os.write(reinterpret_cast<const char*>(points->data()), size() * sizeof(point_vector_t::value_type));
             }
 
         private:
 
-                point_vector_t points;
+                point_vector_t* points;
 
         };
 

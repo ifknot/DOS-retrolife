@@ -1,4 +1,0 @@
-C:\WATCOM\h\memory(128): Warning! W014: col(61) no reference to symbol 'moore_neighbours'
-retrolib/automata/neighbourhoods.h(20): Note! N392: col(23) definition: 'short const jtl::moore_neighbours[16]'
-C:\WATCOM\h\memory(128): Warning! W014: col(61) no reference to symbol 'von_neumann_neighbours'
-retrolib/automata/neighbourhoods.h(31): Note! N392: col(23) definition: 'short const jtl::von_neumann_neighbours[8]'

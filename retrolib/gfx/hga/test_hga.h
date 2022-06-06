@@ -22,6 +22,7 @@
 #include "../../memory/array.h"
 
 #include "../point_2d.h"
+#include "../point_vector_2d.h"
 
 #include "hga_graphics.h"
 
@@ -63,6 +64,7 @@ namespace test_hga {
                 << "\ntest Hercules...\n";
             
             uint32_t time = 0;
+            hga::size_type n;
           
             // read the light pen registers
             /* {
@@ -153,12 +155,23 @@ namespace test_hga {
                         hga::screen_bound::unplot_point(point.dword);
                     }
                 }
+                std::getchar();
+            }
+            // count plot point
+            {
+                jtl::point_vector_2d<8> donut("resource/donut.dat");
+                donut.translate(360, 174);
+                hga::cls();
+                fill_screen();
+                hga::screen_bound::unplot_multi_point(donut.data(), donut.size());
+                n = hga::screen_bound::count_plot_multi_point(donut.data(), donut.size());
+                std::getchar();
             }
             // return to text mode
             {
-                std::getchar();
                 hga::text_mode();
                 std::cout << std::dec << "time = " << time << '\n';
+                std::cout << "donut = " << n << '\n';
                 perror("error:");
                 
             }

@@ -15,8 +15,7 @@
 #include <fstream>
 #include <stdio.h>
 
-#include "../gfx/hga/hga.h"
-#include "../gfx/hga/hga_plot_point.h"
+#include "../gfx/hga/hga_graphics.h"
 #include "../gfx/hga/hga_plot_functors.h"
 
 #include "point_vector_2d.h"

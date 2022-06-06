@@ -42,6 +42,7 @@
 
 #include "hga_cls.h"
 #include "hga_constants.h"
+#include "hga_count_plot_multi_point.h"
 #include "hga_is_plot_point.h"
 #include "hga_plot_functors.h"
 #include "hga_plot_multi_point.h"

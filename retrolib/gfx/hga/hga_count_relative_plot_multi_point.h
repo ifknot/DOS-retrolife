@@ -7,8 +7,8 @@
  *  @copyright © Jeremy Thornton, 2022. All right reserved.
  *
  */
-#ifndef HGA_COUNT_PLOT_MULTIPOINT_H
-#define HGA_COUNT_PLOT_MULTIPOINT_H
+#ifndef COUNT_RELATIVE_PLOT_MULTI_POINT_H
+#define COUNT_RELATIVE_PLOT_MULTI_POINT_H
 
 #include "hga_constants.h"
 
@@ -16,9 +16,12 @@ namespace hga {
 
 	namespace screen_bound {
 
-		size_type count_plot_multi_point(const uint32_t* point_data, uint16_t size, uint8_t buffer = 0) {
-            size_type count = 0;
-            __asm {
+		size_type count_relative_plot_multi_point(uint32_t point, const uint32_t* point_data, uint16_t size, uint8_t buffer = 0) {
+			size_type count = 0;
+			uint16_t y = static_cast<uint16_t>(point);
+			point >>= 16;
+			uint16_t x = static_cast<uint16_t>(point);
+			__asm {
                 .8086
 #ifdef STACKING
                 push    ds
@@ -42,7 +45,8 @@ namespace hga {
                 jz      J0
                 add     ax, 800h                ; second buffer
         J0:     mov     es, ax
-                lodsw                           ; load y into ax from data, then perform screen clipping
+                lodsw                           ; load relative y into ax from data
+                add     ax, y                   ; add y, then perform screen clipping
                 cmp     ax, SCREEN_Y_MAX        ; compare bx with y maximum boundry
                 jge     L1                      ; nothing to plot
                 mov     dx, ax                  ; copy y
@@ -72,10 +76,11 @@ namespace hga {
                 ror     dx, 1                   ; 8086 limited to single step shifts
                 ror     dx, 1                   ; (y mod 4) * 2000h
 
-                lodsw                           ; load x from data
+                lodsw                           ; load relative x from data
+                add     ax, x                   ; add x postion
                 mov     di, ax                  ; move x into di and clip to screen bounds
                 cmp     di, SCREEN_X_MAX        ; compare di with x maximum boundry
-                jge     L1                     ; nothing to plot
+                jge     L1                      ; nothing to plot
                 mov     cx, di                  ; copy of x in cx
                 shr     di, 1                   ; calculate column byte x / 8
                 shr     di, 1                   ; 8086 limited to single step shifts
@@ -113,8 +118,14 @@ namespace hga {
 #endif
             }
             return count;
-        }
-        
+		}
+
+	}
+
+	namespace toroid_bound {
+
+		
+
 	}
 
 }
