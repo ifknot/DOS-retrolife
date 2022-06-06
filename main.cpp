@@ -15,6 +15,7 @@
 
 int main() {
 
-    //test_count_neighbours::run();
     test_hga::run();
+    //test_count_neighbours::run();
+    //test_point_vector_2d::run();
 }

@@ -23,8 +23,7 @@
 
 #include "../point_2d.h"
 
-#include "hga.h"
-#include "hga_plot_point.h"
+#include "hga_graphics.h"
 
 
 

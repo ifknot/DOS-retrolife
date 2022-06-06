@@ -1,7 +1,7 @@
 Open Watcom Linker Version 2.0 beta Nov  1 2017 20:56:49 (64-bit)
 Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
 Portions Copyright (c) 1985-2002 Sybase, Inc. All Rights Reserved.
-Created on:       22/06/06 14:10:43
+Created on:       22/06/06 16:44:15
 Executable Image: gamelife.exe
 creating a DOS executable
 
@@ -231,17 +231,18 @@ Module: main.obj(C:\Users\ifkno\DOSBOX\DOS16\GAMELIFE\main.cpp)
 0000:05a0+     bios::video_adapter_t __far bios::detect_HGA_adapter_type()
 0000:061e+     bios::video_adapter_t __far bios::detect_video_adapter_type()
 0000:06a7+     void __far hga::cls( char unsigned )
-0000:06e5+     void __far hga::swap_buffers()
-0000:071b+     void __far hga::select_buffer( char unsigned )
-0000:075a+     void __far hga::text_mode()
-0000:07ae+     void __far hga::graphics_mode()
-0000:0808+     short unsigned __far hga::read_light_pen_registers()
-0000:086c+     hga::video_mode_t __far hga::detect_mode()
-0000:08aa+     void __far hga::screen_bound::write_pixel( short unsigned, short unsigned, char unsigned, char unsigned )
-0000:093b+     void __far hga::screen_bound::plot_point( long unsigned, char unsigned )
-0000:09d9+     void __far hga::screen_bound::unplot_point( long unsigned, char unsigned )
-0000:0a77+     bool __far hga::screen_bound::is_plot_point( long unsigned, char unsigned )
-0000:0b3a+     void __far hga::screen_bound::plot_multi_point( long unsigned const __far *, short unsigned, char unsigned )
+0000:06e5+     bool __far hga::screen_bound::is_plot_point( long unsigned, char unsigned )
+0000:07a8+     void __far hga::screen_bound::plot_multi_point( long unsigned const __far *, short unsigned, char unsigned )
+0000:0839+     void __far hga::screen_bound::plot_point( long unsigned, char unsigned )
+0000:08d7+     void __far hga::select_buffer( char unsigned )
+0000:0916+     void __far hga::swap_buffers()
+0000:094c+     void __far hga::screen_bound::unplot_multi_point( long unsigned const __far *, short unsigned, char unsigned )
+0000:09dd+     void __far hga::screen_bound::unplot_point( long unsigned, char unsigned )
+0000:0a7b+     short unsigned __far hga::read_light_pen_registers()
+0000:0adf+     void __far hga::text_mode()
+0000:0b33+     void __far hga::graphics_mode()
+0000:0b8d+     hga::video_mode_t __far hga::detect_mode()
+0000:0bcb+     void __far hga::screen_bound::write_pixel( short unsigned, short unsigned, char unsigned, char unsigned )
 0000:12a2+     __far std::allocator<char __far >::~allocator()
 0000:12db+     __far std::basic_string<char __far,std::char_traits<char __far > __far,std::allocator<char __far > __far >::basic_string( std::basic_string<char __far,std::char_traits<char __far > __far,std::allocator<char __far > __far > const __far & )
 0000:1448+     __far std::basic_string<char __far,std::char_traits<char __far > __far,std::allocator<char __far > __far >::~basic_string()
@@ -254,7 +255,6 @@ Module: main.obj(C:\Users\ifkno\DOSBOX\DOS16\GAMELIFE\main.cpp)
 09c0:3548+     char __far dos::error::actions[][64]
 09c0:3748+     char __far dos::error::locus[][64]
 0000:1549+     char __far * __far std::basic_string<char __far,std::char_traits<char __far > __far,std::allocator<char __far > __far >::alloc( int unsigned, int unsigned __far & )
-0000:0bcb+     void __far hga::screen_bound::unplot_multi_point( long unsigned const __far *, short unsigned, char unsigned )
 0000:0c5c+     void __far test_hga::fill_screen()
 0000:0cb7+     void __far test_hga::cross_hairs()
 0000:0d1f+     void __far test_hga::black_diagonals()
@@ -731,4 +731,4 @@ C:\WATCOM\lib286\dos\clibl.lib
 Stack size:  0800 (2048.)
 Memory size:  e750 (59216.)
 Entry point address: 0000:197a
-Link time: 00:00.16
+Link time: 00:00.17

@@ -16,7 +16,7 @@ namespace jtl {
 
     struct point_t {
 
-        uint16_t y, x;  
+        int16_t y, x;  
 
     };
 
@@ -30,7 +30,7 @@ namespace jtl {
 
         union_point_t(uint32_t dword) : dword(dword) {}
 
-        union_point_t(uint16_t x, uint16_t y) {
+        union_point_t(int16_t x, int16_t y) {
             coord.x = x;
             coord.y = y;
         }

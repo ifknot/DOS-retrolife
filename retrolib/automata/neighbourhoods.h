@@ -11,19 +11,30 @@
 #define NEIGHBOURHOODS_H
 
 #include "../memory/array.h"
+#include "../memory/size_t.h"
+
 #include "../gfx/point_2d.h"
 
 namespace jtl {
 
-	typedef jtl::array<int16_t, 16> moore_neighbourhood_t;
-
-	typedef jtl::array<int16_t, 8> von_neumann_neighbourhood_t;
-
-	struct moore_neighbourhood {
-
-
-
+	const int16_t moore_neighbours[16] = {
+		-1, -1,
+		 0, -1,
+		 1, -1,
+		-1,  0,
+		 1,  0,
+		-1,  1,
+		 0,  1,
+		 1,  1
 	};
+
+	const int16_t von_neumann_neighbours[8] = {
+		 0, -1,
+		-1,  0,
+		 1,  0,
+		 0,  1
+	};
+
 }
 
 #endif

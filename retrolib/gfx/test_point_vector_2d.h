@@ -17,6 +17,7 @@
 
 #include "../gfx/hga/hga.h"
 #include "../gfx/hga/hga_plot_point.h"
+#include "../gfx/hga/hga_plot_functors.h"
 
 #include "point_vector_2d.h"
 
@@ -52,7 +53,9 @@ namespace test_point_vector_2d {
 			hga::graphics_mode();
 			hga::cls();
 
-			hga::screen_bound::plot_multi_point(b.data(), b.size());
+			//hga::screen_bound::plot_multi_point(b.data(), b.size());
+			hga::screen_bound::plot_multi_point_functor plot;
+			plot(b.data(), b.size());
 
 			std::getchar();
 			hga::text_mode();

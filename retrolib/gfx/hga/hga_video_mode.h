@@ -1,7 +1,7 @@
 /**
  *
- *  @file      hga.h
- *  @brief     Hercules utilities
+ *  @file      hga_video_mode.h
+ *  @brief     
  * @details    Most MDA clones implement some form of Hercules-compatible graphics. The main differences for a Hercules-compatible card are:
  * + Writing to port 03BFh enables extra bits in the Mode Control register at 03B8h:
  *              Set bit 0 of 3BFh to enable bit 1 of 3B8h
@@ -36,98 +36,12 @@
 
 #include <stdint.h>
 
-#include "../../dos/dos_services_types.h"
-
 #include "hga_constants.h"
-
-#include "dos.h"
+#include "hga_read_lightpen_registers.h"
 
 namespace hga {
 
         enum video_mode_t { video_mode_text, video_mode_graphics };
-
-        uint8_t active_buffer = 0;              // 0 = default B000:000 1 = B000:8000 second display page buffer
-
-        void cls(uint8_t buffer = 0) {
-                __asm {
-                    .8086
-#ifdef STACKING
-                    push    ax
-                    push    es
-                    push    di
-                    push    cx
-#endif
-                    mov     ax, HGA_VIDEO_RAM_SEGMENT
-                    test    buffer, 1               ; which buffer ?
-                    jz      J0
-                    add     ax, 800h                ; second buffer
-    J0:             mov     es, ax
-                    xor     di, di
-                    mov     cx, 4000h               ; 16K words VRAM buffer 32K bytes
-                    xor     ax, ax                  ; zero ax
-                    cld                                             ; increment mode
-                    rep     stosw                   ; clear VRAM buffer
-#ifdef STACKING
-                    pop     cx
-                    pop     di
-                    pop     es
-                    pop     ax
-#endif
-                }
-        }
-
-
-        void swap_buffers() {
-                __asm {
-                    .8086
-#ifdef STACKING
-                    push dx
-                    push ax
-#endif
-                    xor     active_buffer, 1        ; flip to other page  using xor 0 -> 1 so 1 -> 0
-                    mov     dx, HGA_CONTROL_REGISTER
-                    cmp     active_buffer, 1
-                    je      L0
-                    mov     al, 00001010b           ; screen on
-                    out     dx, al
-                    jmp     END
-    L0:             mov     al, 10001010b           ; screen on
-                    out     dx, al
-    
-    END:            
-                    
-#ifdef STACKING
-                    pop     ax
-                    pop     dx
-#endif
-                }
-        }
-
-        void select_buffer(uint8_t buffer) {
-                active_buffer = buffer;
-                __asm {
-                    .8086
-#ifdef STACKING
-                    push dx
-                    push ax
-#endif
-                    mov     dx, HGA_CONTROL_REGISTER
-                    cmp     buffer, 1
-                    je      L0
-                    mov     al, 00001010b           ; screen on graphics mode page 1
-                    out     dx, al
-                    jmp     END
-    L0:             mov     al, 10001010b           ; screen on graphics mode page 2
-                    out     dx, al
-        
-    END:            
-                    
-#ifdef STACKING
-                    pop     ax
-                    pop     dx
-#endif
-                }
-        }
 
         /**
          *  @brief  program CRTC fortext mode
@@ -281,63 +195,6 @@ namespace hga {
                         pop     dx
 #endif
                 }
-        }
-
-        /**
-        *  @brief  the 6845 CRTC's Light Pen High and Low registers (10h and 11h) in the high and low bytes
-        *  @retval  - High and Low registers
-        */
-        uint16_t read_light_pen_registers() {
-                uint16_t pen_regs = 0;
-                __asm {
-                        .8086
-#ifdef STACKING
-                        push dx
-                        push ax
-#endif
-                        mov     dx, CRTC_LIGHT_PEN_RESET        ; reset the CRTC light pen latch
-                        out     dx, al                                          ; writing anything to this port resets the light pen
-
-                        mov     dx, CRTC_STATUS_PORT            ; wait for start of vertical retrace
-        L1:             in      al, dx                                          ; read status port
-                        test    al, 80h                                         ; is horizontal retrace active?
-                        jnz     L1                                                      ; retrace still active
-
-        L2:             in      al, dx                                          ; read status port again
-                        test    al, 80h                                         ; is horizontal retrace active?
-                        jz      L2                                                      ; not yet
-
-                        cli                                                                     ; disable interupts
-        L3:             in      al, dx                                          ; read status port again
-                        test    al, 80h                                         ; is horizontal retrace active ?
-                        jnz             L3                                                      ; wait for it to to finish
-
-                        mov     dx, CRTC_LIGHT_PEN_LATCH        ; latch the light pen register counter
-                        out     dx, al                                          ; writing anything captures
-                        sti                                                                     ; re-enable interupts
-
-                        mov     dx, CRTC_ADDRESS_PORT
-                        mov     al, 10h                                         ; Light Pen high register number
-                        out     dx, al                                          ; latch high register
-
-                        mov     dx, CRTC_DATA_PORT
-                        in      al, dx                                          ; high reg in al
-                        mov     ah, al                                          ; copy to ah
-
-                        mov     dx, CRTC_ADDRESS_PORT
-                        mov     al, 11h                                         ; Light Pen low register number
-                        out             dx, al                                          ; latch low register
-
-                        mov     dx, CRTC_DATA_PORT
-                        in      al, dx                                          ; low reg in al
-
-                        mov     pen_regs, ax
-#ifdef STACKING
-                        pop     ax
-                        pop     dx
-#endif
-                }
-                return pen_regs;
         }
 
         /**
