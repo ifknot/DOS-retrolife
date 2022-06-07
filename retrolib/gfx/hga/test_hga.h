@@ -20,6 +20,7 @@
 #include "../../bios/bios_video_services.h"
 
 #include "../../memory/array.h"
+#include "../../memory/data_vector.h"
 
 #include "../point_2d.h"
 #include "../point_vector_2d.h"
@@ -64,7 +65,7 @@ namespace test_hga {
                 << "\ntest Hercules...\n";
             
             uint32_t time = 0;
-            hga::size_type n;
+            jtl::data_vector<hga::size_type> v; 
           
             // read the light pen registers
             /* {
@@ -159,19 +160,36 @@ namespace test_hga {
             }
             // count plot point
             {
+                const int16_t moore_neighbours[16] = {
+                    -1, -1,
+                     0, -1,
+                     1, -1,
+                    -1,  0,
+                     1,  0,
+                    -1,  1,
+                     0,  1,
+                     1,  1
+                };
+
                 jtl::point_vector_2d<8> donut("resource/donut.dat");
                 donut.translate(360, 174);
                 hga::cls();
-                fill_screen();
+                //fill_screen();
                 hga::screen_bound::unplot_multi_point(donut.data(), donut.size());
-                n = hga::screen_bound::count_plot_multi_point(donut.data(), donut.size());
+                v.push_back(hga::screen_bound::count_plot_multi_point(donut.data(), donut.size()));
+                hga::screen_bound::plot_multi_point(donut.data(), donut.size());
+                v.push_back(hga::screen_bound::count_plot_multi_point(donut.data(), donut.size()));
+                for (int i = 1; i <= 8; ++i) {
+                    hga::screen_bound::unplot_multi_point(donut.data(), i);
+                    v.push_back(hga::screen_bound::count_plot_multi_point(donut.data(), donut.size()));
+                }
                 std::getchar();
             }
             // return to text mode
             {
                 hga::text_mode();
                 std::cout << std::dec << "time = " << time << '\n';
-                std::cout << "donut = " << n << '\n';
+                std::cout << "donut = " << v << '\n';
                 perror("error:");
                 
             }

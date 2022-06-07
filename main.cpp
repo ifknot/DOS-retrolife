@@ -15,6 +15,9 @@
 
 int main() {
 
+    //jtl::union_point_t p(-720, -348);
+    //std::cout << std::hex << p.dword << '\n';
+
     test_hga::run();
     //test_count_neighbours::run();
     //test_point_vector_2d::run();

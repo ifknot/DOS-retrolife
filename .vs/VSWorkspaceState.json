@@ -1,11 +1,12 @@
 {
   "ExpandedNodes": [
     "",
+    "\\resource",
     "\\retrolib",
     "\\retrolib\\gfx",
-    "\\retrolib\\memory",
+    "\\retrolib\\gfx\\hga",
     "\\retrolib\\statistics"
   ],
-  "SelectedNode": "\\retrolib\\gfx\\test_point_vector_2d.h",
+  "SelectedNode": "\\retrolib\\gfx\\hga\\hga_plot_point.h",
   "PreviewInSolutionExplorer": false
 }
