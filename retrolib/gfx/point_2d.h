@@ -28,7 +28,10 @@ namespace jtl {
 
         union_point_t() : dword(0) {}
 
-        union_point_t(uint32_t dword) : dword(dword) {}
+        union_point_t(uint32_t yx) {
+            coord.x = static_cast<int16_t>(yx);
+            coord.y = static_cast<int16_t>(yx >> 16);
+        }
 
         union_point_t(int16_t x, int16_t y) {
             coord.x = x;

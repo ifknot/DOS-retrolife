@@ -75,7 +75,7 @@ namespace jtl {
                 }
             }
 
-            //copy constructor
+            // copy constructor
             data_vector(const data_vector& other) :
                 size_(other.size()),
                 capacity_(other.capacity()),
@@ -85,6 +85,7 @@ namespace jtl {
                 for (size_type i = 0; i < size_; ++i) data_[i] = other.data_[i];
             }
 
+            // destructor
             ~data_vector() {
                 delete[] data_;
             }

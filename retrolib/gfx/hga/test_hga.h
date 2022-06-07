@@ -88,7 +88,7 @@ namespace test_hga {
                 hga::cls();
             }
             // test write_pixel and time filling screen with every other pixel
-            {
+            /*{
                 bios::set_system_clock_counter(0);
                 cross_hairs();
                 time = bios::read_system_clock_counter();
@@ -159,18 +159,7 @@ namespace test_hga {
                 std::getchar();
             }
             // count plot point
-            {
-                const int16_t moore_neighbours[16] = {
-                    -1, -1,
-                     0, -1,
-                     1, -1,
-                    -1,  0,
-                     1,  0,
-                    -1,  1,
-                     0,  1,
-                     1,  1
-                };
-
+            {                
                 jtl::point_vector_2d<8> donut("resource/donut.dat");
                 donut.translate(360, 174);
                 hga::cls();
@@ -184,12 +173,44 @@ namespace test_hga {
                     v.push_back(hga::screen_bound::count_plot_multi_point(donut.data(), donut.size()));
                 }
                 std::getchar();
-            }
-            // return to text mode
+            }*/
+            //relative
             {
+                const jtl::size_t moore_neighbours[16] = {
+                    -1, -1,
+                     0, -1,
+                     1, -1,
+                    -1,  0,
+                     1,  0,
+                    -1,  1,
+                     0,  1,
+                     1,  1
+                };
+
+                jtl::point_vector_2d<8> donut("resource/donut.dat");
+                donut.translate(360, 174);
+                jtl::point_vector_2d<8>neighbours;
+                neighbours.add(moore_neighbours, 16);
+                jtl::union_point_t p(361, 175);
+                hga::cls();
+                fill_screen();
+                hga::screen_bound::unplot_multi_point(donut.data(), donut.size());
+                v.push_back(hga::screen_bound::count_relative_plot_multi_point(p.dword, neighbours.data(), neighbours.size()));
+                hga::screen_bound::plot_multi_point(donut.data(), donut.size());
+                v.push_back(hga::screen_bound::count_relative_plot_multi_point(p.dword, neighbours.data(), neighbours.size()));
+                for (int i = 1; i <= 8; ++i) {
+                    hga::screen_bound::unplot_multi_point(donut.data(), i);
+                    v.push_back(hga::screen_bound::count_relative_plot_multi_point(p.dword, neighbours.data(), neighbours.size()));
+                }
+                std::getchar();
+            //}
+            // return to text mode
+            //{
                 hga::text_mode();
                 std::cout << std::dec << "time = " << time << '\n';
-                std::cout << "donut = " << v << '\n';
+                std::cout << "count = " << v << '\n';
+                std::cout << std::hex << "donut = " << donut << '\n';
+                std::cout << "neighbours = " << neighbours << '\n';
                 perror("error:");
                 
             }

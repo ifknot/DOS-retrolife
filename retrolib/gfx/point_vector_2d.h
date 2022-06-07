@@ -41,8 +41,10 @@ namespace jtl{
 
 // construction
 
+            // empty container constructor
             point_vector_2d() : points(new point_vector_t) {}
 
+            // file data
             point_vector_2d(std::string file_path, bool binary = false) : points(new point_vector_t) {
                 if (binary) {
                     read_binary(file_path);
@@ -52,6 +54,18 @@ namespace jtl{
                 }
             }
 
+            // range constructor
+            template<typename InputIterator>
+            point_vector_2d(InputIterator first, const InputIterator last) :
+                points(new point_vector_t(first, last))
+            {}
+
+            //copy constructor
+            point_vector_2d(const point_vector_2d& other) :
+                points(new point_vector_t(other))
+            {}
+
+            // destructor
             ~point_vector_2d() {
                 delete points;
             }
@@ -73,8 +87,16 @@ namespace jtl{
 // modifiers
 
             void add(size_type x, size_type y) {
-                union_point_t point(x, y);
-                points->push_back(point.dword);
+                union_point_t p(x, y);
+                points->push_back(p.dword);
+            }
+
+            void add(const size_type* data, size_t n) {
+                size_t i = 0;
+                while (i < n) {
+                    union_point_t p(data[i++], data[i++]);
+                    points->push_back(p.dword);
+                }
             }
 
             inline void clear() {
