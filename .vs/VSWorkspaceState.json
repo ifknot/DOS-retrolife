@@ -5,8 +5,9 @@
     "\\retrolib",
     "\\retrolib\\gfx",
     "\\retrolib\\gfx\\hga",
+    "\\retrolib\\memory",
     "\\retrolib\\statistics"
   ],
-  "SelectedNode": "\\retrolib\\gfx\\hga\\hga_plot_point.h",
+  "SelectedNode": "\\retrolib\\gfx\\point_2d.h",
   "PreviewInSolutionExplorer": false
 }

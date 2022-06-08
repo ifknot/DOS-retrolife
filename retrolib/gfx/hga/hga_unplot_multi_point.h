@@ -43,13 +43,14 @@ namespace hga {
         J0:     mov     es, ax
                 lodsw                           ; load y into ax from data, then perform screen clipping
                 cmp     ax, SCREEN_Y_MAX        ; compare bx with y maximum boundry
-                jge     L1                    ; nothing to plot
+                jge     L1                      ; nothing to plot
                 mov     dx, ax                  ; copy y
 #ifdef ENABLE_MUL
                 shr     ax, 1                   ; calculate y / 4
                 shr     ax, 1                   ; 8086 limited to single step shifts
                 mov     cl, BYTES_PER_LINE
                 mul     cl                      ; calculate(y / 4) * 90
+                mov     bx, ax
 #else
                 and     ax, 0FFFCh              ; mask out bank selection bits
                 mov     bx, ax                  ; copy y

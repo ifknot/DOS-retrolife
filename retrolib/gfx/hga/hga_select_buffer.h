@@ -25,19 +25,19 @@ namespace hga {
             push ax
 #endif
             mov     dx, HGA_CONTROL_REGISTER
-            cmp     buffer, 1
-            je      L0
+            test    buffer, 1
+            jnz     L0
             mov     al, 00001010b; screen on graphics mode page 1
             out     dx, al
             jmp     END
-            L0 : mov     al, 10001010b; screen on graphics mode page 2
+       L0 : mov     al, 10001010b; screen on graphics mode page 2
             out     dx, al
 
             END :
 
 #ifdef STACKING
             pop     ax
-                pop     dx
+            pop     dx
 #endif
         }
     }

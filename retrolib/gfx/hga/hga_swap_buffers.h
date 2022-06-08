@@ -25,8 +25,8 @@ namespace hga {
 #endif
             xor     active_buffer, 1            ; flip to other page  using xor 0 -> 1 so 1 -> 0
             mov     dx, HGA_CONTROL_REGISTER
-            cmp     active_buffer, 1
-            je      L0
+            test    active_buffer, 1
+            jnz     L0
             mov     al, 00001010b               ; screen on
             out     dx, al
             jmp     END

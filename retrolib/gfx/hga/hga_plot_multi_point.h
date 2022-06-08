@@ -50,6 +50,7 @@ namespace hga {
                 shr     ax, 1                   ; 8086 limited to single step shifts
                 mov     cl, BYTES_PER_LINE
                 mul     cl                      ; calculate(y / 4) * 90
+                mov     bx, ax
 #else
                 and     ax, 0FFFCh              ; mask out bank selection bits
                 mov     bx, ax                  ; copy y
@@ -74,7 +75,7 @@ namespace hga {
                 lodsw                           ; load x from data
                 mov     di, ax                  ; move x into di and clip to screen bounds
                 cmp     di, SCREEN_X_MAX        ; compare di with x maximum boundry
-                jge     L1                     ; nothing to plot
+                jge     L1                      ; nothing to plot
                 mov     cx, di                  ; copy of x in cx
                 shr     di, 1                   ; calculate column byte x / 8
                 shr     di, 1                   ; 8086 limited to single step shifts
@@ -106,6 +107,7 @@ namespace hga {
                 pop     ax
                 pop     si
                 pop     ds
+
 #endif
             }
         }

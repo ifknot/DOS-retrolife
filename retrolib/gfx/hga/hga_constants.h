@@ -16,6 +16,9 @@
 
 #include <stdint.h>
 
+//#define STACKING
+//#define ENABLE_MUL
+
 /**
  *  Hercules macro definitions for assembly
  */

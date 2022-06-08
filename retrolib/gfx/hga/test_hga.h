@@ -63,10 +63,10 @@ namespace test_hga {
                 << bios::video_adapter_names[bios::detect_video_adapter_type()] << " "
                 << hga::mode_names[hga::detect_mode()] << '\n'
                 << "\ntest Hercules...\n";
-            
+
             uint32_t time = 0;
-            jtl::data_vector<hga::size_type> v; 
-          
+            jtl::data_vector<hga::size_type> v;
+
             // read the light pen registers
             /* {
                 std::cout
@@ -84,7 +84,7 @@ namespace test_hga {
             {
                 std::cout << "\nswitch to gfx mode Press <ENTER>";
                 std::getchar();
-                hga::graphics_mode();   
+                hga::graphics_mode();
                 hga::cls();
             }
             // test write_pixel and time filling screen with every other pixel
@@ -159,7 +159,7 @@ namespace test_hga {
                 std::getchar();
             }
             // count plot point
-            {                
+            {
                 jtl::point_vector_2d<8> donut("resource/donut.dat");
                 donut.translate(360, 174);
                 hga::cls();
@@ -187,20 +187,28 @@ namespace test_hga {
                      1,  1
                 };
 
+                const uint32_t moore[8] = {
+                    0xFFFFFFFF, 0xFFFF0000, 0xFFFF0001, 0x0000FFFF,
+                    0x00000001, 0x0001FFFF, 0x00010000, 0x00010001
+                };
+
                 jtl::point_vector_2d<8> donut("resource/donut.dat");
                 donut.translate(360, 174);
                 jtl::point_vector_2d<8>neighbours;
                 neighbours.add(moore_neighbours, 16);
                 jtl::union_point_t p(361, 175);
                 hga::cls();
-                fill_screen();
+                //fill_screen();
                 hga::screen_bound::unplot_multi_point(donut.data(), donut.size());
-                v.push_back(hga::screen_bound::count_relative_plot_multi_point(p.dword, neighbours.data(), neighbours.size()));
+                //v.push_back(hga::screen_bound::count_relative_plot_multi_point(p.dword, neighbours.data(), neighbours.size()));
+                v.push_back(hga::screen_bound::count_relative_plot_multi_point(p.dword, moore, 8));
                 hga::screen_bound::plot_multi_point(donut.data(), donut.size());
-                v.push_back(hga::screen_bound::count_relative_plot_multi_point(p.dword, neighbours.data(), neighbours.size()));
+                //v.push_back(hga::screen_bound::count_relative_plot_multi_point(p.dword, neighbours.data(), neighbours.size()));
+                v.push_back(hga::screen_bound::count_relative_plot_multi_point(p.dword, moore, 8));
                 for (int i = 1; i <= 8; ++i) {
                     hga::screen_bound::unplot_multi_point(donut.data(), i);
-                    v.push_back(hga::screen_bound::count_relative_plot_multi_point(p.dword, neighbours.data(), neighbours.size()));
+                    //v.push_back(hga::screen_bound::count_relative_plot_multi_point(p.dword, neighbours.data(), neighbours.size()));
+                    v.push_back(hga::screen_bound::count_relative_plot_multi_point(p.dword, moore, 8));
                 }
                 std::getchar();
             //}
@@ -211,8 +219,12 @@ namespace test_hga {
                 std::cout << "count = " << v << '\n';
                 std::cout << std::hex << "donut = " << donut << '\n';
                 std::cout << "neighbours = " << neighbours << '\n';
+                for (int i = 0; i < neighbours.size(); ++i) {
+                    std::cout << neighbours.data()[i] << ' ';
+                }
+                std::cout << '\n';
                 perror("error:");
-                
+
             }
 
             std::cout << "success!\n";

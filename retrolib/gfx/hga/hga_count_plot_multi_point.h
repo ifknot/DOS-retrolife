@@ -51,6 +51,7 @@ namespace hga {
                 shr     ax, 1                   ; 8086 limited to single step shifts
                 mov     cl, BYTES_PER_LINE
                 mul     cl                      ; calculate(y / 4) * 90
+                mov     bx, ax
 #else
                 and     ax, 0FFFCh              ; mask out bank selection bits
                 mov     bx, ax                  ; copy y
