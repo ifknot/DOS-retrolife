@@ -15,12 +15,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "retrolib/bios/bios_clock_services.h"
-#include "retrolib/gfx/hga/hga_graphics.h"
-#include "retrolib/gfx/point_2d.h"
-#include "retrolib/gfx/point_vector_2d.h"
+#include "../retrolib/bios/bios_clock_services.h"
+#include "../retrolib/gfx/hga/hga_graphics.h"
+#include "../retrolib/gfx/point_2d.h"
+#include "../retrolib/gfx/point_vector_2d.h"
+#include "../retrolib/automata/neighbourhoods.h"
 
 namespace dosgol {
+
+    using namespace jtl::automata::neighbourhood;
 
     int run(int argc, char* argv[]) {
 
@@ -48,11 +51,6 @@ namespace dosgol {
             return 1;
         }
 
-        const uint32_t moore[8] = {
-            0xFFFFFFFF, 0xFFFF0000, 0xFFFF0001, 0x0000FFFF,
-            0x00000001, 0x0001FFFF, 0x00010000, 0x00010001
-        };
-
         hga::graphics_mode();
         hga::cls();
 
@@ -77,7 +75,7 @@ namespace dosgol {
                 for (uint16_t x = 0; x < w; ++x) {
                     p.coord.x = ox + x;
                     p.coord.y = oy + y;
-                    sum = hga::screen_bound::count_relative_plot_multi_point(p.dword, moore, 8, vis);
+                    sum = hga::screen_bound::count_relative_plot_multi_point(p.dword, moore, moore_size, vis);
                     if (hga::screen_bound::is_plot_point(p.dword, vis) && (sum == 2 || sum == 3)) {
                         hga::screen_bound::plot_point(p.dword, hid);
                     }

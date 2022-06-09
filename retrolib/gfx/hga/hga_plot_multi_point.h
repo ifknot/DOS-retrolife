@@ -115,11 +115,17 @@ namespace hga {
 
 	}
 
-	namespace toroid_bound {
-
-		
+	namespace screen_toroid {		
 
 	}
+
+    namespace bounds_rect {
+
+    }
+
+    namespace bounds_toriod {
+
+    }
 
 }
 
