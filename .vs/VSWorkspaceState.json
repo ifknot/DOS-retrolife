@@ -2,9 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\retrolib",
+    "\\retrolib\\gfx",
     "\\retrolib\\gfx\\hga",
     "\\retrolib\\statistics"
   ],
-  "SelectedNode": "\\resource",
+  "SelectedNode": "\\retrolib\\gfx\\hga\\hga_environment.h",
   "PreviewInSolutionExplorer": false
 }
