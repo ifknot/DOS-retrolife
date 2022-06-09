@@ -88,7 +88,7 @@ namespace test_hga {
                 hga::cls();
             }
             // test write_pixel and time filling screen with every other pixel
-            /*{
+            {
                 bios::set_system_clock_counter(0);
                 cross_hairs();
                 time = bios::read_system_clock_counter();
@@ -173,7 +173,7 @@ namespace test_hga {
                     v.push_back(hga::screen_bound::count_plot_multi_point(donut.data(), donut.size()));
                 }
                 std::getchar();
-            }*/
+            }
             //relative
             {
                 const jtl::size_t moore_neighbours[16] = {
@@ -198,7 +198,7 @@ namespace test_hga {
                 neighbours.add(moore_neighbours, 16);
                 jtl::union_point_t p(361, 175);
                 hga::cls();
-                //fill_screen();
+                fill_screen();
                 hga::screen_bound::unplot_multi_point(donut.data(), donut.size());
                 //v.push_back(hga::screen_bound::count_relative_plot_multi_point(p.dword, neighbours.data(), neighbours.size()));
                 v.push_back(hga::screen_bound::count_relative_plot_multi_point(p.dword, moore, 8));

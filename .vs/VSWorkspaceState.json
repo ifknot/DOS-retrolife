@@ -1,13 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\resource",
     "\\retrolib",
-    "\\retrolib\\gfx",
     "\\retrolib\\gfx\\hga",
-    "\\retrolib\\memory",
     "\\retrolib\\statistics"
   ],
-  "SelectedNode": "\\retrolib\\gfx\\point_2d.h",
+  "SelectedNode": "\\resource",
   "PreviewInSolutionExplorer": false
 }
