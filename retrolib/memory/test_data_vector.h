@@ -14,7 +14,6 @@
 #include <iostream>
 #include <fstream>
 
-#include "array.h"
 #include "data_vector.h"
 
 typedef jtl::data_vector<int> vec_t;
