@@ -1,11 +1,11 @@
 {
   "ExpandedNodes": [
     "",
+    "\\gamelife",
     "\\retrolib",
     "\\retrolib\\gfx",
-    "\\retrolib\\gfx\\hga",
     "\\retrolib\\statistics"
   ],
-  "SelectedNode": "\\retrolib\\gfx\\hga\\hga_environment.h",
+  "SelectedNode": "\\retrolib\\gfx\\test_point_vector_2d.h",
   "PreviewInSolutionExplorer": false
 }

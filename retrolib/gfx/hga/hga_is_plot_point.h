@@ -16,7 +16,7 @@ namespace hga {
 
 	namespace screen_bound {
 
-		bool is_plot_point(uint32_t point, uint8_t buffer = 0) {
+		inline bool is_plot_point(uint32_t point, uint8_t buffer = 0) {
             uint8_t flag = 0;
             uint16_t y = static_cast<uint16_t>(point);
             point >>= 16;

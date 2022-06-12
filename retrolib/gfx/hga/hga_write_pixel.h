@@ -23,7 +23,7 @@ namespace hga {
         *  @param colour - background 0 foreground 1
         *  @param buffer - (default) 0 first screen buffer 1 second screen buffer
         */
-        void write_pixel(size_type x, size_type y, colour_t colour, uint8_t buffer = 0) {
+        inline void write_pixel(size_type x, size_type y, colour_t colour, uint8_t buffer = 0) {
             __asm {
                 .8086
 #ifdef STACKING

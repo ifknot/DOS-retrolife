@@ -19,6 +19,8 @@
 #include "ptrdiff_t.h"
 #include "null_ptr_t.h"
 
+#define DATA_VECTOR_MAX_SIZE 0xFFFF
+
 namespace jtl {
 
         template<typename T, size_t N = 256>
@@ -45,14 +47,14 @@ namespace jtl {
             // empty container constructor
             data_vector() :
                 size_(0),
-                capacity_(0),
+                capacity_(N),
                 data_(new T[N])
             {}
 
             // fill constructor
-            explicit data_vector(size_type n, const value_type& val = value_type(), bool f = true) :
+            explicit data_vector(size_type n, const value_type val = value_type(), bool f = true) :
                 size_(n),
-                capacity_(size_),
+                capacity_(N),
                 data_(new T[N])
             {
                 assert(size_ <= N && f);
@@ -65,7 +67,7 @@ namespace jtl {
             template<typename InputIterator>
             data_vector(InputIterator first, const InputIterator last) :
                 size_(last - first),
-                capacity_(size_),
+                capacity_(N),
                 data_(new T[N])
             {
                 assert(size_ <= N);
@@ -81,6 +83,7 @@ namespace jtl {
                 capacity_(other.capacity()),
                 data_(new T[N])
             {
+                assert(capacity_ <= N);
                 assert(size_ <= N);
                 for (size_type i = 0; i < size_; ++i) data_[i] = other.data_[i];
             }
@@ -114,18 +117,17 @@ namespace jtl {
                 return size_;
             }
 
-            inline size_type max_size() const {
-                return N;
+            static inline size_type max_size() {
+                return DATA_VECTOR_MAX_SIZE / sizeof(value_type);
             }
 
-            void resize(size_type n) { // TODO: , value_type val = value_type()) {
+            void resize(size_type n) { // TODO: n > N
                 assert(n <= N);
                 size_ = n;
-                capacity_ = size_;
             }
 
-            inline size_type capacity() const {
-                return capacity_;
+            static inline size_type capacity() {
+                return N;
             }
 
             inline bool empty() const {
@@ -177,9 +179,12 @@ namespace jtl {
 // modifiers
 
             data_vector& operator=(const data_vector& other) {
-                assert(size() == other.size());
+                assert(capacity() >= other.size());
                 if (this != &other) {
-                    for (size_type i = 0; i < size_; ++i) data_[i] = other.data_[i];
+                    size_ = other.size();
+                    for (size_type i = 0; i < size_; ++i) {
+                        data_[i] = other.data_[i];
+                    }
                 }
                 return *this;
             }

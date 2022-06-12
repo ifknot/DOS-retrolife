@@ -8,11 +8,13 @@
 //#include "retrolib/memory/test_memory_unions.h"
 //#include "retrolib/automata/test_count_neighbours.h"
 
-#include "gamelife/dosgol.h"
+//#include "gamelife/dosgol.h"
 
-int main(int argc, char* argv[]) {
-//int main() {
+#include "retrolib/gfx/test_glyph.h"
 
-    return dosgol::run(argc, argv);
+//int main(int argc, char* argv[]) {
+int main() {
+
+	test_glyph::run();
 
 }

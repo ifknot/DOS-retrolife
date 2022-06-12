@@ -14,11 +14,11 @@
 
 namespace hga {
 
-	/**
+	    /**
         *  @brief  the 6845 CRTC's Light Pen High and Low registers (10h and 11h) in the high and low bytes
         *  @retval  - High and Low registers
         */
-        uint16_t read_light_pen_registers() {
+        inline uint16_t read_light_pen_registers() {
                 uint16_t pen_regs = 0;
                 __asm {
                         .8086

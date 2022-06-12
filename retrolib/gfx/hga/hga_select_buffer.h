@@ -16,7 +16,7 @@
 
 namespace hga {
 
-    void select_buffer(uint8_t buffer) {
+    inline void select_buffer(uint8_t buffer) {
         active_buffer = buffer;
         __asm {
             .8086

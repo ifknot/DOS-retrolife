@@ -16,7 +16,7 @@ namespace hga {
 
 	namespace screen_bound {
 
-		colour_t read_pixel(size_type x, size_type y, uint8_t buffer = 0) {
+		inline colour_t read_pixel(size_type x, size_type y, uint8_t buffer = 0) {
 			return 0;
 		}
 
@@ -24,7 +24,7 @@ namespace hga {
 
 	namespace toroid_bound {
 
-		colour_t read_pixel(size_type x, size_type y, uint8_t buffer = 0) {
+		inline colour_t read_pixel(size_type x, size_type y, uint8_t buffer = 0) {
 			return 0;
 		}
 

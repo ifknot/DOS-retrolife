@@ -16,7 +16,7 @@
 
 namespace hga {
 
-    void swap_buffers() {
+    inline void swap_buffers() {
         __asm {
             .8086
 #ifdef STACKING

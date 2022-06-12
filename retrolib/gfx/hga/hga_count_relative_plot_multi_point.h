@@ -16,7 +16,7 @@ namespace hga {
 
 	namespace screen_bound {
 
-		size_type count_relative_plot_multi_point(uint32_t point, const uint32_t* point_data, uint16_t size, uint8_t buffer = 0) {
+		inline size_type count_relative_plot_multi_point(uint32_t point, const uint32_t* point_data, uint16_t size, uint8_t buffer = 0) {
             if (!size) return 0;
             size_type count = 0;
 			uint16_t y = static_cast<uint16_t>(point);

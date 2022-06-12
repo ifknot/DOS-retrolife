@@ -49,7 +49,7 @@ namespace hga {
          *  The index register and data register are also located at the same address and the following values must be assigned to the various registers in the text and graphics modes respectibvely.
          *  @note values as per Hercules recommended
          */
-        void text_mode() {
+        inline void text_mode() {
                 const uint8_t text_mode_6845[32] = {
                 // reg  value   meaning
                     0,      97, // horizontal character seeded
@@ -124,7 +124,7 @@ namespace hga {
          *  The index register and data register are also located at the same address and the following values must be assigned to the various registers in the text and graphics modes respectibvely.
          *  @note values as per Hercules recommended
          */
-        void graphics_mode() {
+        inline void graphics_mode() {
                 active_buffer = 0;
                 const uint8_t graphics_mode_6845[32] = {
                         // reg  value   meaning
@@ -209,7 +209,7 @@ namespace hga {
           *
           *  @retval  - video_mode_t text_mode (0) or graphics_mode (1)
           */
-        video_mode_t detect_mode() {
+        inline video_mode_t detect_mode() {
                 return read_light_pen_registers() < 2000 ? video_mode_graphics : video_mode_text;
         }
 

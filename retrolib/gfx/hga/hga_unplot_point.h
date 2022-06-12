@@ -16,7 +16,7 @@ namespace hga {
 
 	namespace screen_bound {
 
-		void unplot_point(uint32_t point, uint8_t buffer = 0) {
+		inline void unplot_point(uint32_t point, uint8_t buffer = 0) {
             uint16_t y = static_cast<uint16_t>(point);
             point >>= 16;
             uint16_t x = static_cast<uint16_t>(point);

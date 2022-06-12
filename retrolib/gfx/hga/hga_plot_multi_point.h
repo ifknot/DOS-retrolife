@@ -16,7 +16,7 @@ namespace hga {
 
 	namespace screen_bound {
 
-		 void plot_multi_point(const uint32_t* point_data, uint16_t size, uint8_t buffer = 0) {
+		 inline void plot_multi_point(const uint32_t* point_data, uint16_t size, uint8_t buffer = 0) {
              if (!size) return;
              __asm {
                 .8086

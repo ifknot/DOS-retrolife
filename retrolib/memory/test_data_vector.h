@@ -33,9 +33,8 @@ namespace test_data_vector {
             std::cout << "test_data_vector... \n";
             {
                 std::cout << "iterators\n";
-                typedef jtl::array<char, 12> chars_t;
-                chars_t c = { 'a','b','c','d','e','f','g','h','i','j','k','l' };
-                vec_t a(c.begin(), c.end());// , true);
+                char c[12] = { 'a','b','c','d','e','f','g','h','i','j','k','l' };
+                vec_t a(c, c + 12);// , true);
                 char ch = 'a';
                 for (vec_t::const_iterator it = a.begin(); it < a.end(); ++it) {
                     assert(*it == ch++);
@@ -58,20 +57,23 @@ namespace test_data_vector {
                 assert(b.empty());
                 a.clear();
                 assert(a.empty());
+                assert(a.capacity() == 256);
+                std::cout << a.max_size() << ' ' << sizeof(int) << '\n';
+                assert(vec_t::max_size() == 0xFFFF / sizeof(int));
             }
             {
-                std::cout << "element access\n"; 
+                std::cout << "element access\n";
                 vec_t v;
                 int sum = 0;
-                v.push_back(10);                
-                v.push_back(10);               
-                v.push_back(30); 
+                v.push_back(10);
+                v.push_back(10);
+                v.push_back(30);
                 v[1] += 10;
                 v = v * v;
                 v *= 2;
                 while (!v.empty()) {
                     sum += v.back();
-                    v.pop_back();                 
+                    v.pop_back();
                 }
                 assert(sum == 2800);
             }
@@ -95,7 +97,7 @@ namespace test_data_vector {
                 assert(b >= c);
             }
             {
-                std::cout << "serialisation\n"; 
+                std::cout << "serialisation\n";
                 jtl::data_vector<char> a(100, 'a');
                 jtl::data_vector<char> b(100);
                 std::cout << a << '\n';
