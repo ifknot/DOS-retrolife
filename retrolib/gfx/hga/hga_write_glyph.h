@@ -50,13 +50,17 @@ namespace hga {
                 add     di, ax                  ; + (y / 4) * 90
                 add     di, dx                  ; + (y mod 4) * 2000h
                 and     cx, 7h                  ; mask off 0111 lower bits i.e.mod 8 (thanks powers of 2)               
+
+                cmp     x, SCREEN_X_EDGE_BYTE
+                jge     J1                      ; edge byte?
+
                 xor     ah, ah
                 lodsb                           ; load al with pixel data 
-                mov     bx, 0xFf                ; load bx with mask
+                mov     bx, 0xFF                ; load bx with mask
                 ror     ax, cl                  ; shift pixel data across 2 bytes
                 ror     bx, cl                  ; shift mask data across 2 bytes
-#ifdef SYNCHRONISED     // will need al so cost an extra mov reg, reg to copy into cl
-                mov     cl, al                  ; copy mask byte
+#ifdef SYNCHRONISED    
+                mov     ch, al                  ; copy mask byte
                 mov     dx, CGA_STATUS_REG      ; CGA status reg
         S0:     in      al, dx                  ; read status
                 test    al, 1000b               ; is bit 3 set ? (in a vertical retrace interval)
@@ -64,14 +68,28 @@ namespace hga {
         S1:     in      al, dx                  ; read status
                 test    al, 1000b               ; is bit 3 set ? (just started a vertical retrace interval)
                 jnz     S1                      ; no, keep waiting
-                mov     al, cl
+                mov     al, ch
 #endif
-                cmp     x, SCREEN_Y_MAX - 8
-                jge     J1                      ; edge byte?
                 and     es:[di], bx             ; mask word
                 or      es:[di], ax             ; apply word
                 jmp     END
-        J1:     and     es:[di], bl             ; mask only the edge byte
+
+        J1:     lodsb                           ; load al with pixel data 
+                mov     bl, 0xFF                ; load bl with mask
+                shr     al, cl                  ; shift pixel data across
+                shr     bl, cl                  ; shift mask data across
+#ifdef SYNCHRONISED     
+                mov     ch, al                  ; copy mask byte
+                mov     dx, CGA_STATUS_REG      ; CGA status reg
+        S2:     in      al, dx                  ; read status
+                test    al, 1000b               ; is bit 3 set ? (in a vertical retrace interval)
+                jnz     S2                      ; yes, keep waiting
+        S3:     in      al, dx                  ; read status
+                test    al, 1000b               ; is bit 3 set ? (just started a vertical retrace interval)
+                jnz     S3                      ; no, keep waiting
+                mov     al, ch
+#endif
+                and     es:[di], bl             ; mask only the edge byte
                 or      es:[di], al             ; apply only the edge byte
 
 		END:
