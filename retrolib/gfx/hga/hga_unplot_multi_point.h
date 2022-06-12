@@ -90,10 +90,10 @@ namespace hga {
                 mov     dx, CGA_STATUS_REG      ; CGA status reg
         S0:     in      al, dx                  ; read status
                 test    al, 1000b               ; is bit 3 set ? (in a vertical retrace interval)
-                jnz     L0                      ; yes, keep waiting
+                jnz     S0                      ; yes, keep waiting
         S1:     in      al, dx                  ; read status
                 test    al, 1000b               ; is bit 3 set ? (just started a vertical retrace interval)
-                jnz     L1                      ; no, keep waiting
+                jnz     S1                      ; no, keep waiting
 #endif
                 and     es:[di], ah             ; unplot point
 

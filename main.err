@@ -1,6 +1,2 @@
-retrolib/gfx/hga/hga_write_glyph.h(21): Warning! W726: col(17) no reference to formal parameter 'bytes'
-retrolib/gfx/hga/hga_write_glyph.h(21): Note! N393: col(17) included from retrolib/gfx/hga/test_write_glyph.h(17)
-retrolib/gfx/hga/hga_write_glyph.h(21): Note! N393: col(17) included from main.cpp(14)
-retrolib/gfx/hga/hga_write_glyph.h(19): Note! N392: col(56) definition: 'unsigned char * bytes' in 'void hga::screen_bound::write_glyph_32x16( unsigned char *, unsigned short )'
-retrolib/gfx/hga/hga_write_glyph.h(21): Warning! W726: col(17) no reference to formal parameter 'size'
-retrolib/gfx/hga/hga_write_glyph.h(19): Note! N392: col(72) definition: 'unsigned short size' in 'void hga::screen_bound::write_glyph_32x16( unsigned char *, unsigned short )'
+main.cpp(26): Warning! W014: col(1) no reference to symbol 'mode_names'
+retrolib/gfx/hga/hga_constants.h(125): Note! N392: col(16) definition: 'char const hga::mode_names[2][255]'

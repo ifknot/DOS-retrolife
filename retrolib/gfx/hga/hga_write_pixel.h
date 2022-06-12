@@ -38,9 +38,9 @@ namespace hga {
                 test    buffer, 1               ; which buffer ?
                 jz      J0
                 add     ax, 800h                ; second buffer
-        J0:     mov     es, ax
-                mov     ax, y                   ; load y into bx then perform screen clipping
-                cmp     ax, SCREEN_Y_MAX        ; compare bx with y maximum boundry
+        J0:     mov     es, ax  
+                mov     ax, y                   ; load y into ax then perform screen clipping
+                cmp     ax, SCREEN_Y_MAX        ; compare ax with y maximum boundry
                 jge     END                     ; nothing to plot
                 mov     dx, ax                  ; copy y
 #ifdef ENABLE_MUL
@@ -105,10 +105,10 @@ namespace hga {
                 mov     dx, CGA_STATUS_REG      ; CGA status reg
         S0:     in      al, dx                  ; read status
                 test    al, 1000b               ; is bit 3 set ? (in a vertical retrace interval)
-                jnz     L0                      ; yes, keep waiting
+                jnz     S0                      ; yes, keep waiting
         S1:     in      al, dx                  ; read status
                 test    al, 1000b               ; is bit 3 set ? (just started a vertical retrace interval)
-                jnz     L1                      ; no, keep waiting
+                jnz     S1                      ; no, keep waiting
 
                 and     es:[di], cl             ; mask out the pixel bit
 #else

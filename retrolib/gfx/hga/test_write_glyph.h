@@ -13,6 +13,9 @@
 #include <cassert>
 #include <iostream>
 #include <fstream>
+#include <stdio.h>
+
+#include "hga_graphics.h"
 
 #include "hga_write_glyph.h"
 
@@ -39,7 +42,14 @@ namespace test_write_glyph {
 				0xAA, 0xAA, 0xAA, 0xAA,
 				0x55, 0x55, 0x55, 0x55
 			};
-			hga::screen_bound::write_glyph_32x16(v, 64);
+			getchar();
+			hga::graphics_mode();
+			hga::cls();
+			for (int i = 0; i < 16; ++i) {
+				hga::screen_bound::write_glyph_8x8(i, 100 + i, v);
+			}
+			getchar();
+			hga::text_mode();
 		}
 		std::cout << "success!\n";
 	}
