@@ -46,7 +46,7 @@ namespace test_write_glyph {
 			hga::graphics_mode();
 			hga::cls();
 			for (int i = 0; i < 16; ++i) {
-				hga::screen_bound::write_glyph_8x8(i, 100 + i, v);
+				hga::screen_bound::write_glyph_8x8(712 + i, 170 + i, v);
 			}
 			getchar();
 			hga::text_mode();

@@ -25,9 +25,9 @@ namespace hga {
 
 				mov     ax, HGA_VIDEO_RAM_SEGMENT
                 test    buffer, 1               ; which buffer ?
-                jz      J1
+                jz      J0
                 add     ax, 800h                ; second buffer
-        J1:     mov     es, ax					; es points to screen segment
+        J0:     mov     es, ax					; es points to screen segment
 				mov     ax, y                   ; load y into ax then perform screen clipping
 				cmp     ax, SCREEN_Y_MAX        ; compare ax with y maximum boundry
                 jge     END                     ; nothing to plot
@@ -43,13 +43,13 @@ namespace hga {
 				mov     di, x                   ; load x into di and clip to screen bounds
                 cmp     di, SCREEN_X_MAX        ; compare di with x maximum boundry
                 jge     END                     ; nothing to plot
-				 mov     cx, di                  ; copy of x in cx
+				mov     cx, di                  ; copy of x in cx
                 shr     di, 1                   ; calculate column byte x / 8
                 shr     di, 1                   ; 8086 limited to single step shifts
                 shr     di, 1                   ; x / 8
                 add     di, ax                  ; + (y / 4) * 90
                 add     di, dx                  ; + (y mod 4) * 2000h
-                and     cx, 7h                  ; mask off 0111 lower bits i.e.mod 8 (thanks powers of 2)
+                and     cx, 7h                  ; mask off 0111 lower bits i.e.mod 8 (thanks powers of 2)               
                 xor     ah, ah
                 lodsb                           ; load al with pixel data 
                 mov     bx, 0xFf                ; load bx with mask
@@ -66,9 +66,13 @@ namespace hga {
                 jnz     S1                      ; no, keep waiting
                 mov     al, cl
 #endif
-                and     es:[di], bx             ; mask 
-                or      es:[di], ax             ; apply 
-                
+                cmp     x, SCREEN_Y_MAX - 8
+                jge     J1                      ; edge byte?
+                and     es:[di], bx             ; mask word
+                or      es:[di], ax             ; apply word
+                jmp     END
+        J1:     and     es:[di], bl             ; mask only the edge byte
+                or      es:[di], al             ; apply only the edge byte
 
 		END:
 			}
