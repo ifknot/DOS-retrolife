@@ -1,2 +1,2 @@
 main.cpp(26): Warning! W014: col(1) no reference to symbol 'mode_names'
-retrolib/gfx/hga/hga_constants.h(126): Note! N392: col(16) definition: 'char const hga::mode_names[2][255]'
+retrolib/gfx/hga/hga_constants.h(125): Note! N392: col(16) definition: 'char const hga::mode_names[2][255]'

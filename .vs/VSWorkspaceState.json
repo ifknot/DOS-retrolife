@@ -4,8 +4,11 @@
     "\\gamelife",
     "\\retrolib",
     "\\retrolib\\gfx",
+    "\\retrolib\\gfx\\hga",
+    "\\retrolib\\math",
+    "\\retrolib\\memory",
     "\\retrolib\\statistics"
   ],
-  "SelectedNode": "\\retrolib\\gfx\\test_point_vector_2d.h",
+  "SelectedNode": "\\retrolib\\gfx\\hga\\test_hga.h",
   "PreviewInSolutionExplorer": false
 }

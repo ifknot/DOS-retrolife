@@ -24,7 +24,6 @@
  */
 #define SCREEN_X_MIN 0
 #define SCREEN_X_MAX 720
-#define SCREEN_X_EDGE_BYTE 712
 #define SCREEN_Y_MIN 0
 #define SCREEN_Y_MAX 348
 #define SCREEN_Y_SCALE 0.483
