@@ -20,7 +20,7 @@ namespace hga {
 
 		inline void write_glyph_8x8(uint16_t x, uint16_t y, uint8_t* bytes, uint8_t buffer = 0) {
             __asm {
-				.8086
+		.8086
                 shl     x, 1                    ; convert x to pixel location
                 shl     x, 1                    ; * 8
                 shl     x, 1                    ; 8086 limited to single step shifts
@@ -52,6 +52,7 @@ namespace hga {
                 ror     dx, 1                   ; 8086 limited to single step shifts
                 ror     dx, 1                   ; (y mod 4) * 2000h
 		// save this then add 2000h to it and 0110 0000 0000 0000b i.e. 6000h
+		// N.B. dont even need and if know always sarting a 0th buffer (which for glyph we are)
 	//Y0 then can loop to here
 		mov     di, x                   ; load x into di and clip to screen bounds
 		// wont need to keep clipping if clip x + width to start with
