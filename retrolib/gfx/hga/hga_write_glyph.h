@@ -4,7 +4,7 @@
  *  @details   ~
  *  @author    Jeremy Thornton
  *  @date      12.06.2022
- *  @copyright © Jeremy Thornton, 2022. All right reserved.
+ *  @copyright Â© Jeremy Thornton, 2022. All right reserved.
  *
  */
 #ifndef HGA_WRITE_GLYPH_H
@@ -29,40 +29,43 @@ namespace hga {
                 shl     y, 1
                 shl     y, 1
 
-				lds     si, bytes				; ds:[si] points to list of bytes to write
+		lds     si, bytes		; ds:[si] points to list of bytes to write
 
-				mov     ax, HGA_VIDEO_RAM_SEGMENT
+		mov     ax, HGA_VIDEO_RAM_SEGMENT
                 test    buffer, 1               ; which buffer ?
                 jz      J0
                 add     ax, 800h                ; second buffer
-        J0:     mov     es, ax					; es points to screen segment
+        J0:     mov     es, ax			; es points to screen segment
 
                 mov     cx, 8                   ; 8 rows of 1 byte
         Y0:     push    cx                      ; save row count            
-				mov     ax, y                   ; load y into ax then perform screen clipping
-				cmp     ax, SCREEN_Y_MAX        ; compare ax with y maximum boundry
+		mov     ax, y                   ; load y into ax then perform screen clipping
+		cmp     ax, SCREEN_Y_MAX        ; compare ax with y maximum boundry
                 jge     END                     ; nothing to plot
                 mov     dx, ax                  ; copy y
-				shr     ax, 1                   ; calculate y / 4
+		shr     ax, 1                   ; calculate y / 4
                 shr     ax, 1                   ; 8086 limited to single step shifts
                 mov     cl, BYTES_PER_LINE
                 mul     cl                      ; calculate(y / 4) * 90
-				and     dx, 00000011b           ; copy of y mask off only the bank select bits (0..4)
+		and     dx, 00000011b           ; copy of y mask off only the bank select bits (0..4)
                 ror     dx, 1                   ; calculate 16-bit bank# * 2000h
                 ror     dx, 1                   ; 8086 limited to single step shifts
                 ror     dx, 1                   ; (y mod 4) * 2000h
-				mov     di, x                   ; load x into di and clip to screen bounds
+		// save this then add 2000h to it and 0110 0000 0000 0000b i.e. 6000h
+	//Y0 then can loop to here
+		mov     di, x                   ; load x into di and clip to screen bounds
+		// wont need to keep clipping if clip x + width to start with
                 cmp     di, SCREEN_X_MAX        ; compare di with x maximum boundry
                 jge     END                     ; nothing to plot
-                
                 shr     di, 1                   ; calculate column byte x / 8
                 shr     di, 1                   ; 8086 limited to single step shifts
                 shr     di, 1                   ; x / 8
+		// the column byte wont change either so can precalculate this and re-use it 
                 add     di, ax                  ; + (y / 4) * 90
                 add     di, dx                  ; + (y mod 4) * 2000h
            
 #ifdef SYNCHRONISED    
-                xchg    ah, al                  ; copy data byte
+                // not needed w movsb ---> xchg    ah, al                  ; copy data byte
                 mov     dx, CGA_STATUS_REG      ; CGA status reg
         S0:     in      al, dx                  ; read status
                 test    al, 1000b               ; is bit 3 set ? (in a vertical retrace interval)
@@ -70,7 +73,7 @@ namespace hga {
         S1:     in      al, dx                  ; read status
                 test    al, 1000b               ; is bit 3 set ? (just started a vertical retrace interval)
                 jnz     S1                      ; no, keep waiting
-                xchg    ah, al
+                // not needed w movsb ---> xchg    ah, al
 #endif
                 movsb                           ; write glyph byte for this row
                 inc     y                           
@@ -96,13 +99,13 @@ namespace hga {
                 shl     y, 1
                 shl     y, 1
 
-				lds     si, bytes				; ds:[si] points to list of bytes to write
+		lds     si, bytes		; ds:[si] points to list of bytes to write
 
-				mov     ax, HGA_VIDEO_RAM_SEGMENT
+		mov     ax, HGA_VIDEO_RAM_SEGMENT
                 test    buffer, 1               ; which buffer ?
                 jz      J0
                 add     ax, 800h                ; second buffer
-        J0:     mov     es, ax					; es points to screen segment
+        J0:     mov     es, ax			; es points to screen segment
 
                 mov     cx, 16                  ; 16 rows 
         Y0:     push    cx
@@ -113,19 +116,19 @@ namespace hga {
                 mov     cx, 4                   ; 4 bytes i.e. 32x32 pixels
         X0:     push    cx 
 
-				mov     ax, y                  ; load y into ax then perform screen clipping
-				cmp     ax, SCREEN_Y_MAX        ; compare ax with y maximum boundry
+		mov     ax, y                  	; load y into ax then perform screen clipping
+		cmp     ax, SCREEN_Y_MAX        ; compare ax with y maximum boundry
                 jge     END                     ; nothing to plot
                 mov     dx, ax                  ; copy y
-				shr     ax, 1                   ; calculate y / 4
+		shr     ax, 1                   ; calculate y / 4
                 shr     ax, 1                   ; 8086 limited to single step shifts
                 mov     cl, BYTES_PER_LINE
                 mul     cl                      ; calculate(y / 4) * 90
-				and     dx, 00000011b           ; copy of y mask off only the bank select bits (0..4)
+		and     dx, 00000011b           ; copy of y mask off only the bank select bits (0..4)
                 ror     dx, 1                   ; calculate 16-bit bank# * 2000h
                 ror     dx, 1                   ; 8086 limited to single step shifts
                 ror     dx, 1                   ; (y mod 4) * 2000h
-				mov     di, ox                   ; load x into di and clip to screen bounds
+		mov     di, ox                  ; load x into di and clip to screen bounds
                 cmp     di, SCREEN_X_MAX        ; compare di with x maximum boundry
                 jge     END                     ; nothing to plot
                 
@@ -135,10 +138,10 @@ namespace hga {
                 add     di, ax                  ; + (y / 4) * 90
                 add     di, dx                  ; + (y mod 4) * 2000h
                 
-                lodsb                           ; load al with pixel data 
+                //lodsb                           ; load al with pixel data 
            
 #ifdef SYNCHRONISED    
-                xchg    ah, al                  ; copy data byte
+                // not needed w movsb ---> xchg    ah, al                  ; copy data byte
                 mov     dx, CGA_STATUS_REG      ; CGA status reg
         S0:     in      al, dx                  ; read status
                 test    al, 1000b               ; is bit 3 set ? (in a vertical retrace interval)
@@ -146,9 +149,10 @@ namespace hga {
         S1:     in      al, dx                  ; read status
                 test    al, 1000b               ; is bit 3 set ? (just started a vertical retrace interval)
                 jnz     S1                      ; no, keep waiting
-                xchg    ah, al
+                // not needed w movsb ---> xchg    ah, al
 #endif
-                stosb
+                //stosb
+		movsb
 
                 add     ox, 8
                 pop     cx
