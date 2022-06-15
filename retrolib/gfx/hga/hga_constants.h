@@ -18,6 +18,8 @@
 
 //#define STACKING
 #define ENABLE_MUL
+//#define SYNCHRONISED
+
 
 /**
  *  Hercules macro definitions for assembly
@@ -117,6 +119,9 @@
 #define CRTC_ADDRESS_PORT       3B4h
 // Read from this port to the latched data of the register requested at 3B4h
 #define CRTC_DATA_PORT          3B5h
+
+// HGA Status Register at I/O address (same as CGA)
+#define HGA_STATUS_REG			3DAh
 
 namespace hga {
 

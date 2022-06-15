@@ -19,7 +19,8 @@ namespace bios {
 #define READ_SYSTEM_CLOCK_COUNTER	0
 #define SET_SYSTEM_CLOCK_COUNTER	1
 
-#define TICKS_PER_24HR	1800B0h
+#define TICKS_PER_SECOND			18.206
+#define TICKS_PER_24HR				1800B0h
 
 }
 
