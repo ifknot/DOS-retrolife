@@ -61,23 +61,46 @@ namespace bios {
     *		40:66	byte	CGA current color palette mask setting (port 3d9h) EGA and VGA values emulate the CGA
     *  @param vdda - target array for data copy
     */
-    void read_VDDA(dos::address_t vdda) {
-        uint16_t segment_ = vdda.memory.segment;
-        uint16_t offset_ = vdda.memory.offset;
+    void read_VDDA_into(char* vdda) {
         __asm {
             .8086
             mov		ax, BIOS_DATA_AREA_SEGMENT
             mov		ds, ax
             mov		si, BIOS_VDDA_OFFSET    ; DS:SI = 0040:0049 (BIOS Data Area)
-            mov		ax, segment_
-            mov		es, ax
-            mov		di, offset_             ; ES:DI = array to copy data
+            les     di, vdda                ; ES:DI = array to copy data
 
             cld                             ; increment
             mov		cx, BIOS_VDDA_SIZE      ; 30 bytes of VDDA data
             rep		movsb                   ; copy VDDA bytes to array
 
         }
+    }
+
+    void print_VDDA() {
+
+        char vdda[30];
+        read_VDDA_into(vdda);
+        std::cout
+            << "video mode " << std::dec << (int)vdda[0] << '\n'
+            << std::dec << *(int16_t*)(vdda + 1) << " columns\n"
+            << std::dec << *(int16_t*)(vdda + 3) / 1024 << "K video memory\n"
+            << "video page offset " << std::hex << *(int16_t*)(vdda + 5) << '\n'
+            << "cursor loc page 0 " << std::hex << *(int16_t*)(vdda + 7) << '\n'
+            << "cursor loc page 1 " << std::hex << *(int16_t*)(vdda + 9) << '\n'
+            << "cursor loc page 2 " << std::hex << *(int16_t*)(vdda + 11) << '\n'
+            << "cursor loc page 3 " << std::hex << *(int16_t*)(vdda + 13) << '\n'
+            << "cursor loc page 4 " << std::hex << *(int16_t*)(vdda + 15) << '\n'
+            << "cursor loc page 5 " << std::hex << *(int16_t*)(vdda + 17) << '\n'
+            << "cursor loc page 6 " << std::hex << *(int16_t*)(vdda + 19) << '\n'
+            << "cursor loc page 7 " << std::hex << *(int16_t*)(vdda + 21) << '\n'
+            << "cursor ending (bottom) scan line " << std::dec << (int)vdda[23] << '\n'
+            << "cursor starting (top) scan line  " << std::dec << (int)vdda[24] << '\n'
+            << "display page #" << std::dec << (int)vdda[25] << '\n'
+            << "base port address for active 6845 CRT controller " << std::hex << *(int16_t*)(vdda + 26) << " (3B4h=mono, 3D4h=color)\n"
+            << "6845 CRT mode control register value " << std::dec << (int)vdda[27] << '\n'
+            << "CGA current color palette mask setting (port 3d9h) " << std::dec << (int)vdda[29] << '\n'
+        ;
+
     }
 
     namespace vga {
@@ -279,6 +302,15 @@ namespace bios {
     * + a pattern of 001 indicates a Hercules Graphics Card Plus
     * + a pattern of 101 indicates a Hercules In-Color Card
     * + any other pattern is a Hercules Graphics Card.
+    * 
+    * Reading from port 03BAh returns vertical sync in bit 7, and a card ID in bits 6-4:
+    * 000: Hercules
+    * 001: Hercules Plus
+    * 101: Hercules InColor
+    * 111: Unknown clone 
+    * 
+    * @note Only trust this ID once you've checked that there's a vertical sync present; if bit 7 is the same for 32768 reads in succession, then there isn't.
+    * @note Some Hercules cards support a light pen. Bit 1 of port 3BAh returns the lightpen sensor status; any write to port 3BBh resets the light pen status.
     *
     * \return enum video_adapter_t
     */
@@ -309,17 +341,22 @@ namespace bios {
         HGA:    in      al, dx      ; read status port again
                 and     al, 70h     ; isolate bits 4-6
 
-                cmp     ah, 50h     ; Hercules InColor bit pattern
+                cmp     al, 70h     ; Unknown clone bit pattern
                 jne     L2
-                mov     type, 4     ; HGC_INCOLOR
-                jmp exit
+                mov     type, 0     ; UKNOWN
+                jmp     exit
 
-        L2:     cmp     ah, 10h     ; Hercules Plus bit pattern
+        L2:     cmp     al, 50h     ; Hercules InColor bit pattern
                 jne     L3
-                mov     type, 3     ; HGC_PLUS
-                jmp exit
+                mov     type, 4     ; HGC_INCOLOR
+                jmp     exit
 
-        L3:     mov     type, 2     ; HGC
+        L3:     cmp     al, 10h     ; Hercules Plus bit pattern
+                jne     L4
+                mov     type, 3     ; HGC_PLUS
+                jmp     exit
+
+        L4:     mov     type, 2     ; HGC
 
         EXIT:   pop dx
                 pop cx

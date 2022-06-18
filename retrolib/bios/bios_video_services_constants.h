@@ -175,9 +175,9 @@ namespace bios {
          */
         enum video_adapter_t {
                 UNKNOWN = 0,
-                MDA,                    // 1
-                HGC,                    // 2
-                HGC_PLUS,               // 3
+                MDA,            // 1
+                HGC,            // 2
+                HGC_PLUS,       // 3
                 HGC_INCOLOR,    // 4
                 CGA,
                 EGA,
@@ -222,7 +222,7 @@ namespace bios {
         };
 
         static char video_adapter_names[10][255] = {
-                "Unknown Adapter",
+                "Unknown HGA clone",
                 "MDA",
                 "Hercules",
                 "Hercules Plus",

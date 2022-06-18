@@ -1,14 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\gamelife",
     "\\retrolib",
+    "\\retrolib\\bios",
     "\\retrolib\\gfx",
+    "\\retrolib\\gfx\\cga",
+    "\\retrolib\\gfx\\cga\\mode4",
     "\\retrolib\\gfx\\hga",
     "\\retrolib\\math",
     "\\retrolib\\memory",
     "\\retrolib\\statistics"
   ],
-  "SelectedNode": "\\retrolib\\gfx\\hga\\test_hga.h",
+  "SelectedNode": "\\retrolib\\gfx\\cga\\cga_constants.h",
   "PreviewInSolutionExplorer": false
 }
