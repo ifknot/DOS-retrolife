@@ -28,7 +28,7 @@ namespace hga {
 
 	namespace screen_bound {
 
-		inline void write_glyph_8x8(uint16_t x, uint16_t y, uint8_t* bytes, uint8_t buffer = 0) {
+		inline void write_glyph_8x8(uint16_t x, uint16_t y, const uint8_t* bytes, uint8_t buffer = 0) {
             __asm {
 		.8086
                 shl     x, 1                    ; convert x glyph column to pixel location
@@ -39,9 +39,9 @@ namespace hga {
                 shl     y, 1
                 shl     y, 1
 
-		lds     si,     bytes		            ; ds:[si] points to list of 8 glyph data bytes to write
+		        lds     si,     bytes		            ; ds:[si] points to list of 8 glyph data bytes to write
 
-		mov     ax,     HGA_VIDEO_RAM_SEGMENT
+		        mov     ax,     HGA_VIDEO_RAM_SEGMENT
                 test    buffer, 1               ; which buffer ?
                 jz      J0                      ; B000:0000 - B000 : 7FFF   First Page
                 add     ax, 800h                ; B000:8000 - B000 : FFFF   Second Page

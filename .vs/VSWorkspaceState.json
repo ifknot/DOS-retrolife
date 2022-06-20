@@ -11,6 +11,6 @@
     "\\retrolib\\memory",
     "\\retrolib\\statistics"
   ],
-  "SelectedNode": "\\retrolib\\gfx\\cga\\cga_constants.h",
+  "SelectedNode": "\\retrolib\\bios\\bios_video_services_constants.h",
   "PreviewInSolutionExplorer": false
 }
