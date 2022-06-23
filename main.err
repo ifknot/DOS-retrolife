@@ -1,2 +1,4 @@
+main.cpp(31): Warning! W014: col(1) no reference to symbol 'font8x8_basic_msb'
+retrolib/gfx/hga/../../font8x8/font8x8_basic.h(32): Note! N392: col(19) definition: 'unsigned char const jtl::font8x8_basic_msb[128][8]'
 main.cpp(31): Warning! W014: col(1) no reference to symbol 'mode_names'
 retrolib/gfx/hga/hga_constants.h(130): Note! N392: col(16) definition: 'char const hga::mode_names[2][255]'

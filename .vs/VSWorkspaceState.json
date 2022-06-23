@@ -2,15 +2,13 @@
   "ExpandedNodes": [
     "",
     "\\retrolib",
-    "\\retrolib\\bios",
+    "\\retrolib\\font8x8",
     "\\retrolib\\gfx",
-    "\\retrolib\\gfx\\cga",
     "\\retrolib\\gfx\\cga\\mode4",
     "\\retrolib\\gfx\\hga",
-    "\\retrolib\\math",
     "\\retrolib\\memory",
     "\\retrolib\\statistics"
   ],
-  "SelectedNode": "\\retrolib\\bios\\bios_video_services_constants.h",
+  "SelectedNode": "\\retrolib\\font8x8\\font8x8_ext_latin.h",
   "PreviewInSolutionExplorer": false
 }
