@@ -21,8 +21,9 @@
 #include "hga_graphics.h"
 #include "hga_write_glyph.h"
 
-#include "../../font8x8/font8x8_basic.h"
+#include "../../font8x8/font8x8_latin.h"
 #include "../../font8x8/font8x8_box.h"
+
 #include "../../memory/reverse_bits.h"
 
 namespace test_write_glyph {
@@ -34,10 +35,11 @@ namespace test_write_glyph {
                 uint8_t a[8] = { // letter A
                     0, 0x38, 0x44, 0x44, 0x44, 0x7C, 0x44, 0x44
                 };
-                for (int i = 0; i < 128; ++i) {
-                    //jtl::reverse_bits(jtl::font8x8_basic[i], 8);
-                    jtl::reverse_bits(jtl::font8x8_box[i], 8);
-                }
+
+                //for (int i = 0; i < 128; ++i) jtl::reverse_bits(jtl::font8x8_basic[i], 8);
+
+                //for (int i = 0; i < 128; ++i) jtl::reverse_bits(jtl::font8x8_ext_latin[i], 8);
+                
                 getchar();
                 hga::graphics_mode();
                 hga::cls();
@@ -46,7 +48,8 @@ namespace test_write_glyph {
                 for (int y = 0; y < 43; ++y) {
                     for (int x = 0; x < 90; ++x) {
                         //hga::screen_bound::write_glyph_8x8(x, y, a);
-                        hga::screen_bound::write_glyph_8x8(x, y, jtl::font8x8_basic[i++ % 128]);
+                        //hga::screen_bound::write_glyph_8x8(x, y, jtl::font8x8_basic[i++ % 128]);
+                        hga::screen_bound::write_glyph_8x8(x, y, jtl::font8x8_ext_latin[i++ % 96]);
                     }
                 }
                 time = bios::read_system_clock_counter() - time;
@@ -58,23 +61,7 @@ namespace test_write_glyph {
             std::cout
                 << "\nsuccess!\n"
                 << std::dec << "time = " << time / TICKS_PER_SECOND << '\n';
-            /*
-            std::ofstream f("resource/font8x8_basic.h");
-            f << " = {\n" << std::hex;
-            int i = 0;
-            for (int y = 0; y < 128; ++y) {
-                f << "\t{";
-                for (int x = 0; x < 7; ++x) {
-                    f << " 0x" << (uint16_t)jtl::font8x8_basic[y][x] << ",";
-                }
-                f << " 0x" << (uint16_t)jtl::font8x8_basic[y][7] << "},   // U+00" << i;
-                if (i > 32) f << "(" << (char)i << ")";
-                ++i;
-                f << "\n";
-            }
-            f << "};\n";
-            f.close();
-            */
+            
         }
 
 }
