@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\retrolib",
+    "\\retrolib\\file",
+    "\\retrolib\\font8x8"
   ],
+  "SelectedNode": "\\retrolib",
   "PreviewInSolutionExplorer": false
 }

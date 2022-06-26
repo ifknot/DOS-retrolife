@@ -37,8 +37,8 @@ namespace test_write_glyph {
                 };
 
                 //for (int i = 0; i < 128; ++i) jtl::reverse_bits(jtl::font8x8_basic[i], 8);
-
-                //for (int i = 0; i < 128; ++i) jtl::reverse_bits(jtl::font8x8_ext_latin[i], 8);
+                //for (int i = 0; i < 96; ++i) jtl::reverse_bits(jtl::font8x8_ext_latin[i], 8);
+                //for (int i = 0; i < 128; ++i) jtl::reverse_bits(jtl::font8x8_box[i], 8);
                 
                 getchar();
                 hga::graphics_mode();
@@ -50,6 +50,7 @@ namespace test_write_glyph {
                         //hga::screen_bound::write_glyph_8x8(x, y, a);
                         //hga::screen_bound::write_glyph_8x8(x, y, jtl::font8x8_basic[i++ % 128]);
                         hga::screen_bound::write_glyph_8x8(x, y, jtl::font8x8_ext_latin[i++ % 96]);
+                        //hga::screen_bound::write_glyph_8x8(x, y, jtl::font8x8_box[i++ % 128]);
                     }
                 }
                 time = bios::read_system_clock_counter() - time;

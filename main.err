@@ -1,5 +1,5 @@
 main.cpp(31): Warning! W014: col(1) no reference to symbol 'font8x8_basic'
-retrolib/gfx/hga/../../font8x8/font8x8_basic.h(37): Note! N392: col(19) definition: 'unsigned char const jtl::font8x8_basic[128][8]'
+retrolib/gfx/hga/../../font8x8/font8x8_basic.h(35): Note! N392: col(19) definition: 'unsigned char const jtl::font8x8_basic[128][8]'
 main.cpp(31): Warning! W014: col(1) no reference to symbol 'font8x8_control'
 retrolib/gfx/hga/../../font8x8/font8x8_control.h(35): Note! N392: col(19) definition: 'unsigned char const jtl::font8x8_control[32][8]'
 main.cpp(31): Warning! W014: col(1) no reference to symbol 'mode_names'
