@@ -1,7 +1,7 @@
 Open Watcom Linker Version 2.0 beta Nov  1 2017 20:56:49 (64-bit)
 Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
 Portions Copyright (c) 1985-2002 Sybase, Inc. All Rights Reserved.
-Created on:       22/06/26 22:24:28
+Created on:       22/06/26 23:12:08
 Executable Image: gamelife.exe
 creating a DOS executable
 
@@ -13,7 +13,7 @@ creating a DOS executable
 Group                           Address              Size
 =====                           =======              ====
 
-DGROUP                          0b5a:0000            000023c0
+DGROUP                          0b5a:0000            00002990
 
 
 
@@ -192,19 +192,19 @@ _NULL                  BEGDATA        DGROUP         0b5a:0000       00000020
 _AFTERNULL             BEGDATA        DGROUP         0b5c:0000       00000002
 CONST                  DATA           DGROUP         0b5c:0002       00000058
 CONST2                 DATA           DGROUP         0b62:0000       00000a32
-_DATA                  DATA           DGROUP         0c06:0000       00000ce6
-XIB                    DATA           DGROUP         0cd4:0006       00000000
-XI                     DATA           DGROUP         0cd4:0006       0000003c
-XIE                    DATA           DGROUP         0cd8:0002       00000000
-YIB                    DATA           DGROUP         0cd8:0002       00000000
-YI                     DATA           DGROUP         0cd8:0002       00000012
-YIE                    DATA           DGROUP         0cd9:0004       00000000
-STRINGS                DATA           DGROUP         0cd9:0004       00000000
-DATA                   DATA           DGROUP         0cd9:0004       00000000
-_emu_init_start        EMU            DGROUP         0cd9:0004       00000000
-_emu_init_end          EMU            DGROUP         0cd9:0004       00000000
-_BSS                   BSS            DGROUP         0cda:0000       000003c0
-STACK                  STACK          DGROUP         0d16:0000       00000800
+_DATA                  DATA           DGROUP         0c06:0000       000012b6
+XIB                    DATA           DGROUP         0d31:0006       00000000
+XI                     DATA           DGROUP         0d31:0006       0000003c
+XIE                    DATA           DGROUP         0d35:0002       00000000
+YIB                    DATA           DGROUP         0d35:0002       00000000
+YI                     DATA           DGROUP         0d35:0002       00000012
+YIE                    DATA           DGROUP         0d36:0004       00000000
+STRINGS                DATA           DGROUP         0d36:0004       00000000
+DATA                   DATA           DGROUP         0d36:0004       00000000
+_emu_init_start        EMU            DGROUP         0d36:0004       00000000
+_emu_init_end          EMU            DGROUP         0d36:0004       00000000
+_BSS                   BSS            DGROUP         0d37:0000       000003c0
+STACK                  STACK          DGROUP         0d73:0000       00000800
 
 
                         +----------------+
@@ -221,8 +221,11 @@ Module: main.obj(C:\Users\ifkno\DOSBOX\DOS16\GAMELIFE\main.cpp)
 0000:0340+     void __far hga::text_mode()
 0000:0390+     void __far hga::graphics_mode()
 0000:03f0+     void __far hga::screen_bound::write_glyph_8x8( short unsigned, short unsigned, char unsigned const __far *, char unsigned )
-0b5a:1801+     char unsigned __far hga::active_buffer
+0b5a:1dd1+     char unsigned __far hga::active_buffer
 0b5a:0ac0+     char unsigned __far jtl::font8x8_box[][8]
+0b5a:0ec0+     char unsigned __far jtl::font8x8_block[][8]
+0b5a:0fc0+     char unsigned __far jtl::font8x8_greek[][8]
+0b5a:1190+     char unsigned __far jtl::font8x8_hiragana[][8]
 0000:0000+     long unsigned __far bios::read_system_clock_counter()
 0000:005c+     void __far bios::set_system_clock_counter( long unsigned )
 0000:00a0+     void __far hga::cls( char unsigned )
@@ -230,7 +233,7 @@ Module: main.obj(C:\Users\ifkno\DOSBOX\DOS16\GAMELIFE\main.cpp)
 0000:0122+     void __far test_write_glyph::run()
 0000:030a      main_
 Module: C:\WATCOM\lib286\plbxl.lib(ioicout.cpp)
-0b5a:1948      std::ostream __near std::cout
+0b5a:1f18      std::ostream __near std::cout
 0000:04ee+     __far cout_initfini::cout_initfini()
 0000:04fc+     __far cout_initfini::~cout_initfini()
 Module: C:\WATCOM\lib286\plbxl.lib(ostincch.cpp)
@@ -259,31 +262,31 @@ Module: C:\WATCOM\lib286\plbxl.lib(ostincha.cpp)
 0000:6ff0      std::ostream __far & __far std::ostream::operator <<( char )
 Module: C:\WATCOM\lib286\dos\clibl.lib(cstart)
 0b5a:0000*     __nullarea
-0b5a:1038*     __ovlflag
-0b5a:1039*     __intno
-0b5a:103a*     __ovlvec
+0b5a:1608*     __ovlflag
+0b5a:1609*     __intno
+0b5a:160a*     __ovlvec
 0000:0784      _cstart_
 0000:0857*     _Not_Enough_Memory_
 0000:0989      __exit_
 0000:09a6      __do_exit_with_msg__
 0000:09ff      __GETDS
 Module: C:\WATCOM\lib286\dos\clibl.lib(fltused.c)
-0b5a:103e      _fltused_
+0b5a:160e      _fltused_
 Module: C:\WATCOM\lib286\plbxl.lib(iofefg.cpp)
-0b5a:17b8      __ppfltused_
+0b5a:1d88      __ppfltused_
 Module: C:\WATCOM\lib286\dos\clibl.lib(cmodel.asm)
 0000:0a0a      _big_code_
 0000:0a0a*     CodeModelMismatch
 Module: C:\WATCOM\lib286\dos\clibl.lib(_8087086.asm)
-0b5a:1040      __8087
-0b5a:1041      __real87
-0b5a:1042      __dos87emucall
-0b5a:1044      __dos87real
+0b5a:1610      __8087
+0b5a:1611      __real87
+0b5a:1612      __dos87emucall
+0b5a:1614      __dos87real
 Module: C:\WATCOM\lib286\plbxl.lib(cppdata.cpp)
-0b5a:1976      __wint_thread_data
-0b5a:199a      __compiled_under_generic
+0b5a:1f46      __wint_thread_data
+0b5a:1f6a      __compiled_under_generic
 Module: C:\WATCOM\lib286\plbxl.lib(fsroot.cpp)
-0b5a:17c4      ___wcpp_4_data_init_fs_root_
+0b5a:1d94      ___wcpp_4_data_init_fs_root_
 Module: C:\WATCOM\lib286\plbxl.lib(undefed.cpp)
 0000:7150      __wcpp_4_undefed_cdtor__
 Module: C:\WATCOM\lib286\dos\clibl.lib(iobaddr.c)
@@ -302,7 +305,7 @@ Module: C:\WATCOM\lib286\plbxl.lib(ostdestr.cpp)
 Module: C:\WATCOM\lib286\plbxl.lib(sdfdestr.cpp)
 0000:7400      __far stdiobuf::~stdiobuf()
 Module: C:\WATCOM\lib286\plbxl.lib(moddtorr.cpp)
-0b5a:17e8      ___wcpp_4_data_module_dtor_ref_
+0b5a:1db8      ___wcpp_4_data_module_dtor_ref_
 Module: C:\WATCOM\lib286\plbxl.lib(ostopfx.cpp)
 0000:7500      int __far std::ostream::do_opfx()
 Module: C:\WATCOM\lib286\plbxl.lib(iouwrtit.cpp)
@@ -314,30 +317,30 @@ Module: C:\WATCOM\lib286\plbxl.lib(iossetst.cpp)
 0000:7980+     __far __WATCOM_exception::~__WATCOM_exception()
 0000:7910      void __far std::ios::setstate( int )
 Module: C:\WATCOM\lib286\dos\clibl.lib(iob.c)
-0b5a:1046      ___iob
-0b5a:199c      ___OpenStreams
-0b5a:19a0      ___ClosedStreams
+0b5a:1616      ___iob
+0b5a:1f6c      ___OpenStreams
+0b5a:1f70      ___ClosedStreams
 Module: C:\WATCOM\lib286\dos\clibl.lib(fgetc.c)
 0000:0a28+     __fill_buffer_
 0000:0b1d      fgetc_
 Module: C:\WATCOM\lib286\dos\clibl.lib(crwdata)
-0b5a:11ae      __curbrk
-0b5a:11b6      __STACKLOW
-0b5a:11b8      __STACKTOP
-0b5a:11ba      __cbyte
-0b5a:11bc      __child
-0b5a:11be      __no87
-0b5a:11cb      ___FPE_handler
-0b5a:11b0      __psp
-0b5a:11bf      __get_ovl_stack
-0b5a:11c3      __restore_ovl_stack
-0b5a:11c7      __close_ovl_file
-0b5a:11cf      __LpCmdLine
-0b5a:11d3      __LpPgmName
-0b5a:11b2      __osmajor
-0b5a:11b3      __osminor
-0b5a:11b4      __osmode
-0b5a:11b5      __HShift
+0b5a:177e      __curbrk
+0b5a:1786      __STACKLOW
+0b5a:1788      __STACKTOP
+0b5a:178a      __cbyte
+0b5a:178c      __child
+0b5a:178e      __no87
+0b5a:179b      ___FPE_handler
+0b5a:1780      __psp
+0b5a:178f      __get_ovl_stack
+0b5a:1793      __restore_ovl_stack
+0b5a:1797      __close_ovl_file
+0b5a:179f      __LpCmdLine
+0b5a:17a3      __LpPgmName
+0b5a:1782      __osmajor
+0b5a:1783      __osminor
+0b5a:1784      __osmode
+0b5a:1785      __HShift
 Module: C:\WATCOM\lib286\dos\clibl.lib(ini87086.asm)
 0000:0bc8      __init_8087_emu
 0000:0bce      __x87id
@@ -347,10 +350,10 @@ Module: C:\WATCOM\lib286\dos\emu87.lib(emu8087.asm)
 Module: C:\WATCOM\lib286\dos\emu87.lib(dosinit.asm)
 0000:36a6      ___dos87emucall
 Module: C:\WATCOM\lib286\plbxl.lib(iofnoefg.cpp)
-0b5a:1242      ___EFG_cnvs2d
-0b5a:1246      ___EFG_cnvd2f
-0b5a:124a      ___EFG_cvtld
-0b5a:124e      ___EFG_cnvd2ld
+0b5a:1812      ___EFG_cnvs2d
+0b5a:1816      ___EFG_cnvd2f
+0b5a:181a      ___EFG_cvtld
+0b5a:181e      ___EFG_cnvd2ld
 Module: C:\WATCOM\lib286\plbxl.lib(opnewarr.cpp)
 0000:79a0      void __far * __far operator new []( int unsigned )
 Module: C:\WATCOM\lib286\plbxl.lib(opdel.cpp)
@@ -370,7 +373,7 @@ Module: C:\WATCOM\lib286\dos\clibl.lib(initrtns.c)
 0000:37b9      __FiniRtns
 0000:37b9*     __FFiniRtns
 Module: C:\WATCOM\lib286\dos\clibl.lib(uselfn.c)
-0b5a:1252      ___uselfn
+0b5a:1822      ___uselfn
 Module: C:\WATCOM\lib286\dos\clibl.lib(dosseg)
 0000:381e      __DOSseg__
 Module: C:\WATCOM\lib286\dos\clibl.lib(setefg.c)
@@ -471,38 +474,38 @@ Module: C:\WATCOM\lib286\dos\clibl.lib(qread.c)
 0000:4a01      __qread_
 Module: C:\WATCOM\lib286\dos\clibl.lib(errno.c)
 0000:4a21      __get_errno_ptr_
-0b5a:19a4+     _errno
+0b5a:1f74+     _errno
 Module: C:\WATCOM\lib286\dos\clibl.lib(8087cw.c)
-0b5a:12fe      __8087cw
+0b5a:18ce      __8087cw
 Module: C:\WATCOM\lib286\plbxl.lib(opnew.cpp)
 0000:9480      void __far * __far operator new( int unsigned )
 Module: C:\WATCOM\lib286\dos\clibl.lib(ffree.c)
 0000:4a28*     _ffree_
 0000:4a28      free_
 Module: C:\WATCOM\lib286\plbxl.lib(prwdata.cpp)
-0b5a:19a6      __wint_pure_error_flag
-0b5a:19a8      __wint_undef_vfun_flag
-0b5a:19aa      __wint_module_init
+0b5a:1f76      __wint_pure_error_flag
+0b5a:1f78      __wint_undef_vfun_flag
+0b5a:1f7a      __wint_module_init
 Module: C:\WATCOM\lib286\dos\clibl.lib(enterdb.c)
 0000:4a70      __EnterWVIDEO_
-0b5a:1300+     ___WD_Present
+0b5a:18d0+     ___WD_Present
 Module: C:\WATCOM\lib286\dos\clibl.lib(___argc.c)
-0b5a:19ae      ____Argv
-0b5a:19b2      ____Argc
+0b5a:1f7e      ____Argv
+0b5a:1f82      ____Argc
 Module: C:\WATCOM\lib286\dos\clibl.lib(exit.c)
 0000:4a94+     __null_int23_exit_
 0000:4a95      exit_
 0000:4aad*     _exit_
-0b5a:1302+     ___int23_exit
-0b5a:1306      ___FPE_handler_exit
+0b5a:18d2+     ___int23_exit
+0b5a:18d6      ___FPE_handler_exit
 Module: C:\WATCOM\lib286\dos\clibl.lib(sgdef086)
-0b5a:17a6      __Start_XI
-0b5a:17e2      __End_XI
-0b5a:17e2      __Start_YI
-0b5a:17f4      __End_YI
+0b5a:1d76      __Start_XI
+0b5a:1db2      __End_XI
+0b5a:1db2      __Start_YI
+0b5a:1dc4      __End_YI
 Module: C:\WATCOM\lib286\dos\clibl.lib(noefgfmt.c)
-0b5a:130a      ___EFG_printf
-0b5a:130e      ___EFG_scanf
+0b5a:18da      ___EFG_printf
+0b5a:18de      ___EFG_scanf
 Module: C:\WATCOM\lib286\math87l.lib(efgfmt.c)
 0000:4ad8      _EFG_Format_
 Module: C:\WATCOM\lib286\math87l.lib(strtod.c)
@@ -518,8 +521,8 @@ Module: C:\WATCOM\lib286\dos\clibl.lib(i4d.asm)
 0000:55b4      __I4D
 0000:5603*     __U4D
 Module: C:\WATCOM\lib286\dos\clibl.lib(save8087.c)
-0b5a:1312      ___Save8087
-0b5a:1316      ___Rest8087
+0b5a:18e2      ___Save8087
+0b5a:18e6      ___Rest8087
 Module: C:\WATCOM\lib286\dos\clibl.lib(grabfp87.c)
 0000:5688      __GrabFP87_
 Module: C:\WATCOM\lib286\dos\clibl.lib(fwrite.c)
@@ -584,23 +587,23 @@ Module: C:\WATCOM\lib286\plbxl.lib(stabtrav.cpp)
 0000:aa1c      __wcpp_4_stab_trav_next__
 0000:aa92      __wcpp_4_stab_trav_move__
 Module: C:\WATCOM\lib286\plbxl.lib(ljmpinit.cpp)
-0b5a:17d0      ___wcpp_4_data_init_longjmp_
+0b5a:1da0      ___wcpp_4_data_init_longjmp_
 Module: C:\WATCOM\lib286\dos\clibl.lib(nmalloc.c)
 0000:5a8c      _nmalloc_
-0b5a:131a      ___nheapbeg
-0b5a:131c      ___MiniHeapRover
-0b5a:131e      ___LargestSizeB4MiniHeapRover
+0b5a:18ea      ___nheapbeg
+0b5a:18ec      ___MiniHeapRover
+0b5a:18ee      ___LargestSizeB4MiniHeapRover
 Module: C:\WATCOM\lib286\dos\clibl.lib(fmalloc.c)
 0000:5b63*     _fmalloc_
 0000:5b63      malloc_
-0b5a:1320+     ___fheapbeg
-0b5a:1322      ___fheapRover
-0b5a:1324      ___LargestSizeB4Rover
+0b5a:18f0+     ___fheapbeg
+0b5a:18f2      ___fheapRover
+0b5a:18f4      ___LargestSizeB4Rover
 Module: C:\WATCOM\lib286\dos\clibl.lib(fclose.c)
 0000:5c73+     __doclose_
 0000:5d37      __shutdown_stream_
 0000:5d51*     fclose_
-0b5a:19b4+     ___RmTmpFileFn
+0b5a:1f84+     ___RmTmpFileFn
 Module: C:\WATCOM\lib286\dos\clibl.lib(freefp.c)
 0000:5d9c      __freefp_
 0000:5e11      __purgefp_
@@ -616,7 +619,7 @@ Module: C:\WATCOM\lib286\dos\clibl.lib(mem.c)
 0000:5fe6      __MemFree
 Module: C:\WATCOM\lib286\dos\clibl.lib(nfree.c)
 0000:615d      _nfree_
-0b5a:19b8+     ___MiniHeapFreeRover
+0b5a:1f88+     ___MiniHeapFreeRover
 Module: C:\WATCOM\lib286\dos\clibl.lib(rtcntrl.c)
 0000:625a*     _SetLD64bit_
 0000:6265*     _SetLD80bit_
@@ -649,18 +652,18 @@ Module: C:\WATCOM\lib286\dos\clibl.lib(fputc.c)
 Module: C:\WATCOM\lib286\dos\clibl.lib(iomode.c)
 0000:676f      __GetIOMode_
 0000:6794      __SetIOMode_nogrow_
-0b5a:1352+     ___NFiles
-0b5a:1354+     ___init_mode
-0b5a:137c+     ___io_mode
+0b5a:1922+     ___NFiles
+0b5a:1924+     ___init_mode
+0b5a:194c+     ___io_mode
 Module: C:\WATCOM\lib286\dos\clibl.lib(filedos.c)
 0000:67b7*     _dos_close_
 0000:67c5      _dos_commit_
 Module: C:\WATCOM\lib286\plbxl.lib(termnate.cpp)
 0000:aad0      void __far std::terminate()
 Module: C:\WATCOM\lib286\dos\clibl.lib(ljmphdl.c)
-0b5a:1380      ___longjmp_handler
+0b5a:1950      ___longjmp_handler
 Module: C:\WATCOM\lib286\plbxl.lib(areaexc.cpp)
-0b5a:1384      ___EXC_AREA
+0b5a:1954      ___EXC_AREA
 Module: C:\WATCOM\lib286\plbxl.lib(tssize.cpp)
 0000:ab32      __wcpp_4_ts_size__
 Module: C:\WATCOM\lib286\plbxl.lib(bittest.cpp)
@@ -689,17 +692,17 @@ Module: C:\WATCOM\lib286\dos\clibl.lib(isatt.c)
 0000:6bf4      isatty_
 Module: C:\WATCOM\lib286\dos\clibl.lib(doserrno.c)
 0000:6c10      __get_doserrno_ptr_
-0b5a:1bbe+     __doserrno
+0b5a:218e+     __doserrno
 Module: C:\WATCOM\lib286\dos\clibl.lib(fpeint.c)
-0b5a:17a0      ___FPE_int
+0b5a:1d70      ___FPE_int
 Module: C:\WATCOM\lib286\dos\clibl.lib(error086.asm)
 0000:6c22      __doserror_
 0000:6c30*     __doserror1_
 Module: C:\WATCOM\lib286\dos\clibl.lib(amblksiz.c)
-0b5a:17a2      __amblksiz
+0b5a:1d72      __amblksiz
 Module: C:\WATCOM\lib286\dos\clibl.lib(heapen.c)
 0000:6c3c*     _heapenable_
-0b5a:17a4      ___heap_enabled
+0b5a:1d74      ___heap_enabled
 Module: C:\WATCOM\lib286\dos\clibl.lib(sbrk.c)
 0000:6c4d      __brk_
 0000:6cb4*     sbrk_
@@ -720,6 +723,6 @@ C:\WATCOM\lib286\dos\clibl.lib
                         +-----------------------+
 
 Stack size:  0800 (2048.)
-Memory size:  d960 (55648.)
+Memory size:  df30 (57136.)
 Entry point address: 0000:0784
-Link time: 00:00.17
+Link time: 00:00.23

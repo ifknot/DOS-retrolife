@@ -23,6 +23,10 @@
 
 #include "../../font8x8/font8x8_latin.h"
 #include "../../font8x8/font8x8_box.h"
+#include "../../font8x8/font8x8_block.h"
+#include "../../font8x8/font8x8_greek.h"
+#include "../../font8x8/font8x8_hiragana.h"
+
 
 #include "../../memory/reverse_bits.h"
 
@@ -39,6 +43,8 @@ namespace test_write_glyph {
                 //for (int i = 0; i < 128; ++i) jtl::reverse_bits(jtl::font8x8_basic[i], 8);
                 //for (int i = 0; i < 96; ++i) jtl::reverse_bits(jtl::font8x8_ext_latin[i], 8);
                 //for (int i = 0; i < 128; ++i) jtl::reverse_bits(jtl::font8x8_box[i], 8);
+                //for (int i = 0; i < 32; ++i) jtl::reverse_bits(jtl::font8x8_block[i], 8);
+                //for (int i = 0; i < 58; ++i) jtl::reverse_bits(jtl::font8x8_greek[i], 8);
                 
                 getchar();
                 hga::graphics_mode();
@@ -49,8 +55,11 @@ namespace test_write_glyph {
                     for (int x = 0; x < 90; ++x) {
                         //hga::screen_bound::write_glyph_8x8(x, y, a);
                         //hga::screen_bound::write_glyph_8x8(x, y, jtl::font8x8_basic[i++ % 128]);
-                        hga::screen_bound::write_glyph_8x8(x, y, jtl::font8x8_ext_latin[i++ % 96]);
+                        //hga::screen_bound::write_glyph_8x8(x, y, jtl::font8x8_ext_latin[i++ % 96]);
                         //hga::screen_bound::write_glyph_8x8(x, y, jtl::font8x8_box[i++ % 128]);
+                        //hga::screen_bound::write_glyph_8x8(x, y, jtl::font8x8_block[i++ % 32]);
+                        //hga::screen_bound::write_glyph_8x8(x, y, jtl::font8x8_greek[i++ % 58]);
+                        hga::screen_bound::write_glyph_8x8(x, y, jtl::font8x8_hiragana[i++ % 96]);
                     }
                 }
                 time = bios::read_system_clock_counter() - time;
