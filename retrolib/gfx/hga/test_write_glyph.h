@@ -26,6 +26,7 @@
 #include "../../font8x8/font8x8_block.h"
 #include "../../font8x8/font8x8_greek.h"
 #include "../../font8x8/font8x8_hiragana.h"
+#include "../../font8x8/font8x8_sga.h"
 
 
 #include "../../memory/reverse_bits.h"
@@ -59,7 +60,8 @@ namespace test_write_glyph {
                         //hga::screen_bound::write_glyph_8x8(x, y, jtl::font8x8_box[i++ % 128]);
                         //hga::screen_bound::write_glyph_8x8(x, y, jtl::font8x8_block[i++ % 32]);
                         //hga::screen_bound::write_glyph_8x8(x, y, jtl::font8x8_greek[i++ % 58]);
-                        hga::screen_bound::write_glyph_8x8(x, y, jtl::font8x8_hiragana[i++ % 96]);
+                        //hga::screen_bound::write_glyph_8x8(x, y, jtl::font8x8_hiragana[i++ % 96]);
+                        hga::screen_bound::write_glyph_8x8(x, y, jtl::font8x8_sga[i++ % 26]);
                     }
                 }
                 time = bios::read_system_clock_counter() - time;
