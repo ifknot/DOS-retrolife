@@ -15,8 +15,7 @@
 
 #include "../dos/dos_error_messages.h"
 
-#include "../file/checksum.h"
-
+#include "../memory/checksum.h"
 #include "../memory/data_vector.h"
 #include "../memory/memory_unions.h"
 #include "../memory/size_t.h"
@@ -26,7 +25,7 @@
 
 namespace jtl{
 
-        template<size_t N>
+        template<jtl::size_t N>
         class point_vector_2d {
 
             typedef data_vector<uint32_t, N> point_vector_t;
@@ -45,13 +44,14 @@ namespace jtl{
             point_vector_2d() : points(new point_vector_t) {}
 
             // file data
-            point_vector_2d(std::string file_path, bool binary = false) : points(new point_vector_t) {
-                if (binary) {
-                    read_binary(file_path);
+            point_vector_2d(std::string file_path) : points(new point_vector_t) {
+                std::ifstream is(file_path.c_str());
+                if (!is.is_open()) {
+                    std::cerr << dos::error::messages[dos::error::FILE_NOT_FOUND] << file_path.c_str() << '\n';                    
                 }
                 else {
-                    read(file_path);
-                }
+                    read(is);
+                }              
             }
 
             // range constructor
@@ -76,6 +76,10 @@ namespace jtl{
 
             inline size_type size() const {
                 return points->size();
+            }
+
+            inline size_type capacity() {
+                return points->capacity();
             }
 
 // element access
@@ -119,7 +123,16 @@ namespace jtl{
 // serialisation
 
             std::istream& read(std::istream& is) {
-                return points->read(is);
+                clear();
+                uint16_t x, y;
+                for (size_type i = 0; i < capacity(); ++i) {
+                    is >> x;
+                    if (is.eof()) break;
+                    is >> y;
+                    if (is.eof()) break;
+                    add(x, y);
+                }
+                return is;
             }
 
             std::ostream& write(std::ostream& os) const {
@@ -128,53 +141,6 @@ namespace jtl{
                     os << point.coord.x << ' ' << point.coord.y << ' ';
                 }
                 return os;
-            }
-
-            void read(std::string file_path) {
-                std::ifstream is(file_path.c_str());
-                if (!is.is_open()) {
-                    std::cerr << dos::error::messages[dos::error::FILE_NOT_FOUND] << file_path.c_str() << '\n';
-                }
-                point_vector_t::size_type size;
-                is >> size;
-                points->resize(size);
-                for (size_t i = 0; i < points->size(); ++i) {
-                    union_point_t point;
-                    is >> point.coord.x;
-                    is >> point.coord.y;
-                    points->operator[](i) = point.dword;
-                }
-            }
-
-            void write(std::string file_path) {
-                std::ofstream os(file_path.c_str());
-                if (!os.is_open()) {
-                    std::cerr << dos::error::messages[dos::error::FILE_NOT_FOUND] << file_path.c_str() << '\n';
-                }
-                os << size() << ' ';
-                write(os);
-            }
-
-            void read_binary(std::string file_path) {
-                std::ifstream is(file_path.c_str());
-                if (!is.is_open()) {
-                    std::cerr << dos::error::messages[dos::error::FILE_NOT_FOUND] << file_path.c_str() << '\n';
-                }
-                union_dword_t header;
-                is.read(reinterpret_cast<char*>(&header.word), sizeof(header.word));
-                points->resize(header.word.hi);
-                is.read(reinterpret_cast<char*>(points->data()), size() * sizeof(point_vector_t::value_type));
-            }
-
-            void write_binary(std::string file_path) {
-                std::ofstream os(file_path.c_str());
-                if (!os.is_open()) {
-                    std::cerr << dos::error::messages[dos::error::FILE_NOT_FOUND] << file_path.c_str() << '\n';
-                }
-                uint16_t sum = checksum(points->data(), size());
-                union_dword_t header(size(), sum);
-                os.write(reinterpret_cast<const char*>(&header.dword), sizeof(header.dword));
-                os.write(reinterpret_cast<const char*>(points->data()), size() * sizeof(point_vector_t::value_type));
             }
 
         private:

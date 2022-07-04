@@ -1,6 +1,6 @@
 /**
  *
- *  @file      file_utilities.h
+ *  @file      file_extension.h
  *  @brief     
  *  @details   ~
  *  @author    Jeremy Thornton
@@ -8,8 +8,8 @@
  *  @copyright © Jeremy Thornton, 2022. All right reserved.
  *
  */
-#ifndef FILE_UTILITIES
-#define FILE_UTILITIES
+#ifndef FILE_EXTENSION
+#define FILE_EXTENSION
 
 #include <string>
 

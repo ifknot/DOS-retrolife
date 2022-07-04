@@ -14,7 +14,7 @@
 #include <cassert>
 #include <iostream>
 
-#include "file_utilities.h"
+#include "file_extension.h"
 
 namespace test_file_utilities {
 

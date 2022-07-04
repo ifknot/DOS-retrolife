@@ -16,16 +16,15 @@
 //#include "retrolib/gfx/test_point_vector_2d.h"
 //#include "retrolib/gfx/test_glyph.h"
 //#include "retrolib/gfx/hga/test_hga.h"
-#include "retrolib/gfx/hga/test_write_glyph.h"
+//#include "retrolib/gfx/hga/test_write_glyph.h"
 
 //#include "retrolib/automata/test_count_neighbours.h"
 
-//#include "gamelife/dosgol.h"
+#include "gamelife/dosgol.h"
 
+int main(int argc, char* argv[]) {
+//int main() {
 
-//int main(int argc, char* argv[]) {
-int main() {
-
-	test_write_glyph::run();
+	dosgol::run(argc, argv);
 
 }

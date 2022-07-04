@@ -1,6 +1,6 @@
 /**
  *
- *  @brief     
+ *  @brief
  *  @details   ~
  *  @author    Jeremy Thornton
  *  @date      9.06.2022
@@ -16,9 +16,10 @@
 #include <stdlib.h>
 
 #include "../retrolib/bios/bios_clock_services.h"
-#include "../retrolib/gfx/hga/hga_graphics.h"
+#include "../retrolib/gfx/file_read_point_2d.h"
 #include "../retrolib/gfx/point_2d.h"
 #include "../retrolib/gfx/point_vector_2d.h"
+#include "../retrolib/gfx/hga/hga_graphics.h"
 #include "../retrolib/automata/neighbourhoods.h"
 
 namespace dosgol {
@@ -26,6 +27,8 @@ namespace dosgol {
     using namespace hga;
     using namespace hga::screen_bound;
     using namespace jtl::automata::neighbourhood;
+
+    typedef jtl::point_vector_2d<8> point_vector_t;
 
     int run(int argc, char* argv[]) {
 
@@ -45,8 +48,8 @@ namespace dosgol {
 
         uint16_t w, h, ox, oy;
         gen = atoi(argv[1]);
-        h = atoi(argv[2]); 
-        w = atoi(argv[3]); 
+        h = atoi(argv[2]);
+        w = atoi(argv[3]);
         oy = (SCREEN_Y_MAX / 2) - (h / 2);
         ox = (SCREEN_X_MAX / 2) - (w / 2);
         char vis = 0;
@@ -62,16 +65,16 @@ namespace dosgol {
         graphics_mode();
         cls();
 
-        jtl::point_vector_2d<8> r0(argv[4]);
+        point_vector_t r0(argv[4]);
         r0.translate(ox, oy);
         plot_multi_point(r0.data(), r0.size(), vis);
         if (argc > 5) {
-            jtl::point_vector_2d<8> r1(argv[5]);
+            point_vector_t r1(argv[5]);
             r1.translate(ox + 10, oy + 10);
             plot_multi_point(r1.data(), r1.size(), vis);
         }
         if (argc > 6) {
-            jtl::point_vector_2d<8> r2(argv[6]);
+            point_vector_t r2(argv[6]);
             r2.translate(ox + 20, oy + 20);
             plot_multi_point(r2.data(), r2.size(), vis);
         }

@@ -1,10 +1,12 @@
 {
   "ExpandedNodes": [
     "",
+    "\\DOSGOL",
+    "\\gamelife",
     "\\retrolib",
     "\\retrolib\\file",
-    "\\retrolib\\font8x8"
+    "\\retrolib\\gfx"
   ],
-  "SelectedNode": "\\retrolib\\font8x8\\font8x8_sga.h",
+  "SelectedNode": "\\gamelife\\file_read_point_list",
   "PreviewInSolutionExplorer": false
 }

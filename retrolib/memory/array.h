@@ -201,7 +201,7 @@ namespace jtl {
 
         std::ostream& write(std::ostream& os) const {
             for (size_type i = 0; i < N; ++i) {
-                    os << data_[i] << ' ';
+                os << data_[i] << ' ';
             }
             return os;
         }

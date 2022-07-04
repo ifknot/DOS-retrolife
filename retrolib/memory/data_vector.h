@@ -194,9 +194,6 @@ namespace jtl {
             void push_back(const value_type& val) {
                 ++size_;
                 assert(size_ <= N);
-                if (size_ > capacity_) {
-                    capacity_ = size_;
-                }
                 back() = val;
             }
 
@@ -312,7 +309,7 @@ namespace jtl {
 // serialisation
 
             std::ostream& write(std::ostream& os) const {
-                for (size_type i = 0; i < size_; ++i) {
+                for (size_type i = 0; i < size(); ++i) {
                     os << data_[i] << ' ';
                 }
                 return os;
@@ -320,10 +317,11 @@ namespace jtl {
 
             std::istream& read(std::istream& is) {
                 T datum;
-                for (size_type i = 0; i < capacity_; ++i) {
+                size_type i
+                for (i = 0; i < capacity(); ++i) {
                     is >> datum;
                     if (is.eof()) break;
-                    data_[i] = datum;
+                    push_back(datum);
                 }
                 return is;
             }
