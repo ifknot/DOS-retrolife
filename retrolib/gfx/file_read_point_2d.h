@@ -31,13 +31,11 @@ namespace jtl {
 			}
 			int i = 0;
 			union_point_t point;
-			while (!is.eof()) {
+			while (true) {
 				is >> point.coord.x;
-				if (is.eof()) {
-					std::cerr << dos::error::messages[dos::error::INVALID_FORMAT] << file_path.c_str() << '\n';
-					break;
-				}
+				if (is.eof()) break;
 				is >> point.coord.y;
+				if (is.eof()) break;
 				data[i++] = point.dword;
 			}
 			return i;

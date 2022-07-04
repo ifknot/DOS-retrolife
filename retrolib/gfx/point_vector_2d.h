@@ -54,6 +54,12 @@ namespace jtl{
                 }              
             }
 
+            // file data using a specific file format reader functor
+            template<typename FileFormatReader>
+            point_vector_2d(std::string file_path, FileFormatReader read) : points(new point_vector_t) {
+                points->resize(read(file_path, points->data()));
+            }
+
             // range constructor
             template<typename InputIterator>
             point_vector_2d(InputIterator first, const InputIterator last) :

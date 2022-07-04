@@ -65,7 +65,7 @@ namespace dosgol {
         graphics_mode();
         cls();
 
-        point_vector_t r0(argv[4]);
+        point_vector_t r0(argv[4], jtl::file_read_point_2d());
         r0.translate(ox, oy);
         plot_multi_point(r0.data(), r0.size(), vis);
         if (argc > 5) {
