@@ -33,7 +33,7 @@ namespace hga {
                     xor     di, di
                     mov     cx, 4000h               ; 16K words VRAM buffer 32K bytes
                     xor     ax, ax                  ; zero ax
-                    cld                                             ; increment mode
+                    cld                             ; increment mode
                     rep     stosw                   ; clear VRAM buffer
 #ifdef STACKING
                     pop     cx

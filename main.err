@@ -1,4 +1,0 @@
-gamelife/../retrolib/gfx/../memory/data_vector.h(165): Warning! W014: col(13) no reference to symbol 'von_neumann'
-gamelife/../retrolib/automata/neighbourhoods.h(30): Note! N392: col(40) definition: 'unsigned long const jtl::automata::neighbourhood::von_neumann[4]'
-gamelife/../retrolib/gfx/../memory/data_vector.h(165): Warning! W014: col(13) no reference to symbol 'mode_names'
-gamelife/../retrolib/gfx/hga/hga_constants.h(130): Note! N392: col(16) definition: 'char const hga::mode_names[2][255]'

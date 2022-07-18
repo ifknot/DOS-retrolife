@@ -1,7 +1,7 @@
 /**
  *
- *  @file               hga_plot_point.h
- *  @brief              Plot a point in Hecules Graphics Mode
+ *  @file               hga_graphics.h
+ *  @brief              Hecules Graphics Mode primitives
  *  @details    HGA Graphics Mode pixel-addressable graphics mode at 720x348 (two rows of pixels are lost since the dimensions must be divisible by four for technical reasons).
  *      VRAM:           64K
  *      Pixel Ratio 1:1.55 on a standard 4:3 display.

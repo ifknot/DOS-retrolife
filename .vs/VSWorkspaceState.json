@@ -1,12 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\DOSGOL",
     "\\gamelife",
     "\\retrolib",
+    "\\retrolib\\dos",
     "\\retrolib\\file",
-    "\\retrolib\\gfx"
+    "\\retrolib\\gfx",
+    "\\retrolib\\memory"
   ],
-  "SelectedNode": "\\gamelife\\file_read_point_list",
+  "SelectedNode": "\\retrolib\\gfx\\file_read_point_2d.h",
   "PreviewInSolutionExplorer": false
 }
