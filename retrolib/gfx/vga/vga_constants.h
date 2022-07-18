@@ -10,7 +10,7 @@
 #ifndef VGA_CONSTANTS_H
 #define VGA_CONSTANTS_H
 
-#define VGA_SEGMENT             0A000h
+#define VGA_VIDEO_RAM_SEGMENT   0A000h
 #define SC_INDEX                3C4h    // Sequence Controller Index register
 #define GC_INDEX                3CEh    // Graphics Controller Index register
 #define CRTC_INDEX              3D4h    // CRT Controller Index register

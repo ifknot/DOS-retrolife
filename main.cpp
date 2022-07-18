@@ -2,6 +2,7 @@
 #include <fstream>
 
 //#include "retrolib/bios/bios_video_services.h"
+//#include "retrolib/bios/test_keyboard.h"
 //#include "retrolib/gfx/hga/hga_read_lightpen_registers.h"
 
 //#include "retrolib/dos/dos_segmented_memory_block.h"
@@ -15,16 +16,18 @@
 
 //#include "retrolib/gfx/test_point_vector_2d.h"
 //#include "retrolib/gfx/test_glyph.h"
-#include "retrolib/gfx/hga/test_hga.h"
+//#include "retrolib/gfx/hga/test_hga.h"
 //#include "retrolib/gfx/hga/test_write_glyph.h"
 
 //#include "retrolib/automata/test_count_neighbours.h"
 
 //#include "gamelife/dosgol.h"
 
+#include "retrolib/gfx/vga/test_vga.h"
+
 //int main(int argc, char* argv[]) {
 int main() {
 
-	test_hga::run();
+	test_vga::run();
 
 }
