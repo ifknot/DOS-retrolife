@@ -3,11 +3,9 @@
     "",
     "\\gamelife",
     "\\retrolib",
-    "\\retrolib\\dos",
-    "\\retrolib\\file",
-    "\\retrolib\\gfx",
-    "\\retrolib\\memory"
+    "\\retrolib\\bios",
+    "\\retrolib\\gfx\\vga"
   ],
-  "SelectedNode": "\\retrolib\\gfx\\file_read_point_2d.h",
+  "SelectedNode": "\\retrolib\\bios\\test_keyboard.h",
   "PreviewInSolutionExplorer": false
 }

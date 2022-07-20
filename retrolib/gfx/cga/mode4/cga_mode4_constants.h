@@ -13,6 +13,8 @@
 
 #include <stdint.h>
 
+#include "../cga_constants.h"
+
  /**
   * Mode 4 macro definitions for assembly
   * 
@@ -35,8 +37,6 @@
 namespace cga {
 
 	namespace mode4 {
-
-		typedef uint8_t colour_t;
 
   /**
    *  @namespace cga::mode4::colour

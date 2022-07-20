@@ -46,6 +46,10 @@ namespace cga {
 
 	typedef uint16_t size_type;
 
+	typedef uint8_t colour_t;
+
+	typedef uint8_t attrib_t;
+
 	static const uint16_t VIDEO_RAM_SEGMENT = 0xB800;
 
 }

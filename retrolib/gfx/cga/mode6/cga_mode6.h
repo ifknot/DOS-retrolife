@@ -20,7 +20,7 @@ namespace cga {
 
 	namespace mode6 {
 
-		bios::video_mode_t original_mode;
+		static bios::video_mode_t original_mode;
 
 		void enter() {
 			original_mode = bios::get_video_state().mode;
