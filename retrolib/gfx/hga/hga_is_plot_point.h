@@ -36,8 +36,8 @@ namespace hga {
                 jz      J0
                 add     ax, 800h                ; second buffer
         J0:     mov     es, ax
-                mov     ax, y                   ; load y into bx then perform screen clipping
-                cmp     ax, SCREEN_Y_MAX        ; compare bx with y maximum boundry
+                mov     ax, y                   ; load y into ax then perform screen clipping
+                cmp     ax, SCREEN_Y_MAX        ; compare ax with y maximum boundry
                 jge     END                     ; nothing to plot
                 mov     dx, ax                  ; copy y
 #ifdef ENABLE_MUL

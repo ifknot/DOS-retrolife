@@ -75,8 +75,8 @@ namespace cga {
                                 test            bx, 1h                  ; is the in bounds y even ?
                                 jz              EVEN                    ; yes skip
                                 mov             ax, CGA_ODD_VRAM_SEGMENT  ; otherwise load odd lines segment
-                EVEN:           mov             es, ax                          ; transer segment into es
-                                mov             dx, x                           ; load x into dx and clip to torus bounds
+                EVEN:           mov             es, ax                  ; transer segment into es
+                                mov             dx, x                   ; load x into dx and clip to torus bounds
                                 cmp             dx, SCREEN_X_MAX        ; compare dx with x maximum boundry
                                 jge             END                     ; nothing to plot
                                 mov             cx, dx                  ; copy of x in cx

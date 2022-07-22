@@ -1,11 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\gamelife",
     "\\retrolib",
     "\\retrolib\\bios",
+    "\\retrolib\\gfx",
+    "\\retrolib\\gfx\\cga",
+    "\\retrolib\\gfx\\cga\\mode4",
+    "\\retrolib\\gfx\\cga\\mode6",
+    "\\retrolib\\gfx\\MDA",
+    "\\retrolib\\gfx\\MDA\\mode7",
     "\\retrolib\\gfx\\vga"
   ],
-  "SelectedNode": "\\retrolib\\bios\\test_keyboard.h",
+  "SelectedNode": "\\retrolib\\gfx\\MDA\\mda_constants.h",
   "PreviewInSolutionExplorer": false
 }
