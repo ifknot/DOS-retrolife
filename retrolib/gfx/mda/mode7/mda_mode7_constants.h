@@ -18,6 +18,8 @@
 #define SCREEN_Y_MIN 0
 #define SCREEN_Y_MAX 25
 #define BYTES_PER_LINE 160 
+#define CHARS_PER_SCREEN 2000
+#define BYTES_PER_SCREEN 4000
 
 #define ENABLE_MUL
 

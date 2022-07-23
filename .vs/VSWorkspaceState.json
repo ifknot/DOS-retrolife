@@ -7,10 +7,9 @@
     "\\retrolib\\gfx\\cga",
     "\\retrolib\\gfx\\cga\\mode4",
     "\\retrolib\\gfx\\cga\\mode6",
-    "\\retrolib\\gfx\\MDA",
-    "\\retrolib\\gfx\\MDA\\mode7",
+    "\\retrolib\\gfx\\hga",
     "\\retrolib\\gfx\\vga"
   ],
-  "SelectedNode": "\\retrolib\\gfx\\MDA\\mda_constants.h",
+  "SelectedNode": "\\retrolib\\gfx\\hga\\hga_plot_multi_point.h",
   "PreviewInSolutionExplorer": false
 }
