@@ -1,6 +1,6 @@
 /**
  *
- *  @brief     
+ *  @brief
  *  @details   ~
  *  @author    Jeremy Thornton
  *  @date      20.07.2022
@@ -11,95 +11,26 @@
 #define MDA_MODE7_PLOT_POINT_H
 
 #include "mda_mode7_constants.h"
+#include "mda_mode7_write_character.h"
 
 namespace mda {
 
-	namespace mode7 {
+        namespace mode7 {
 
-		namespace screen_bound {
+                namespace screen_bound {
 
-			void write_pixel(size_type x, size_type y, colour_t colour) {
+                    void write_pixel(size_type x, size_type y, colour::inks c, attribute::attributes a = DEFAULT_ATTRIBUTE) {
+                            char ascii = c;
+                            write_character(x, y, ascii, a);
+                    }
 
-			}
+                }
 
-			void plot_character(size_type x, size_type y, char ascii, attrib_t attrib = attribute::normal) {
-				_asm {
-					.8086
+                namespace torus_bound {
 
-					mov		ax, MDA_VIDEO_RAM_SEGMENT
-					mov		es, ax					; ES:DI will point to x,y screen byte 
-					mov		bx, x					; load x into bx then perform screen clipping
-					cmp     bx, SCREEN_X_MAX        ; compare bx with x maximum boundry
-					jge     END						; nothing to plot
-					mov		ax, y					; load y into ax then perform screen clipping
-					cmp     ax, SCREEN_Y_MAX        ; compare ax with y maximum boundry
-					jge     END                     ; nothing to plot
-#ifdef ENABLE_MUL
-					mov     cl, BYTES_PER_LINE
-					mul     cl						; calculate y * 80 i.e. AX * 160 bytes
-					mov		di, ax
-#else		
-					shl		ax, 1					; on 8086 this bitwise multiplication is faster than mul 
-					shl		ax, 1					; y * 80 = (y * 16) + (y * 64)
-					shl		ax, 1					; 8086 limited to single step shifts
-					shl		ax, 1					; y * 16
-					mov		di, ax					; copy result
-					shl		ax, 1
-					shl		ax, 1					; y * 64
-					add		di, ax					; di = y * 80
-#endif
-					shl		bx, 1					; x * 2 as 2 bytes per character cell
-					add		di, bx					; di = (y * 80 ) + x
-					mov		al, ascii
-					mov		ah, attrib
-					mov		es:[di], ax
-					
-END:
-				}
-			}
+                }
 
-			void plot_attribute(size_type x, size_type y, char ascii, attrib_t attrib = attribute::normal) {
-				_asm {
-					.8086
-
-					mov		ax, MDA_VIDEO_RAM_SEGMENT
-					mov		es, ax					; ES:DI will point to x,y screen byte 
-					mov		bx, x					; load x into bx then perform screen clipping
-					cmp     bx, SCREEN_X_MAX        ; compare bx with x maximum boundry
-					jge     END						; nothing to plot
-					mov		ax, y					; load y into ax then perform screen clipping
-					cmp     ax, SCREEN_Y_MAX        ; compare ax with y maximum boundry
-					jge     END                     ; nothing to plot
-#ifdef ENABLE_MUL
-					mov     cl, BYTES_PER_LINE
-					mul     cl						; calculate y * 80 i.e. AX * 160 bytes
-					mov		di, ax
-#else		
-					shl		ax, 1					; on 8086 this bitwise multiplication is faster than mul 
-					shl		ax, 1					; y * 80 = (y * 16) + (y * 64)
-					shl		ax, 1					; 8086 limited to single step shifts
-					shl		ax, 1					; y * 16
-					mov		di, ax					; copy result
-					shl		ax, 1
-					shl		ax, 1					; y * 64
-					add		di, ax					; di = y * 80
-#endif
-					shl		bx, 1					; x * 2 as 2 bytes per character cell
-					add		di, bx					; di = (y * 80 ) + x
-					mov		ah, attrib
-					mov		es:[di + 1], ah
-					
-END:
-				}
-			}
-
-		}
-
-		namespace torus_bound {
-
-		}
-
-	}
+        }
 }
 
 #endif

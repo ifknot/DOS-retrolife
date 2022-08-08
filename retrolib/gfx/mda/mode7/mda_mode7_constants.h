@@ -35,9 +35,9 @@ namespace mda {
 			*/
 			enum inks {
 				black = 0x20,
-				light_gray = 0xB0,
+				dark_gray = 0xB0,
 				gray,
-				dark_gray,
+				light_gray,
 				white = 0xDB
 			};
 
@@ -74,6 +74,8 @@ namespace mda {
 			};
 
 		}
+
+		attribute::attributes DEFAULT_ATTRIBUTE = attribute::normal;
 
 	}
 
