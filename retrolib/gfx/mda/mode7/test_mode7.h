@@ -16,7 +16,7 @@
 #include "../../../bios/bios_services.h"
 
 #include "mda_mode7.h"
-#include "mda_mode7_plot_point.h"
+#include "mda_mode7_write_pixel.h"
 #include "mda_mode7_cls.h"
 
 using namespace bios;
@@ -34,6 +34,7 @@ namespace test_mode7 {
 		wait_key_ascii();
 		enter();
 		std::cout << "mode " << bios::video_mode_names[bios::get_video_state().mode] << "\n";
+
 		/* {
 			
 			std::cout << (char) colour::gray << std::endl;
@@ -63,7 +64,23 @@ namespace test_mode7 {
 		{
 			cls();
 			wait_key_ascii();
+			cls(colour::light_gray);
+			wait_key_ascii();
+			cls(colour::gray);
+			wait_key_ascii();
+			cls(colour::dark_gray);
+			wait_key_ascii();
+			cls(colour::white);
+			wait_key_ascii();
+			cls(colour::light_gray, attribute::bright);
+			wait_key_ascii();
+			cls(colour::gray, attribute::bright);
+			wait_key_ascii();
+			cls(colour::dark_gray, attribute::bright);
+			wait_key_ascii();
+			cls(colour::white, attribute::bright);
 		}
+		wait_key_ascii();
 		exit();
 		std::cout << "mode " << bios::video_mode_names[bios::get_video_state().mode] << "\n";
 		std::cout << "success!\n";

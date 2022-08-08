@@ -18,7 +18,7 @@ namespace mda {
 
 		namespace screen_bound {
 
-			void plot_point(size_type x, size_type y, colour_t colour) {
+			void write_pixel(size_type x, size_type y, colour_t colour) {
 
 			}
 

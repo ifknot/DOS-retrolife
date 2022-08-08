@@ -41,34 +41,60 @@ namespace cga {
 
 		namespace colour {
 
-			static const colour_t paper = 0x00;
-			static const colour_t ink = 0x80;
-
-   /**
-    *  @enum  cga::mode6::colour::inks
-    *  @brief 16 colour hardware palette
-	*  @note Color 6 is treated differently - rather than dark yellow (#AAAA00) in order to achieve a more pleasing brown tone
-	*  special circuitry in most RGBI monitors, including the IBM 5153 color display, makes an exception for color 6 and changes 
-	*  its hue from dark yellow to brown by halving the analogue green signal's amplitude. 
-	*  @details 
-	*		colour		RGB				colour			RGB
-	*	0	black	   #000000		8	gray		  #555555
-	*	1	blue	   #0000AA		9	light blue	  #5555FF
-	*	2	green	   #00AA00		10	light green	  #55FF55
-	*	3	cyan	   #00AAAA		11	light cyan	  #55FFFF
-	*	4	red		   #AA0000		12	light red	  #FF5555
-	*	5	magenta	   #AA00AA		13	light magenta #FF55FF
-	*	6	brown	   #AA5500		14	yellow		  #FFFF55
-	*	7	light gray #AAAAAA		15	white		  #FFFFFF
-	* 
-	*  @note The background and border cannot be changed from black.
-    */
+		   /**
+			*  @enum  cga::mode6::colour::inks
+			*  @brief for cross mode compatibility a minimum 2 "colours" black and white
+			*/
 			enum inks {
-				black, blue, green, cyan, red, 
-				magenta, brown, light_gray, 
-				gray, light_blue, light_green, light_cyan,
-				light_red, light_magenta, yellow, white
+				black = 0x00,
+				white = 0x80
 			};
+
+		   /**
+			*  @namespace cga::mode6::colour::palette
+			*  @brief     
+			*/
+			namespace palette {
+
+				/**
+				 *  @enum  cga::mode6::colour::inks
+				 *  @brief 16 colour hardware palette
+				 *  @note Color 6 is treated differently - rather than dark yellow (#AAAA00) in order to achieve a more pleasing brown tone
+				 *  special circuitry in most RGBI monitors, including the IBM 5153 color display, makes an exception for color 6 and changes
+				 *  its hue from dark yellow to brown by halving the analogue green signal's amplitude.
+				 *  @details
+				 *		colour		RGB				colour			RGB
+				 *	0	black	   #000000		8	gray		  #555555
+				 *	1	blue	   #0000AA		9	light blue	  #5555FF
+				 *	2	green	   #00AA00		10	light green	  #55FF55
+				 *	3	cyan	   #00AAAA		11	light cyan	  #55FFFF
+				 *	4	red		   #AA0000		12	light red	  #FF5555
+				 *	5	magenta	   #AA00AA		13	light magenta #FF55FF
+				 *	6	brown	   #AA5500		14	yellow		  #FFFF55
+				 *	7	light gray #AAAAAA		15	white		  #FFFFFF
+				 *
+				 *  @note The background and border cannot be changed from black.
+				 */
+				enum inks {
+					black, 
+					blue, 
+					green, 
+					cyan, 
+					red,
+					magenta, 
+					brown, 
+					light_gray,
+					gray, 
+					light_blue, 
+					light_green, 
+					light_cyan,
+					light_red, 
+					light_magenta, 
+					yellow, 
+					white
+				};
+
+			}
 
 		}
 

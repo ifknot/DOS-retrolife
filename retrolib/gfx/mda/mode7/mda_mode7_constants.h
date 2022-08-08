@@ -29,6 +29,10 @@ namespace mda {
 
 		namespace colour {
 
+			/**
+			*  @enum  mda::mode7::colour::inks
+			*  @brief for cross mode compatibility a minimum 2 "colours" black and white
+			*/
 			enum inks {
 				black = 0x20,
 				light_gray = 0xB0,
