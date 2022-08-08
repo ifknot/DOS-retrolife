@@ -15,22 +15,22 @@
 
 namespace mda {
 
-        namespace mode7 {
+    namespace mode7 {
 
-                namespace screen_bound {
+        namespace screen_bound {
 
-                    void write_pixel(size_type x, size_type y, colour::inks c, attribute::attributes a = DEFAULT_ATTRIBUTE) {
-                            char ascii = c;
-                            write_character(x, y, ascii, a);
-                    }
-
-                }
-
-                namespace torus_bound {
-
-                }
+            void write_pixel(size_type x, size_type y, colour::inks c, attribute::attributes a = DEFAULT_ATTRIBUTE) {
+                char ascii = c;
+                write_character(x, y, ascii, a);
+            }
 
         }
+
+        namespace torus_bound {
+
+        }
+
+    }
 }
 
 #endif

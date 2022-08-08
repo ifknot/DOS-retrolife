@@ -14,60 +14,59 @@
 
 namespace mda {
 
-        namespace mode7 {
+    namespace mode7 {
 
+        void cls(colour::inks c, attribute::attributes a = DEFAULT_ATTRIBUTE) {
+            colour_t col = c;
+            attrib_t attrib = a;
+            __asm {
+                .8086
 
-                void cls(colour::inks c, attribute::attributes a = DEFAULT_ATTRIBUTE) {
-                    colour_t col = c;
-                    attrib_t attrib = a;
-                    __asm {
-                        .8086
-
-                        mov             ax, MDA_VIDEO_RAM_SEGMENT
-                        mov             es, ax                                  ; ES:DI will point to x,y screen byte
-                        xor             di, di
-                        mov             ah, attrib                              ; 'normal' attribute
-                        mov             al, col                                 ; default 'black'
-                        mov             cx, CHARS_PER_SCREEN    ; 80 columns x 25 rows
-                        cld                                                             ; increment mode
-                        rep             stosw                                   ; fill screen
-                    }
-                }
-
-                void cls_attributes(attribute::attributes a = DEFAULT_ATTRIBUTE) {
-                    attrib_t attrib = a;
-                    __asm {
-                        .8086
-
-                        mov             ax, MDA_VIDEO_RAM_SEGMENT
-                        mov             es, ax                                  ; ES:DI will point to x,y screen byte
-                        xor             di, di
-                        mov             al, attrib
-                        mov             cx, CHARS_PER_SCREEN    ; 80 columns x 25 rows
-                        cld                                                             ; increment mode
-        L0:             inc             di                                              ; skip ascii byte
-                        stosb                                                   ; reset attribute byte
-                        loop    L0                                              ; whole screen
-                    }
-                }
-
-                void cls_characters(char ascii = 0) {
-                    __asm {
-                            .8086
-
-                            mov             ax, MDA_VIDEO_RAM_SEGMENT
-                            mov             es, ax                                  ; ES:DI will point to x,y screen byte
-                            xor             di, di
-                            mov             al, ascii
-                            mov             cx, CHARS_PER_SCREEN    ; 80 columns x 25 rows
-                            cld                                                             ; increment mode
-            L0:             stosb                                                   ; reset ascii byte
-                            inc             di                                              ; skip attribute byte
-                            loop    L0                                              ; whole screen
-                    }
-                }
-
+                mov             ax, MDA_VIDEO_RAM_SEGMENT
+                mov             es, ax                                  ; ES:DI will point to x,y screen byte
+                xor             di, di
+                mov             ah, attrib                              ; 'normal' attribute
+                mov             al, col                                 ; default 'black'
+                mov             cx, CHARS_PER_SCREEN    ; 80 columns x 25 rows
+                cld                                                     ; increment mode
+                rep             stosw                                   ; fill screen
+            }
         }
+
+        void cls_attributes(attribute::attributes a = DEFAULT_ATTRIBUTE) {
+            attrib_t attrib = a;
+            __asm {
+                .8086
+
+                mov             ax, MDA_VIDEO_RAM_SEGMENT
+                mov             es, ax                                  ; ES:DI will point to x,y screen byte
+                xor             di, di
+                mov             al, attrib
+                mov             cx, CHARS_PER_SCREEN    ; 80 columns x 25 rows
+                cld                                                     ; increment mode
+L0:             inc             di                                      ; skip ascii byte
+                stosb                                                   ; reset attribute byte
+                loop    L0                                              ; whole screen
+            }
+        }
+
+        void cls_characters(char ascii = 0) {
+            __asm {
+                .8086
+
+                mov             ax, MDA_VIDEO_RAM_SEGMENT
+                mov             es, ax                                  ; ES:DI will point to x,y screen byte
+                xor             di, di
+                mov             al, ascii
+                mov             cx, CHARS_PER_SCREEN    ; 80 columns x 25 rows
+                cld                                                     ; increment mode
+L0:             stosb                                                   ; reset ascii byte
+                inc             di                                      ; skip attribute byte
+                loop    L0                                              ; whole screen
+            }
+        }
+
+    }
 
 }
 
