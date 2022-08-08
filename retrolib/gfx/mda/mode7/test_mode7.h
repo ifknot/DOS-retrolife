@@ -31,10 +31,11 @@ namespace test_mode7 {
 			<< bios::video_adapter_names[bios::detect_video_adapter_type()] << "\n"
 			<< bios::video_mode_names[bios::get_video_state().mode] << "\n"
 			<< "test IBM Monochrome Display Adapter (MDA)...\n";
-		{
-			wait_key_ascii();
-			enter();
-			std::cout << bios::video_mode_names[bios::get_video_state().mode] << "\n";
+		wait_key_ascii();
+		enter();
+		std::cout << "mode " << bios::video_mode_names[bios::get_video_state().mode] << "\n";
+		/* {
+			
 			std::cout << (char) colour::gray << std::endl;
 
 			screen_bound::plot_character(10, 10, 'A');
@@ -58,8 +59,13 @@ namespace test_mode7 {
 			wait_key_ascii();
 			cls();
 			wait_key_ascii();
-			exit();
+		}*/
+		{
+			cls();
+			wait_key_ascii();
 		}
+		exit();
+		std::cout << "mode " << bios::video_mode_names[bios::get_video_state().mode] << "\n";
 		std::cout << "success!\n";
 	}
 

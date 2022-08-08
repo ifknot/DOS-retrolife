@@ -51,34 +51,66 @@ namespace cga {
    * 
    *		Palette 1				Palette 1 high intensity
    *	#	palette colour		  RGB		palette colour		  RGB 
-   *	0	default									default
+   *	0			default							default
    *	1		3	cyan		#00AAAA		11		light cyan	#55FFFF
    *	2		5	magenta		#AA00AA		13		light mag	#FF55FF
-   *	3		7	ligt gray	#AAAAAA		15		white		#FFFFFF
+   *	3		7	light gray	#AAAAAA		15		white		#FFFFFF
    * 
    *  @note A third 320×200 4-color palette is achieved by disabling the composite color burst bit while in graphics mode. 
    *  This is what IBM BIOS Mode 5 does
    * 
    *		Palette 2				Palette 2 high intensity
    *	#	palette colour		  RGB		palette colour		  RGB 
-   *	0	default									default
+   *	0			default							default
    *	1		3	cyan		#00AAAA		11		light cyan	#55FFFF
    *	2		4	red			#AA0000		13		light red	#FF5555
-   *	3		7	ligt gray	#AAAAAA		15		white		#FFFFFF
+   *	3		7	light gray	#AAAAAA		15		white		#FFFFFF
    *  
    *  @note In 320×200 graphics mode, the background & border colour can be changed from black (default) to any of the other 15 colors of the CGA palette. 
    *  This allows for some variation, as well as flashing effects, as the background color can be changed without having to redraw the screen (i.e. without changing the contents of the video RAM.)
    */
 		namespace colour {
 
-			static const colour_t black		= 0x00;
-			static const colour_t cyan		= 0x40;
-			static const colour_t magenta	= 0x80;
-			static const colour_t white		= 0xC0;
+			// default palette
+			enum inks {
+				black	= 0x00,
+				cyan	= 0x40,
+				magenta	= 0x80,
+				white	= 0xC0
+			};
 
-			static const colour_t green		= 0x40;
-			static const colour_t red		= 0x80;
-			static const colour_t yellow	= 0xC0;
+			namespace palette0 {
+
+				enum inks {
+					black	= 0x00,
+					green	= 0x40,
+					red		= 0x80,
+					yellow	= 0xC0
+				};
+
+			}
+
+			namespace palette1 {
+
+				enum inks {
+					black = 0x00,
+					cyan = 0x40,
+					magenta = 0x80,
+					white = 0xC0
+				};
+
+			}
+
+			namespace palette2 {
+
+				enum inks {
+					black	= 0x00,
+					cyan	= 0x40,
+					red		= 0x80,
+					white	= 0xC0
+				};
+
+			}
 
 		}
 

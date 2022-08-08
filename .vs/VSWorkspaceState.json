@@ -2,14 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\retrolib",
-    "\\retrolib\\bios",
     "\\retrolib\\gfx",
-    "\\retrolib\\gfx\\cga",
     "\\retrolib\\gfx\\cga\\mode4",
     "\\retrolib\\gfx\\cga\\mode6",
-    "\\retrolib\\gfx\\hga",
-    "\\retrolib\\gfx\\vga"
+    "\\retrolib\\gfx\\mda",
+    "\\retrolib\\gfx\\mda\\mode7"
   ],
-  "SelectedNode": "\\retrolib\\gfx\\hga\\hga_plot_multi_point.h",
+  "SelectedNode": "\\retrolib\\gfx\\mda\\mode7\\mda_mode7_cls.h",
   "PreviewInSolutionExplorer": false
 }

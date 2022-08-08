@@ -136,8 +136,10 @@ namespace hga {
 
     namespace colour {
 
-        static const colour_t black = 0x00;
-        static const colour_t white = 0x80;
+        enum inks {
+            black = 0x00,
+            white = 0x80
+        };
 
     }
 
