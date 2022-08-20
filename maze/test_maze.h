@@ -12,6 +12,8 @@
 
 #include "../retrolib/bios/bios_services.h"
 
+#include "../retrolib/gfx/point_2d.h"
+
 #include "../retrolib/gfx/mda/mode7/mda_mode7.h"
 #include "../retrolib/gfx/mda/mode7/mda_mode7_write_character.h"
 
@@ -23,9 +25,15 @@ using namespace jtl;
 
 namespace game {
 
-	static const int8_t neighbourhood[18] = { 0, 0, 1, 0, 1, 1, 0, 1, -1, 1, -1, 0, -1, -1, 0, -1, 1, -1 };
+	jtl::union_point_t player(8, 8);
 
-	template<jtl::size_t POW2_POLICY = 5>
+	static const char TILE = 0xC5;
+	static const char PLAYER = 0x01;
+
+	static const jtl::size_t NEIGHBOURHOOD_SIZE = 18;
+	static const int8_t NEIGHBOURHOOD[NEIGHBOURHOOD_SIZE] = { 0, 0, 1, 0, 1, 1, 0, 1, -1, 1, -1, 0, -1, -1, 0, -1, 1, -1 };
+
+	template<jtl::size_t POW2_POLICY = 4>
 	class maze_t {
 
 		static const char NUL = 0;
@@ -63,6 +71,16 @@ namespace game {
 			return visisble_data_;
 		}
 
+		template<jtl::size_t T>
+		void draw(jtl::size_t x, jtl::size_t y, maze_t<T> maze) {
+			for (jtl::size_t j = 0; j < maze.height(); ++j) {
+				for (jtl::size_t i = 0; i < maze.width(); ++i) {
+					screen_bound::write_character(x + i, y + j, maze(i, j));
+				}
+			}
+			screen_bound::write_character(x + player.coord.x, y + player.coord.y, PLAYER);
+		}
+
 		inline size_type height() const {
 			return height_;
 		}
@@ -93,7 +111,9 @@ namespace game {
 		}
 
 		void reveal_neighbours(size_type x, size_type y) {
-
+			for (size_type i = 0; i < NEIGHBOURHOOD_SIZE; i += 2) {
+				reveal(x + NEIGHBOURHOOD[i], y + NEIGHBOURHOOD[i + 1]);
+			}
 		}
 
 		inline size_type size() const {
@@ -107,8 +127,9 @@ namespace game {
 	private:
 
 		void build_maze() {
+			hide_all();
 			for (size_type i = 0; i < size_; ++i) {
-				hidden_data_[i] = 0xFE;
+				hidden_data_[i] = TILE;
 			}
 		}
 
@@ -118,16 +139,13 @@ namespace game {
 
 	};
 
-	template<jtl::size_t T>
-	void draw_maze(maze_t<T> maze) {
-		screen_bound::write_character(x, y, maze(x, y));
-	}
+	
 
 }
 
 	namespace test_maze {
 
-		typedef game::maze_t<> maze32x32_t;
+		typedef game::maze_t<> maze16x16_t;
 
 		void run() {
 			std::cout
@@ -138,11 +156,32 @@ namespace game {
 			wait_key_ascii();
 			enter();
 			{
-				maze32x32_t m;
-				std::cout << m.size() << ' ' << m.width() << ' ' << m.height() << '\n';
-				std::cout << m(2,2) << '\n';
-				m.reveal_all();
-				std::cout << m(2, 2) << '\n';
+				maze16x16_t m;
+				//player* p = new player();
+				//m.add(p);
+				//m.add(new monster());
+				uint8_t k = 0;
+				while (k != 'q') {
+					//m.reveal_neighbours(p.x(), p.y());
+					m.reveal_neighbours(game::player.coord.x, game::player.coord.y);
+					m.draw(52, 4, m);
+					//m.key(wait_key_scan_code());
+					k = wait_key_ascii();
+					switch (k) {
+					case 'w':
+						--game::player.coord.y;
+						break;
+					case 's':
+						++game::player.coord.y;
+						break;
+					case 'd':
+						++game::player.coord.x;
+						break;
+					case 'a':
+						--game::player.coord.x;
+						break;
+					}
+				}
 			}
 			std::cout
 				<< "\n Mode "
