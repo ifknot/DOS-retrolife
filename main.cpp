@@ -15,7 +15,7 @@
 
 // GFX
 //		MDA
-#include "retrolib/gfx/mda/mode7/test_mode7.h"
+//#include "retrolib/gfx/mda/mode7/test_mode7.h"
 //		HGA
 //#include "retrolib/gfx/test_point_vector_2d.h"
 //#include "retrolib/gfx/test_glyph.h"
@@ -31,10 +31,11 @@
 //#include "retrolib/automata/test_count_neighbours.h"
 
 //#include "gamelife/dosgol.h"
+#include "maze/test_maze.h"
 
 //int main(int argc, char* argv[]) {
 int main() {
 
-	test_mode7::run();
+	test_maze::run();
 
 }

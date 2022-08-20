@@ -1,4 +1,0 @@
-retrolib/gfx/mda/mode7/mda_mode7_write_attribute.h(54): Warning! W726: col(25) no reference to formal parameter 'ascii'
-retrolib/gfx/mda/mode7/mda_mode7_write_attribute.h(54): Note! N393: col(25) included from retrolib/gfx/mda/mode7/test_mode7.h(20)
-retrolib/gfx/mda/mode7/mda_mode7_write_attribute.h(54): Note! N393: col(25) included from main.cpp(18)
-retrolib/gfx/mda/mode7/mda_mode7_write_attribute.h(21): Note! N392: col(77) definition: 'char ascii' in 'void mda::mode7::screen_bound::write_attribute( unsigned short, unsigned short, char, unsigned char )'
