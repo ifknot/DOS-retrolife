@@ -32,8 +32,8 @@ namespace game {
 
 	typedef maze_t<> maze16x16_t;
 
-	gfx::union_point_t maze_player(8, 8), screen_map(52, 4);
-	gfx::dimension_t screen_map_dim(16, 16);
+	gfx::union_point_t maze_player(8, 8), screen_map_p(52, 4);
+	gfx::union_dimension_t screen_map_d(16, 16);
 
 	// the maze locations relative to the player's location that can be shown on the screen map
 	static const jtl::size_t maze_x_coords[16] = { -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7 };
@@ -41,8 +41,8 @@ namespace game {
 
 	template<jtl::size_t T>
 	void draw_visible_map(jtl::size_t x, jtl::size_t y, maze_t<T> maze) {
-		for (jtl::size_t j = 0; j < 16; ++j) {
-			for (jtl::size_t i = 0; i < 16; ++i) {
+		for (jtl::size_t j = 0; j < screen_map_d.dim.height; ++j) {
+			for (jtl::size_t i = 0; i < screen_map_d.dim.width; ++i) {
 				screen_bound::write_character(
 					x + i, 
 					y + j, 
@@ -53,7 +53,7 @@ namespace game {
 				);
 			}
 		}
-		screen_bound::write_character(x + maze_player.coord.x, y + maze_player.coord.y, PLAYER);
+		screen_bound::write_character(x + 8, y + 8, PLAYER);
 	}
 
 	void run() {
@@ -73,7 +73,7 @@ namespace game {
 			while (k != 'q') {
 				//m.reveal_neighbours(p.x(), p.y());
 				m.reveal_neighbours(maze_player.coord.x, maze_player.coord.y);
-				draw_visible_map(screen_map.coord.x, screen_map.coord.y, m);
+				draw_visible_map(screen_map_p.coord.x, screen_map_p.coord.y, m);
 				//m.key(wait_key_scan_code());
 				k = wait_key_ascii();
 				switch (k) {

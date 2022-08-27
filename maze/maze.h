@@ -26,7 +26,6 @@ namespace game {
 
 		static const char NUL = 0;
 
-
 	public:
 
 		typedef jtl::size_t size_type;
