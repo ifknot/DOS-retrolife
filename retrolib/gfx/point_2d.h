@@ -12,7 +12,7 @@
 
 #include <stdint.h>
 
-namespace jtl {
+namespace gfx {
 
     struct point_t {
 

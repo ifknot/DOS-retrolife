@@ -13,186 +13,96 @@
 #include "../retrolib/bios/bios_services.h"
 
 #include "../retrolib/gfx/point_2d.h"
+#include "../retrolib/gfx/dimension_2d.h"
 
 #include "../retrolib/gfx/mda/mode7/mda_mode7.h"
 #include "../retrolib/gfx/mda/mode7/mda_mode7_write_character.h"
 
 #include "../retrolib/memory/size_t.h"
 
+#include "maze.h"
+
 using namespace bios;
 using namespace mda::mode7;
 using namespace jtl;
 
+
+
 namespace game {
 
-	jtl::union_point_t player(8, 8);
+	typedef maze_t<> maze16x16_t;
 
-	static const char TILE = 0xC5;
-	static const char PLAYER = 0x01;
+	gfx::union_point_t maze_player(8, 8), screen_map(52, 4);
+	gfx::dimension_t screen_map_dim(16, 16);
 
-	static const jtl::size_t NEIGHBOURHOOD_SIZE = 18;
-	static const int8_t NEIGHBOURHOOD[NEIGHBOURHOOD_SIZE] = { 0, 0, 1, 0, 1, 1, 0, 1, -1, 1, -1, 0, -1, -1, 0, -1, 1, -1 };
+	// the maze locations relative to the player's location that can be shown on the screen map
+	static const jtl::size_t maze_x_coords[16] = { -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7 };
+	static const jtl::size_t maze_y_coords[16] = { -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7 };
 
-	template<jtl::size_t POW2_POLICY = 4>
-	class maze_t {
-
-		static const char NUL = 0;
-
-
-	public:
-
-		typedef jtl::size_t size_type;
-		typedef int8_t value_type;
-
-		maze_t() :
-			width_(1 << POW2_POLICY),
-			height_(width_),
-			size_(width_* height_),
-			visisble_data_(new value_type[size_]),
-			hidden_data_(new value_type[size_])
-		{
-			build_maze();
-		}
-
-		~maze_t() {
-			delete[] visisble_data_;
-			delete[] hidden_data_;
-		}
-
-		
-		value_type operator()(size_type x, size_type y) const {
-			if (x >= 0 && x < width_ && y >= 0 && y < height_) {
-				return visisble_data_[(y << POW2_POLICY) + x];
+	template<jtl::size_t T>
+	void draw_visible_map(jtl::size_t x, jtl::size_t y, maze_t<T> maze) {
+		for (jtl::size_t j = 0; j < 16; ++j) {
+			for (jtl::size_t i = 0; i < 16; ++i) {
+				screen_bound::write_character(
+					x + i, 
+					y + j, 
+					maze(
+						maze_player.coord.x + maze_x_coords[i], 
+						maze_player.coord.y + maze_y_coords[j]
+					)
+				);
 			}
-			return NUL;
 		}
+		screen_bound::write_character(x + maze_player.coord.x, y + maze_player.coord.y, PLAYER);
+	}
 
-		inline const value_type* data() const {
-			return visisble_data_;
-		}
-
-		template<jtl::size_t T>
-		void draw(jtl::size_t x, jtl::size_t y, maze_t<T> maze) {
-			for (jtl::size_t j = 0; j < maze.height(); ++j) {
-				for (jtl::size_t i = 0; i < maze.width(); ++i) {
-					screen_bound::write_character(x + i, y + j, maze(i, j));
+	void run() {
+		std::cout
+			<< "Using video card "
+			<< video_adapter_names[detect_video_adapter_type()] << "\n Mode "
+			<< video_mode_names[get_video_state().mode] << "\n"
+			<< "Switch to mode 7 and ENTER the maze...\n";
+		wait_key_ascii();
+		enter();
+		{
+			maze16x16_t m;
+			//player* p = new player();
+			//m.add(p);
+			//m.add(new monster());
+			uint8_t k = 0;
+			while (k != 'q') {
+				//m.reveal_neighbours(p.x(), p.y());
+				m.reveal_neighbours(maze_player.coord.x, maze_player.coord.y);
+				draw_visible_map(screen_map.coord.x, screen_map.coord.y, m);
+				//m.key(wait_key_scan_code());
+				k = wait_key_ascii();
+				switch (k) {
+				case 'w':
+					--maze_player.coord.y;
+					break;
+				case 's':
+					++maze_player.coord.y;
+					break;
+				case 'd':
+					++maze_player.coord.x;
+					break;
+				case 'a':
+					--maze_player.coord.x;
+					break;
 				}
 			}
-			screen_bound::write_character(x + player.coord.x, y + player.coord.y, PLAYER);
 		}
 
-		inline size_type height() const {
-			return height_;
-		}
-
-		void hide(size_type x, size_type y) {
-			if (x >= 0 && x < width_ && y >= 0 && y < height_) {
-				visisble_data_[(y << POW2_POLICY) + x] = NUL;
-			}
-		}
-
-		void hide_all() {
-			for (size_type i = 0; i < size_; ++i) {
-				visisble_data_[i] = NUL;
-			}
-		}
-
-		void reveal(size_type x, size_type y) {
-			if (x >= 0 && x < width_ && y >= 0 && y < height_) {
-				size_type i = (y << POW2_POLICY) + x;
-				visisble_data_[i] = hidden_data_[i];
-			}
-		}
-
-		void reveal_all() {
-			for (size_type i = 0; i < size_; ++i) {
-				visisble_data_[i] = hidden_data_[i];
-			}
-		}
-
-		void reveal_neighbours(size_type x, size_type y) {
-			for (size_type i = 0; i < NEIGHBOURHOOD_SIZE; i += 2) {
-				reveal(x + NEIGHBOURHOOD[i], y + NEIGHBOURHOOD[i + 1]);
-			}
-		}
-
-		inline size_type size() const {
-			return size_;
-		}
-
-		inline size_type width() const {
-			return width_;
-		}
-
-	private:
-
-		void build_maze() {
-			hide_all();
-			for (size_type i = 0; i < size_; ++i) {
-				hidden_data_[i] = TILE;
-			}
-		}
-
-		size_type width_, height_, size_;
-		value_type* visisble_data_;
-		value_type* hidden_data_;
-
-	};
-
-	
+		std::cout
+			<< "\n Mode "
+			<< video_mode_names[get_video_state().mode] << "\n"
+			<< "Switch back and EXIT the maze...\n";
+		wait_key_ascii();
+		exit();
+		std::cout << "mode " << bios::video_mode_names[get_video_state().mode] << "\n";
+		std::cout << "success!\n";
+	}
 
 }
-
-	namespace test_maze {
-
-		typedef game::maze_t<> maze16x16_t;
-
-		void run() {
-			std::cout
-				<< "Using video card "
-				<< video_adapter_names[detect_video_adapter_type()] << "\n Mode "
-				<< video_mode_names[get_video_state().mode] << "\n"
-				<< "Switch to mode 7 and ENTER the maze...\n";
-			wait_key_ascii();
-			enter();
-			{
-				maze16x16_t m;
-				//player* p = new player();
-				//m.add(p);
-				//m.add(new monster());
-				uint8_t k = 0;
-				while (k != 'q') {
-					//m.reveal_neighbours(p.x(), p.y());
-					m.reveal_neighbours(game::player.coord.x, game::player.coord.y);
-					m.draw(52, 4, m);
-					//m.key(wait_key_scan_code());
-					k = wait_key_ascii();
-					switch (k) {
-					case 'w':
-						--game::player.coord.y;
-						break;
-					case 's':
-						++game::player.coord.y;
-						break;
-					case 'd':
-						++game::player.coord.x;
-						break;
-					case 'a':
-						--game::player.coord.x;
-						break;
-					}
-				}
-			}
-			std::cout
-				<< "\n Mode "
-				<< video_mode_names[get_video_state().mode] << "\n"
-				<< "Switch back and EXIT the maze...\n";
-			wait_key_ascii();
-			exit();
-			std::cout << "mode " << bios::video_mode_names[get_video_state().mode] << "\n";
-			std::cout << "success!\n";
-		}
-
-	}
 
 #endif

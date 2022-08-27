@@ -36,6 +36,6 @@
 //int main(int argc, char* argv[]) {
 int main() {
 
-	test_maze::run();
+	game::run();
 
 }
