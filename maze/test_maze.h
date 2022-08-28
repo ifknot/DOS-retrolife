@@ -21,7 +21,7 @@
 #include "../retrolib/memory/size_t.h"
 
 #include "maze.h"
-#include "maze_object.h"
+#include "maze_player.h"
 
 using namespace bios;
 using namespace mda::mode7;
@@ -29,7 +29,7 @@ using namespace jtl;
 
 namespace game {
 
-	static const jtl::size_t SCALE = 5;
+	static const jtl::size_t SCALE = 4;
 
 	typedef maze_t<SCALE> maze16x16_t;
 
@@ -60,6 +60,11 @@ namespace game {
 		}
 	}
 
+	template<jtl::size_t T>
+	void build_maze(maze_t<T>& maze) {
+		maze(0, 0, EXIT);
+	}
+
 	void run() {
 		std::cout
 			<< "Using video card "
@@ -70,14 +75,13 @@ namespace game {
 		enter();
 		{
 			maze16x16_t m;
-			maze_object<SCALE> player(m, m.width() / 2, m.height() / 2, 0x03);
-
-			//build_maze(m);
+			maze_player<SCALE> player(m, m.width() / 2, m.height() / 2);
+			build_maze(m);
 			
 			uint8_t k = 0;
-			while (k != 'q') {
-				m.reveal_neighbours(player.position().coord.x, player.position().coord.y);
-				draw_visible_map(m, player.position().coord.x, player.position().coord.y, screen_map_p.coord.x, screen_map_p.coord.y);
+			m.reveal_neighbours(player.position().coord.x, player.position().coord.y);
+			draw_visible_map(m, player.position().coord.x, player.position().coord.y, screen_map_p.coord.x, screen_map_p.coord.y);
+			while (m.is_locked()) {
 				//m.key(wait_key_scan_code());
 				k = wait_key_ascii();
 				switch (k) {
@@ -91,9 +95,14 @@ namespace game {
 					player.move_west();
 					break;
 				case 'a':
-					player.move_east();;
+					player.move_east();
+					break;
+				case 'q':
+					m.unlock();
 					break;
 				}
+				m.reveal_neighbours(player.position().coord.x, player.position().coord.y);
+				draw_visible_map(m, player.position().coord.x, player.position().coord.y, screen_map_p.coord.x, screen_map_p.coord.y);
 			}
 		}
 

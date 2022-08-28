@@ -12,11 +12,11 @@
 
 #include "../retrolib/memory/size_t.h"
 
+#include "maze_items.h"
+
 namespace game {
 
-	static const char FLOOR = 0xF9;
-	static const char WALL = 0xDB;
-	static const char PLAYER = 0x01;
+	
 
 	template<jtl::size_t POW2_POLICY>
 	class maze_t {
@@ -49,13 +49,13 @@ namespace game {
 			width_(1 << POW2_POLICY),
 			height_(width_),
 			size_(width_* height_),
-			data_(new value_type[size_])
+			data_(new value_type[size_]),
+			locked_(true)
 		{}
 
 		~maze_t() {
 			delete[] data_;
 		}
-
 
 		char operator()(size_type x, size_type y) const {
 			if (x < width_ && y < height_) {
@@ -99,6 +99,18 @@ namespace game {
 			return false;
 		}
 
+		inline bool is_locked() {
+			return locked_;
+		}
+
+		inline void lock() {
+			locked_ = true;
+		}
+
+		inline void unlock() {
+			locked_ = false;
+		}
+
 		void reveal(size_type x, size_type y) {
 			if (x < width_ && y < height_) {
 				data_[(y<< POW2_POLICY) + x].tile.state = visible;
@@ -129,6 +141,7 @@ namespace game {
 
 		size_type width_, height_, size_;
 		value_type* data_;
+		bool locked_;
 
 	};
 

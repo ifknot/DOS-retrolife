@@ -4,10 +4,9 @@
     "\\maze",
     "\\retrolib",
     "\\retrolib\\gfx",
-    "\\retrolib\\gfx\\mda\\mode7",
     "\\retrolib\\statistics",
     "\\retrolib\\system"
   ],
-  "SelectedNode": "\\retrolib\\gfx\\dimension_2d.h",
+  "SelectedNode": "\\maze\\maze_object.h",
   "PreviewInSolutionExplorer": false
 }
