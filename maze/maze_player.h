@@ -16,6 +16,8 @@
 
 namespace game {
 
+	static char player_glyph[4] = { 0x18, 0x19, 0x1A, 0x1B };
+
 	template<jtl::size_t T>
 	class maze_player {
 
@@ -25,9 +27,13 @@ namespace game {
 			maze(maze),
 			p(x, y),
 			chr(FLOOR),
-			direction(north)
+			direction_(north)
 		{
-			maze(x, y, direction_glyph[direction]);
+			maze(x, y, player_glyph[direction_]);
+		}
+
+		inline jtl::size_t direction() {
+			return direction_;
 		}
 
 		void move(jtl::size_t x, jtl::size_t y) {
@@ -48,42 +54,42 @@ namespace game {
 		}
 
 		inline void move_north() {
-			if (direction == north) {
+			if (direction_ == north) {
 				move(p.coord.x, p.coord.y - 1);
 			}
 			else {
-				direction = north;
-				maze(p.coord.x, p.coord.y, direction_glyph[direction]);
+				direction_ = north;
+				maze(p.coord.x, p.coord.y, player_glyph[direction_]);
 			}
 		}
 
 		inline void move_south() {
-			if (direction == south) {
+			if (direction_ == south) {
 				move(p.coord.x, p.coord.y + 1);
 			}
 			else {
-				direction = south;
-				maze(p.coord.x, p.coord.y, direction_glyph[direction]);
+				direction_ = south;
+				maze(p.coord.x, p.coord.y, player_glyph[direction_]);
 			}
 		}
 
 		inline void move_east() {
-			if (direction == east) {
+			if (direction_ == east) {
 				move(p.coord.x - 1, p.coord.y);
 			}
 			else {
-				direction = east;
-				maze(p.coord.x, p.coord.y, direction_glyph[direction]);
+				direction_ = east;
+				maze(p.coord.x, p.coord.y, player_glyph[direction_]);
 			}
 		}
 
 		inline void move_west() {
-			if (direction == west) {
+			if (direction_ == west) {
 				move(p.coord.x + 1, p.coord.y);
 			}
 			else {
-				direction = west;
-				maze(p.coord.x, p.coord.y, direction_glyph[direction]);
+				direction_ = west;
+				maze(p.coord.x, p.coord.y, player_glyph[direction_]);
 			}
 		}
 
@@ -96,14 +102,14 @@ namespace game {
 		inline void raw_move(jtl::size_t x, jtl::size_t y) {
 			maze(p.coord.x, p.coord.y, chr);
 			chr = maze(x, y);
-			maze(x, y, direction_glyph[direction]);
+			maze(x, y, player_glyph[direction_]);
 			p.move(x, y);
 		}
 
 		maze_t<T>& maze;
 		gfx::union_point_t p;
 		char chr;
-		direction_t direction;
+		direction_t direction_;
 
 	};
 

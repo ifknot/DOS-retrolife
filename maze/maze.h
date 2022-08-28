@@ -10,13 +10,17 @@
 #ifndef MAZE_H
 #define MAZE_H
 
+#include <fstream>
+#include <iostream>
+#include <string>
+
+#include "../retrolib/dos/dos_error_messages.h"
+
 #include "../retrolib/memory/size_t.h"
 
 #include "maze_items.h"
 
 namespace game {
-
-	
 
 	template<jtl::size_t POW2_POLICY>
 	class maze_t {
@@ -72,6 +76,13 @@ namespace game {
 			}
 		}
 
+		char at(size_type x, size_type y) const {
+			if (x < width_ && y < height_) {
+				return data_[(y << POW2_POLICY) + x].tile.chr;
+			}
+			return NUL;
+		}
+
 		inline const value_type* data() const {
 			return data_;
 		}
@@ -92,23 +103,27 @@ namespace game {
 			}
 		}
 
-		inline bool is_floor(size_type x, size_type y) {
-			if (x < width_ && y < height_) {
-				return data_[(y << POW2_POLICY) + x].tile.chr == FLOOR;
-			}
-			return false;
-		}
-
 		inline bool is_locked() {
 			return locked_;
 		}
 
-		inline void lock() {
-			locked_ = true;
+		uint8_t load(std::string file_path) {
+			std::ifstream fis(file_path.c_str());
+			if (!fis.is_open()) {
+				std::cerr << dos::error::messages[dos::error::FILE_NOT_FOUND] << file_path.c_str() << '\n';
+				return 0;
+			}
+			char chr;
+			for (size_type i = 0; i < size_; ++i) {
+				fis.read(&chr, 1);
+				if (fis.eof()) break;
+				data_[i].tile.chr = chr;
+			}
+			return 1;
 		}
 
-		inline void unlock() {
-			locked_ = false;
+		inline void lock() {
+			locked_ = true;
 		}
 
 		void reveal(size_type x, size_type y) {
@@ -131,6 +146,10 @@ namespace game {
 
 		inline size_type size() const {
 			return size_;
+		}
+
+		inline void unlock() {
+			locked_ = false;
 		}
 
 		inline size_type width() const {
