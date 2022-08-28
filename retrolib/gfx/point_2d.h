@@ -38,6 +38,11 @@ namespace gfx {
             coord.y = y;
         }
 
+        inline void move(int16_t x, int16_t y) {
+            coord.x = x;
+            coord.y = y;
+        }
+
     };
 
 }

@@ -3,14 +3,11 @@
     "",
     "\\maze",
     "\\retrolib",
-    "\\retrolib\\bios",
     "\\retrolib\\gfx",
-    "\\retrolib\\gfx\\mda",
     "\\retrolib\\gfx\\mda\\mode7",
-    "\\retrolib\\memory",
     "\\retrolib\\statistics",
     "\\retrolib\\system"
   ],
-  "SelectedNode": "\\retrolib\\gfx\\mda\\mode7\\mda_mode7_write_attribute.h",
+  "SelectedNode": "\\retrolib\\gfx\\dimension_2d.h",
   "PreviewInSolutionExplorer": false
 }
