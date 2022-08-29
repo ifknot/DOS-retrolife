@@ -21,6 +21,7 @@
 #include "mda_mode7_write_pixel.h"
 #include "mda_mode7_cls.h"
 #include "mda_mode7_fill_area.h"
+#include "mda_mode7_draw_vertical_line.h"
 
 using namespace bios;
 using namespace mda::mode7;
@@ -88,12 +89,17 @@ namespace test_mode7 {
 			screen_bound::write_pixel(40, 12, colour::light_gray);
 			screen_bound::write_pixel(40, 13, colour::white);
 		}*/
-		{
+		/*{
+			wait_key_ascii();
 			for (int i = 0; i < 25; ++i) {				
 				screen_bound::fill_area(i, i, 10, 10, 0xDB);
 				wait_key_ascii();
 				screen_bound::fill_area(i, i, 10, 10, 0);				
 			}	
+		}*/
+		{
+			wait_key_ascii();
+			screen_bound::draw_vertical_line(10, 1, 10, 20);
 		}
 		wait_key_ascii();
 		exit();

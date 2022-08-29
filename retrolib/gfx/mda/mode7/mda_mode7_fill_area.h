@@ -26,10 +26,10 @@ namespace mda {
 					mov		es, ax					; ES:DI will point to x,y screen byte 
 					mov		bx, x					; load x into bx then perform screen clipping
 					cmp     bx, SCREEN_X_MAX        ; compare bx with x maximum boundry
-					jge     END						; nothing to plot
+					jge     END						; nothing to fill
 					mov		ax, y					; load y into ax then perform screen clipping
 					cmp     ax, SCREEN_Y_MAX        ; compare ax with y maximum boundry
-					jge     END                     ; nothing to plot
+					jge     END                     ; nothing to fill
 
 					mov		cx, w					; x,y is onscreen so load width 
 					add		cx, x					; add x 

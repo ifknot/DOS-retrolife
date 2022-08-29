@@ -22,7 +22,7 @@ namespace test_glyph {
 	void run() {
 
 		// 32x16 pixel glyph uses 64 bytes of data
-		typedef jtl::glyph<32, 16> glyph32x16_t;
+		typedef gfx::glyph<32, 16> glyph32x16_t;
 
 		std::cout << "test_glyph... \n";
 		{			

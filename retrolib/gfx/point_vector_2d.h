@@ -23,7 +23,7 @@
 
 #include "point_2d.h"
 
-namespace jtl{
+namespace gfx {
 
         template<jtl::size_t N>
         class point_vector_2d {

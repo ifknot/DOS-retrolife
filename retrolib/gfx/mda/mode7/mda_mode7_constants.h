@@ -11,6 +11,8 @@
 #ifndef MDA_MODE7_CONSTANTS_H
 #define MDA_MODE7_CONSTANTS_H
 
+#include "../../code_page_437_constants.h"
+
 #include "../mda_constants.h"
 
 #define SCREEN_X_MIN 0
@@ -34,11 +36,11 @@ namespace mda {
 			*  @brief for cross mode compatibility a minimum 2 "colours" black and white
 			*/
 			enum inks {
-				black = 0x20,
-				dark_gray = 0xB0,
+				black = SPACE,
+				dark_gray = LIGHT_SHADE,
 				gray,
 				light_gray,
-				white = 0xDB
+				white = FULL_BLOCK
 			};
 
 		}

@@ -13,7 +13,7 @@
 #include "../memory/data_vector.h"
 #include "../memory/size_t.h"
 
-namespace jtl {
+namespace gfx {
 
         template<size_t W, size_t H>
         class glyph {

@@ -19,7 +19,7 @@
 
 #include "point_2d.h"
 
-namespace jtl {
+namespace gfx {
 
 	struct file_read_point_2d {
 
