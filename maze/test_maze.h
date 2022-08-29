@@ -48,10 +48,10 @@ namespace game {
 
 	static const jtl::size_t face_x[4] = {  0,  0,  1, -1 };
 	static const jtl::size_t face_y[4] = { -1,  1,  0,  0 };
-	//static const jtl::size_t left_x[4] = { -1,  1,  0,  0 };
-	//static const jtl::size_t left_y[4] = {  0,  0, -1,  1 };
-	//static const jtl::size_t right_x[4] = { 1, -1,  0,  0 };
-	//static const jtl::size_t right_y[4] = { 0,  0,  1, -1 };
+	static const jtl::size_t left_x[4] = { -1,  1,  0,  0 };
+	static const jtl::size_t left_y[4] = {  0,  0, -1,  1 };
+	static const jtl::size_t right_x[4] = { 1, -1,  0,  0 };
+	static const jtl::size_t right_y[4] = { 0,  0,  1, -1 };
 
 	template<jtl::size_t T>
 	void draw_map(maze_t<T>& maze, jtl::size_t ox, jtl::size_t oy, jtl::size_t x, jtl::size_t y) {
@@ -79,7 +79,6 @@ namespace game {
 	static const jtl::size_t face_y_off[5] = { 3, 4, 5, 5, 6 };
 
 	void draw_face_wall(jtl::size_t s, jtl::size_t x, jtl::size_t y) {
-		std::cout << s << std::endl;
 		x += face_x_off[s];
 		y += face_y_off[s];
 		for (jtl::size_t i = 0; i < face_i[s]; ++i) {
@@ -101,7 +100,7 @@ namespace game {
 				draw_left_wall(i, x, y);
 			}
 			else {
-				draw left face
+				//draw_left_face(i, x, y);
 			}
 			//if (maze(ox + right_x[d], oy + right_y[d]) == WALL) draw_right_wall(i, x, y);
 			//else draw right face

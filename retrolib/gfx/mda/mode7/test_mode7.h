@@ -79,13 +79,16 @@ namespace test_mode7 {
 			wait_key_ascii();
 			cls(colour::white, attribute::bright);
 		}*/
-		{
+		/* {
 			wait_key_ascii();
 			cls();
 			screen_bound::write_pixel(40, 10, colour::dark_gray);
 			screen_bound::write_pixel(40, 11, colour::gray);
 			screen_bound::write_pixel(40, 12, colour::light_gray);
 			screen_bound::write_pixel(40, 13, colour::white);
+		}*/
+		{
+		
 		}
 		wait_key_ascii();
 		exit();

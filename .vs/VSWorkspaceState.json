@@ -3,10 +3,11 @@
     "",
     "\\maze",
     "\\retrolib",
+    "\\retrolib\\file",
     "\\retrolib\\gfx",
     "\\retrolib\\statistics",
     "\\retrolib\\system"
   ],
-  "SelectedNode": "\\maze\\maze_object.h",
+  "SelectedNode": "\\maze\\maze_player.h",
   "PreviewInSolutionExplorer": false
 }
