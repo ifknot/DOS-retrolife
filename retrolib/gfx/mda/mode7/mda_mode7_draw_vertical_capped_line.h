@@ -7,8 +7,8 @@
  *  @copyright © Jeremy Thornton, 2022. All right reserved.
  *
  */
-#ifndef MDA_MODE7_DRAW_VERTICAL_LINE_H
-#define MDA_MODE7_DRAW_VERTICAL_LINE_H
+#ifndef MDA_MODE7_VERTICAL_CAPPED_LINE_H
+#define	MDA_MODE7_VERTICAL_CAPPED_LINE_H
 
 #include "mda_mode7_constants.h"
 
@@ -18,10 +18,10 @@ namespace mda {
 
 		namespace screen_bound {
 
-			void draw_vertical_line(size_type x1, size_type y1, size_type x2, size_type y2, char block = FULL_BLOCK, attrib_t attrib = attribute::normal) {
+			void draw_vertical_capped_line(size_type x1, size_type y1, size_type x2, size_type y2, char block = FULL_BLOCK, char topcap = LOWER_HALF_BLOCK, char basecap = UPPER_HALF_BLOCK, attrib_t attrib = attribute::normal) {
 				__asm {
 					.8086
-
+					
 					mov		ax, x1
 					cmp		ax, x2					; it has to be a vertical line
 					jne		END						; nothing to draw
@@ -41,10 +41,10 @@ namespace mda {
 
 					mov		cx, y2					; x1,y1 is onscreen x1 = x2 so clip y2
 					cmp		cx, SCREEN_Y_MAX		; compare with boundry
-					jl		J1						; within screen width
+					jl		J0						; within screen width
 					sub		cx, SCREEN_Y_MAX		; clip to screen
 					sub		y2, cx					; store clipped y2
-J1:					sub		y2, ax					; y2 - y1 is now line length
+J0:					sub		y2, ax					; y2 - y1 is now line length
 
 #ifdef ENABLE_MUL
 					mov     cl, BYTES_PER_LINE
@@ -62,13 +62,26 @@ J1:					sub		y2, ax					; y2 - y1 is now line length
 #endif				
 					shl		bx, 1					; x * 2 as 2 bytes per character cell
 					add		di, bx					; di = (y * 80 ) + x
-					mov		al, block
-					mov		ah, attrib				; AX now has atrrib:ascii
+					mov		ah, attrib				; load attrib
 
+					mov		al, topcap				; load the top cap character
+					mov		es:[di], ax				; upper endcap
+					add		di, BYTES_PER_LINE		; next screen line
+
+					mov		al, block				; load block semigrpahic
 					mov		cx, y2					; load y2
+					cmp		cx, 1					; just one pixel?
+					je		END						; done
+					cmp		cx, 2					; just two pixels?
+					je		J1						; lower endcap
+
+					sub		cx, 2					; decrement for 2 endcaps
 L0:					mov		es:[di], ax				; plot semigraphics 'point'
 					add		di, BYTES_PER_LINE		; next screen line
 					loop	L0
+
+J1:					mov		al, basecap				; load the top cap character
+					mov		es:[di], ax				; lower endcap					
 
 END:
 				}
@@ -79,6 +92,5 @@ END:
 	}
 
 }
-
 
 #endif

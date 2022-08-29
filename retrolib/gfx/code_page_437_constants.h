@@ -11,6 +11,8 @@
 #ifndef CODE_PAGE_437_CONSTANT_H
 #define CODE_PAGE_437_CONSTANT_H
 
+// Unicode Character 'NULL' (U+0000)
+#define NUL					0
 // Unicode Character 'SPACE' (U+0020)
 #define SPACE				0x20
 // Unicode Character 'LIGHT SHADE' (U+2591)
@@ -25,6 +27,8 @@
 #define RIGHT_HALF_BLOCK	0xDE
 // Unicode Character 'UPPER HALF BLOCK' (U+2580)
 #define UPPER_HALF_BLOCK	0xDF
+// Unicode Character 'BLACK SQUARE' (U+25A0)
+#define BLACK_SQUARE		0xFE
 
 namespace gfx {
 
