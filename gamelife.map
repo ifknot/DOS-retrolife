@@ -1,7 +1,7 @@
 Open Watcom Linker Version 2.0 beta Nov  1 2017 20:56:49 (64-bit)
 Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
 Portions Copyright (c) 1985-2002 Sybase, Inc. All Rights Reserved.
-Created on:       22/08/29 16:15:41
+Created on:       22/08/29 16:20:31
 Executable Image: gamelife.exe
 creating a DOS executable
 
@@ -250,8 +250,8 @@ Module: main.obj(C:\Users\ifkno\DOSBOX\DOS16\GAMELIFE\main.cpp)
 0a04:00e0+     char __far bios::video_mode_names[][64]
 0a04:00da+     int unsigned const __far std::basic_string<char __far,std::char_traits<char __far > __far,std::allocator<char __far > __far >::npos
 0000:1a40+     char __far * __far std::basic_string<char __far,std::char_traits<char __far > __far,std::allocator<char __far > __far >::alloc( int unsigned, int unsigned __far & )
-0000:1504+     void __far test_mode7::run()
-0000:1756      main_
+0000:1506+     void __far test_mode7::run()
+0000:1758      main_
 0a04:0fd8+     char __far bios::video_display_names[][255]
 0a04:16d8+     char __far dos::error::messages[][64]
 0a04:2c18+     char __far dos::error::classes[][64]
@@ -716,4 +716,4 @@ C:\WATCOM\lib286\dos\clibl.lib
 Stack size:  0800 (2048.)
 Memory size:  e470 (58480.)
 Entry point address: 0000:1d68
-Link time: 00:00.21
+Link time: 00:00.22

@@ -72,11 +72,11 @@ J1:
 					sub		dx, bx					; the next line 
 
 					mov		cx, h					; load the height
-L0:					push	cx						; store the height counter
+L0:					mov 	si, cx					; store the height counter
 					mov		cx, bx					; load (clipped) width into counter					
 					rep stosw						; store attrib:ascii
 					add		di, dx					; next line
-					pop		cx						; recover the height counter
+					mov		cx, si					; recover the height counter
 					loop	L0
 
 END:
