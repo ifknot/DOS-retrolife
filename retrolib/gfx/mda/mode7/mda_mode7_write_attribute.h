@@ -18,7 +18,7 @@ namespace mda {
 
 		namespace screen_bound {
 
-			void write_attribute(size_type x, size_type y, char ascii, attrib_t attrib = attribute::normal) {
+			void write_attribute(size_type x, size_type y, attrib_t attrib) {
 				_asm {
 					.8086
 

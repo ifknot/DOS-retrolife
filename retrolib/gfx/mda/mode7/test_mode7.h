@@ -20,6 +20,7 @@
 #include "mda_mode7_write_attribute.h"
 #include "mda_mode7_write_pixel.h"
 #include "mda_mode7_cls.h"
+#include "mda_mode7_fill_area.h"
 
 using namespace bios;
 using namespace mda::mode7;
@@ -88,7 +89,11 @@ namespace test_mode7 {
 			screen_bound::write_pixel(40, 13, colour::white);
 		}*/
 		{
-		
+			for (int i = 0; i < 25; ++i) {				
+				screen_bound::fill_area(i, i, 10, 10, 0xDB);
+				wait_key_ascii();
+				screen_bound::fill_area(i, i, 10, 10, 0);				
+			}	
 		}
 		wait_key_ascii();
 		exit();
