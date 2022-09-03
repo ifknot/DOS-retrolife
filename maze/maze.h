@@ -25,8 +25,6 @@ namespace game {
 	template<jtl::size_t POW2_POLICY>
 	class maze_t {
 
-		static const char NUL = 0;	
-
 	public:
 
 		enum state_t { hidden, visible };

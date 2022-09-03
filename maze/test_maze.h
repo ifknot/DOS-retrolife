@@ -24,14 +24,14 @@
 
 #include "maze.h"
 #include "maze_player.h"
+#include "maze_draw_wall.h"
 
 using namespace bios;
 using namespace mda::mode7;
-using namespace jtl;
 
 namespace game {
 
-	static const jtl::size_t SCALE = 4;
+	static const mda::size_type SCALE = 4;
 
 	typedef maze_t<SCALE> maze16x16_t;
 
@@ -39,24 +39,24 @@ namespace game {
 	gfx::union_dimension_t screen_map_d(16, 16);
 
 	// the maze locations relative to the player's location that can be shown on the screen map
-	static const jtl::size_t map_x_coords[16] = { -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7 };
-	static const jtl::size_t map_y_coords[16] = { -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7 };
+	static const mda::size_type map_x_coords[16] = { -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7 };
+	static const mda::size_type map_y_coords[16] = { -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7 };
 
-	static const jtl::size_t NEIGHBOURHOOD_SIZE = 18;
+	static const mda::size_type NEIGHBOURHOOD_SIZE = 18;
 	// using 18 x,y coords instead of 3 x and 3 y arrays allows any shape of visible neighbourhood 
-	static const jtl::size_t NEIGHBOURHOOD[NEIGHBOURHOOD_SIZE] = { 0, 0, 1, 0, 1, 1, 0, 1, -1, 1, -1, 0, -1, -1, 0, -1, 1, -1 };
+	static const mda::size_type NEIGHBOURHOOD[NEIGHBOURHOOD_SIZE] = { 0, 0, 1, 0, 1, 1, 0, 1, -1, 1, -1, 0, -1, -1, 0, -1, 1, -1 };
 
-	static const jtl::size_t face_x[4] = {  0,  0,  1, -1 };
-	static const jtl::size_t face_y[4] = { -1,  1,  0,  0 };
-	static const jtl::size_t left_x[4] = { -1,  1,  0,  0 };
-	static const jtl::size_t left_y[4] = {  0,  0, -1,  1 };
-	static const jtl::size_t right_x[4] = { 1, -1,  0,  0 };
-	static const jtl::size_t right_y[4] = { 0,  0,  1, -1 };
+	static const mda::size_type face_x[4] = {  0,  0,  1, -1 };
+	static const mda::size_type face_y[4] = { -1,  1,  0,  0 };
+	static const mda::size_type left_x[4] = { -1,  1,  0,  0 };
+	static const mda::size_type left_y[4] = {  0,  0, -1,  1 };
+	static const mda::size_type right_x[4] = { 1, -1,  0,  0 };
+	static const mda::size_type right_y[4] = { 0,  0,  1, -1 };
 
-	template<jtl::size_t T>
-	void draw_map(maze_t<T>& maze, jtl::size_t ox, jtl::size_t oy, jtl::size_t x, jtl::size_t y) {
-		for (jtl::size_t j = 0; j < screen_map_d.dim.height; ++j) {
-			for (jtl::size_t i = 0; i < screen_map_d.dim.width; ++i) {
+	template<mda::size_type T>
+	void draw_map(maze_t<T>& maze, mda::size_type ox, mda::size_type oy, mda::size_type x, mda::size_type y) {
+		for (mda::size_type j = 0; j < screen_map_d.dim.height; ++j) {
+			for (mda::size_type i = 0; i < screen_map_d.dim.width; ++i) {
 				screen_bound::write_character(
 					x + i, 
 					y + j, 
@@ -69,33 +69,33 @@ namespace game {
 		}
 	}
 
-	void draw_left_wall(jtl::size_t s, jtl::size_t x, jtl::size_t y) {}
+	void draw_left_wall(mda::size_type s, mda::size_type x, mda::size_type y) {}
 
-	void draw_right_wall(jtl::size_t s, jtl::size_t x, jtl::size_t y) {}
+	void draw_right_wall(mda::size_type s, mda::size_type x, mda::size_type y) {}
 
-	static const jtl::size_t face_i[5] = { 7, 5, 3, 3, 1 };
-	static const jtl::size_t face_j[5] = { 9, 7, 5, 3, 1 };
-	static const jtl::size_t face_x_off[5] = { 2, 3, 4, 5, 6 }; 
-	static const jtl::size_t face_y_off[5] = { 3, 4, 5, 5, 6 };
+	static const mda::size_type face_i[5] = { 7, 5, 3, 3, 1 };
+	static const mda::size_type face_j[5] = { 9, 7, 5, 3, 1 };
+	static const mda::size_type face_x_off[5] = { 2, 3, 4, 5, 6 }; 
+	static const mda::size_type face_y_off[5] = { 3, 4, 5, 5, 6 };
 
-	void draw_face_wall(jtl::size_t s, jtl::size_t x, jtl::size_t y) {
+	void draw_face_wall(mda::size_type s, mda::size_type x, mda::size_type y) {
 		x += face_x_off[s];
 		y += face_y_off[s];
-		for (jtl::size_t i = 0; i < face_i[s]; ++i) {
-			for (jtl::size_t j = 0; j < face_j[s]; ++j) {
+		for (mda::size_type i = 0; i < face_i[s]; ++i) {
+			for (mda::size_type j = 0; j < face_j[s]; ++j) {
 				screen_bound::write_character(x + j, y + i, FACE_LIGHT);
 			}
 		}
 	}
 
-	template<jtl::size_t T>
-	void draw_walls(maze_t<T>& maze, jtl::size_t d, jtl::size_t ox, jtl::size_t oy, jtl::size_t x, jtl::size_t y) {
-		for (jtl::size_t i = 0; i < 10; ++i) {
-			for (jtl::size_t j = 0; j < 13; ++j) {
+	template<mda::size_type T>
+	void draw_walls(maze_t<T>& maze, mda::size_type d, mda::size_type ox, mda::size_type oy, mda::size_type x, mda::size_type y) {
+		for (mda::size_type i = 0; i < 10; ++i) {
+			for (mda::size_type j = 0; j < 13; ++j) {
 				screen_bound::write_character(x + j, y + i, ' ');
 			}
 		}
-		for (jtl::size_t i = 0; i < 5; ++i) {
+		for (mda::size_type i = 0; i < 5; ++i) {
 			if (maze(ox + left_x[d], oy + left_y[d]) == WALL) {
 				draw_left_wall(i, x, y);
 			}
@@ -130,7 +130,16 @@ namespace game {
 			uint8_t k = 0;
 			m.reveal_neighbours(player.position().coord.x, player.position().coord.y);
 			draw_map(m, player.position().coord.x, player.position().coord.y, screen_map_p.coord.x, screen_map_p.coord.y);
-			draw_walls(m, player.direction(), player.position().coord.x, player.position().coord.y, 0, 0);
+			//draw_walls(m, player.direction(), player.position().coord.x, player.position().coord.y, 0, 0);
+			
+			draw_wall_left(0, 1, 0);
+			draw_wall_left(1, 1, 1);
+			draw_wall_left(9, 5, 2);
+			draw_wall_left(15, 8, 3);
+			draw_wall_left(19, 10, 4);
+			draw_wall_left(22, 12, 5);
+			draw_wall_left(24, 12, 6);
+			
 			while (m.is_locked()) {
 				//m.key(wait_key_scan_code());
 				k = wait_key_ascii();
@@ -154,7 +163,7 @@ namespace game {
 				}
 				m.reveal_neighbours(player.position().coord.x, player.position().coord.y);
 				draw_map(m, player.position().coord.x, player.position().coord.y, screen_map_p.coord.x, screen_map_p.coord.y);
-				draw_walls(m, player.direction(), player.position().coord.x, player.position().coord.y, 0, 0);
+				//draw_walls(m, player.direction(), player.position().coord.x, player.position().coord.y, 0, 0);
 			}
 		}
 

@@ -18,7 +18,7 @@ namespace mda {
 
 		namespace screen_bound {
 
-			void fill_area(size_type x, size_type y, size_type w, size_type h, char ascii, attrib_t attrib = attribute::normal) {
+			void fill_area(size_type x, size_type y, size_type w, size_type h, colour_t c, attrib_t attrib = attribute::normal) {
 				__asm {
 					.8086
 					

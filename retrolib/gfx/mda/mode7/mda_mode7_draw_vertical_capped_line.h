@@ -18,7 +18,7 @@ namespace mda {
 
 		namespace screen_bound {
 
-			void draw_vertical_capped_line(size_type x1, size_type y1, size_type x2, size_type y2, char block = FULL_BLOCK, char topcap = LOWER_HALF_BLOCK, char basecap = UPPER_HALF_BLOCK, attrib_t attrib = attribute::normal) {
+			void draw_vertical_capped_line(size_type x1, size_type y1, size_type x2, size_type y2, char block = 'X', char topcap = LOWER_HALF_BLOCK, char basecap = UPPER_HALF_BLOCK, attrib_t attrib = attribute::normal) {
 				__asm {
 					.8086
 					
