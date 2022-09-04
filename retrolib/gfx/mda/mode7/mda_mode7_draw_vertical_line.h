@@ -18,7 +18,7 @@ namespace mda {
 
 		namespace screen_bound {
 
-			void draw_vertical_line(size_type x1, size_type y1, size_type x2, size_type y2, char block = FULL_BLOCK, attrib_t attrib = attribute::normal) {
+			void draw_vertical_line(size_type x1, size_type y1, size_type x2, size_type y2, char block = FULL_BLOCK) {
 				__asm {
 					.8086
 
@@ -63,10 +63,9 @@ J1:					sub		y2, ax					; y2 - y1 is now line length
 					shl		bx, 1					; x * 2 as 2 bytes per character cell
 					add		di, bx					; di = (y * 80 ) + x
 					mov		al, block
-					mov		ah, attrib				; AX now has atrrib:ascii
 
 					mov		cx, y2					; load y2
-L0:					mov		es:[di], ax				; plot semigraphics 'point'
+L0:					mov		es:[di], al				; plot semigraphics 'point'
 					add		di, BYTES_PER_LINE		; next screen line
 					loop	L0
 

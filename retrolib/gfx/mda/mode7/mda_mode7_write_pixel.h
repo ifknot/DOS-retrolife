@@ -19,9 +19,8 @@ namespace mda {
 
         namespace screen_bound {
 
-            void write_pixel(size_type x, size_type y, colour::colour_t c, attribute::attribute_t a = DEFAULT_ATTRIBUTE) {
-                char ascii = c;
-                write_character(x, y, ascii, a);
+            inline void write_pixel(size_type x, size_type y, colour_t colour) {
+                write_character(x, y, colour);
             }
 
         }

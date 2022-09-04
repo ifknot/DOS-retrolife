@@ -25,6 +25,8 @@
 
 #define ENABLE_MUL
 
+#define DEFAULT_ATTRIBUTE attribute::normal;
+
 namespace mda {
 
 	namespace mode7 {
@@ -76,8 +78,6 @@ namespace mda {
 			};
 
 		}
-
-		attribute::attributes DEFAULT_ATTRIBUTE = attribute::normal;
 
 	}
 

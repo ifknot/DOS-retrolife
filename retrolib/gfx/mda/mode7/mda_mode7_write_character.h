@@ -18,8 +18,7 @@ namespace mda {
 
 		namespace screen_bound {
 
-			void write_character(size_type x, size_type y, char ascii, attribute::attributes a = DEFAULT_ATTRIBUTE) {
-				attrib_t attrib = a;
+			void write_character(size_type x, size_type y, char ascii) {
 				_asm {
 					.8086
 
@@ -48,8 +47,7 @@ namespace mda {
 					shl		bx, 1					; x * 2 as 2 bytes per character cell
 					add		di, bx					; di = (y * 80 ) + x
 					mov		al, ascii
-					mov		ah, attrib
-					mov		es:[di], ax
+					mov		es:[di], al
 					
 END:
 				}

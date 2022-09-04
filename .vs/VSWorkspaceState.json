@@ -1,6 +1,7 @@
 {
   "ExpandedNodes": [
     "",
+    "\\maze",
     "\\retrolib",
     "\\retrolib\\gfx",
     "\\retrolib\\gfx\\mda",
@@ -8,6 +9,6 @@
     "\\retrolib\\statistics",
     "\\retrolib\\system"
   ],
-  "SelectedNode": "\\retrolib\\gfx\\code_page_437_constants.h",
+  "SelectedNode": "\\retrolib\\gfx\\mda\\mode7\\mda_mode7_draw_vertical_line.h",
   "PreviewInSolutionExplorer": false
 }

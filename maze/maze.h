@@ -137,8 +137,8 @@ namespace game {
 		}
 
 		void reveal_neighbours(size_type x, size_type y) {
-			for (size_type i = 0; i < NEIGHBOURHOOD_SIZE; i += 2) {
-				reveal(x + NEIGHBOURHOOD[i], y + NEIGHBOURHOOD[i + 1]);
+			for (size_type i = 0; i < neighbour_count; i += 2) {
+				reveal(x + neighbourhood[i], y + neighbourhood[i + 1]);
 			}
 		}
 

@@ -18,7 +18,7 @@ namespace mda {
 
 		namespace screen_bound {
 
-			void draw_vertical_capped_line(size_type x1, size_type y1, size_type x2, size_type y2, char block = 'X', char topcap = LOWER_HALF_BLOCK, char basecap = UPPER_HALF_BLOCK, attrib_t attrib = attribute::normal) {
+			void draw_vertical_capped_line(size_type x1, size_type y1, size_type x2, size_type y2, char block = FULL_BLOCK, char topcap = LOWER_HALF_BLOCK, char basecap = UPPER_HALF_BLOCK) {
 				__asm {
 					.8086
 					
@@ -62,10 +62,9 @@ J0:					sub		y2, ax					; y2 - y1 is now line length
 #endif				
 					shl		bx, 1					; x * 2 as 2 bytes per character cell
 					add		di, bx					; di = (y * 80 ) + x
-					mov		ah, attrib				; load attrib
 
 					mov		al, topcap				; load the top cap character
-					mov		es:[di], ax				; upper endcap
+					mov		es:[di], al				; upper endcap
 					add		di, BYTES_PER_LINE		; next screen line
 
 					mov		al, block				; load block semigrpahic
@@ -76,12 +75,12 @@ J0:					sub		y2, ax					; y2 - y1 is now line length
 					je		J1						; lower endcap
 
 					sub		cx, 2					; decrement for 2 endcaps
-L0:					mov		es:[di], ax				; plot semigraphics 'point'
+L0:					mov		es:[di], al				; plot semigraphics 'point'
 					add		di, BYTES_PER_LINE		; next screen line
 					loop	L0
 
 J1:					mov		al, basecap				; load the top cap character
-					mov		es:[di], ax				; lower endcap					
+					mov		es:[di], al				; lower endcap					
 
 END:
 				}
