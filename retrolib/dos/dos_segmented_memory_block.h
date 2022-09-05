@@ -14,7 +14,7 @@
 #include <stdint.h>
 #include <iostream>
 
-#include "../jtl/size_t.h"
+#include "../memory/size_t.h"
 
 #include "dos_services.h"
 #include "dos_services_types.h"

@@ -73,7 +73,8 @@ namespace game {
 	template<mda::size_type T>
 	void draw_walls(maze_t<T>& maze, mda::size_type ox, mda::size_type oy, mda::size_type x, mda::size_type y) {
 		for (uint8_t i = 0; i < 7; ++i) {
-			draw_wall_left(x + left_wall_x[i], y + wall_y[i], i);
+			// replace with draw_bitmap(x,y,bmp[i][distance])
+			draw_wall_left(x + left_wall_x[i], y + wall_y[i], i); 
 			draw_wall_right(x + right_wall_x[i], y + wall_y[i], i);
 		}
 	}
