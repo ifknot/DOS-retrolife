@@ -1,0 +1,58 @@
+If you connect a CGA to a composite monitor, put it in 640x200 mode and turn the black-and-white mode off, you may (depending on the monitor) get a 160x200 colour graphics mode. Some CGA programs, including the Microsoft Flight Simulator, support this mode.
+
+
+A byte roughly corresponds to two pixels, with each nibble giving the colour of one pixel. The colours visible in this mode are different from the normal CGA set; the ones I get are:
+
+0: Black
+1: Dark green
+2: Blue
+3: Cyan
+4: Crimson
+5: Dark brownish grey
+6: Magenta
+7: Violet
+8: Dark grey
+9: Bright Green
+10: Light brownish grey
+11: Bright Cyan
+12: Scarlet
+13: Yellow
+14: Hot Pink
+15: White
+
+I've found that CGA cards fall into three categories:
+
+[1] Some have a really lousy RGB->composite color converter. When bit 2 of
+port $3D8 is clear, colored characters will get ugly vertical stripes
+though them [modulated at 3.58Mhz]; note that when in "high-bandwidth"
+modes [e.g. 80x25 text or 160x100x16 lo-res] the colorburst signal at
+the start of each line is invariably botched; if you want color in those
+modes, you must set the border to color #6. Alternatively, if bit 2 of
+port $3D8 is set, the card will generate monochrome; note that some cards
+do better at this than others, but the monochrome is usually of pretty
+good quality and often can provide a 16-level grayscale [though not in
+color #0-#15 order]
+
+If you are writing your own software, you will probably get the best
+results by using 640x200 mode and clearing bit 2 of port $3D8. Working
+left to right, illunimated pixels will be [if memory serves], brown,
+magenta, green, blue, brown, magenta, etc. and nearby pixels may be
+combined to produce colors. For example, illunimating columns 0, 1, 4,
+5, 8, etc. would produce a region of orange. Anyone who has done color
+on the Apple //e will be familiar with these techniques and while they
+may seem strange they actually work quite well; the effective horizontal
+resolution will vary from 160x200 to 640x200 depending upon what colors
+are being juxtaposed. Generally this mode works best for combining a
+160x200 16-color picture with 40-column text [which may be white on black,
+brown, dark-magenta, dark-green, dark-blue, or gray; or black on white,
+yellow, light-magenta, light-green, light-blue, or gray].
+
+[2] Some have a monochrome RGB->composite color converter. These are gen-
+erally decent and operate as if bit 2 of port $3D8 was simply stuck high
+all the time.
+
+[3] Some have no composite video output whatsoever.
+
+Note that visual inspection cannot easily tell you into which category a card
+falls; even the lack of an RCA jack won't tell you, since some cards have no
+such jack but output composite video on pin 7 of the DB9.
