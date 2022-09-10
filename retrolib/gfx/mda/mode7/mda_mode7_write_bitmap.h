@@ -20,6 +20,9 @@
 #define MDA_MODE7_WRITE_BITMAP_H
 
 #include "mda_mode7_constants.h"
+
+#include "../../gfx_bitmap.h"
+
 #include "../../../dos/dos_address_t.h"
 
 namespace mda {
@@ -30,6 +33,8 @@ namespace mda {
 
             void write_bitmap(size_type x, size_type y, uint8_t* data) {
                 dos::address_t addr((uint32_t)data);
+				uint16_t addr_segment = addr.memory.segment;
+				uint16_t addr_offset = addr.memory.offset;
                 __asm {
                     .8086
             
@@ -66,7 +71,7 @@ namespace mda {
           			mov   	si, ax                 		; DS:SI points to bitmap
           			mov   	bx, ds:[si + BMP_WIDTH]   	; copy of width in BX
           			mov   	cx, ds:[si + BMP_HEIGHT]  	; load CX with height
-					add   	si, ds:[si + BMP_DATA]    	; point DS:SI to raw pixel data
+					add   	si, ds:[si + BMP_OFFSET]    ; point DS:SI to raw pixel data
 			
 					// copy pixel data to character bytes rectangle x,y,w,h
           			cld									; increment DS:SI and ES:DI

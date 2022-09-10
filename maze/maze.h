@@ -132,7 +132,7 @@ namespace game {
 
 		void reveal_all() {
 			for (size_type i = 0; i < size_; ++i) {
-				data_[(y << POW2_POLICY) + x]..tile.state = visible;
+				data_[(y << POW2_POLICY) + x].tile.state = visible;
 			}
 		}
 

@@ -11,7 +11,7 @@
 #ifndef MDA_MODE7_CONSTANTS_H
 #define MDA_MODE7_CONSTANTS_H
 
-#include "../../code_page_437_constants.h"
+#include "../../gfx_code_page_437_constants.h"
 
 #include "../mda_constants.h"
 
@@ -22,6 +22,7 @@
 #define BYTES_PER_LINE 160 
 #define CHARS_PER_SCREEN 2000
 #define BYTES_PER_SCREEN 4000
+#define COLOUR_DEPTH 16			// 8 bits for the ascii char and 8 bits for the attribute
 
 #define ENABLE_MUL
 

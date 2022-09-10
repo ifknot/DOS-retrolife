@@ -16,20 +16,20 @@
 namespace game {
 
 	static const uint8_t wall_dimensions[21] = {
-		// height, width, capped
-			24,		1,		1,	// distance 0
-			23,		8,		0,	// distance 1	
-			15,		6,		0,	// distance 2
-			 9,		4,		0,	// distance 3
-			 5,		3,		0,	// distance 4 
-			 1,		2,		1,	// distance 5
-			 1,		1,		0	// distance 6	
+		// width, height, capped
+			1,		24,		1,	// distance 0
+			8,		23,		0,	// distance 1	
+			6,		15,		0,	// distance 2
+			4,		 9,		0,	// distance 3
+			3,		 5,		0,	// distance 4 
+			2,		 1,		1,	// distance 5
+			1,		 1,		0	// distance 6	
 	};
 
 	void draw_wall_left(mda::size_type x, mda::size_type y, uint8_t distance) {	
-		uint8_t offset = distance * 3; // convert to offset into wall dimension array
-		uint8_t h = wall_dimensions[offset];
-		uint8_t w = wall_dimensions[offset + 1];
+		uint8_t offset = distance * 3; // convert distance to offset into wall dimension array
+		uint8_t w = wall_dimensions[offset];
+		uint8_t h = wall_dimensions[offset + 1];
 		uint8_t capped = wall_dimensions[offset + 2];
 		for (int i = 0; i < w; ++i) { // draw width number of vertical line planks 
 			if (capped) {

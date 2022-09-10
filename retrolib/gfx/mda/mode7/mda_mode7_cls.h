@@ -16,9 +16,7 @@ namespace mda {
 
     namespace mode7 {
 
-        void cls(colour::colour_t c, attribute::attribute_t a = DEFAULT_ATTRIBUTE) {
-            colour_t col = c;
-            attrib_t attrib = a;
+        void cls(colour_t col, attribute_t attrib = attribute::normal) {
             __asm {
                 .8086
 
@@ -33,8 +31,7 @@ namespace mda {
             }
         }
 
-        void cls_attributes(attribute::attribute_t a = DEFAULT_ATTRIBUTE) {
-            attrib_t attrib = a;
+        void cls_attributes(attribute_t attrib = attribute::normal) {
             __asm {
                 .8086
 

@@ -23,6 +23,9 @@
 #include "mda_mode7_fill_area.h"
 #include "mda_mode7_draw_vertical_line.h"
 #include "mda_mode7_draw_vertical_capped_line.h"
+#include "mda_mode7_write_bitmap.h"
+
+#include "../../gfx_bitmap.h"
 
 using namespace bios;
 using namespace mda::mode7;
@@ -98,7 +101,7 @@ namespace test_mode7 {
 				screen_bound::fill_area(i, i, 10, 10, 0);				
 			}	
 		}*/
-		{
+		/* {
 			wait_key_ascii();
 			screen_bound::draw_vertical_line(10, 1, 10, 20);
 			screen_bound::draw_vertical_capped_line(11, 1, 11, 20);
@@ -108,6 +111,18 @@ namespace test_mode7 {
 			screen_bound::draw_vertical_capped_line(21, 10, 21, 12);
 			screen_bound::draw_vertical_line(22, 10, 22, 11);
 			screen_bound::draw_vertical_capped_line(23, 10, 23, 11);
+		}*/
+		{
+			wait_key_ascii();
+			uint8_t bmp_data[] = {
+				MEDIUM_SHADE, reverse, MEDIUM_SHADE, reverse, MEDIUM_SHADE, reverse,
+				MEDIUM_SHADE, reverse, MEDIUM_SHADE, reverse, MEDIUM_SHADE, reverse,
+				MEDIUM_SHADE, reverse, MEDIUM_SHADE, reverse, MEDIUM_SHADE, reverse,
+				MEDIUM_SHADE, reverse, MEDIUM_SHADE, reverse, MEDIUM_SHADE, reverse,
+				MEDIUM_SHADE, reverse, MEDIUM_SHADE, reverse, MEDIUM_SHADE, reverse,
+			};
+			gfx::bitmap bmp(3, 5, COLOUR_DEPTH, bios::TEXT_MONOCHROME_80X25);
+			std::cout << bmp.size << std::endl;
 		}
 		wait_key_ascii();
 		exit();

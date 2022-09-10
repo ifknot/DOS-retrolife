@@ -17,6 +17,10 @@
 #define SPACE				0x20
 // Unicode Character 'LIGHT SHADE' (U+2591)
 #define LIGHT_SHADE			0xB0
+// Unicode Character 'MEDIUM SHADE' (U+2591)
+#define MEDIUM_SHADE		0xB1
+// Unicode Character 'DARK SHADE' (U+2593)
+#define DARK_SHADE			0xB2
 // Unicode Character 'FULL BLOCK' (U+2588)
 #define FULL_BLOCK			0xDB
 // Unicode Character 'LOWER HALF BLOCK' (U+2584)
