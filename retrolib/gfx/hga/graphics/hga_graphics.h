@@ -40,19 +40,19 @@
 #ifndef HGA_GRAPHICS_H
 #define HGA_GRAPHICS_H
 
-#include "hga_cls.h"
-#include "hga_constants.h"
-#include "hga_count_plot_multi_point.h"
-#include "hga_count_relative_plot_multi_point.h"
-#include "hga_is_plot_point.h"
-#include "hga_plot_functors.h"
-#include "hga_plot_multi_point.h"
-#include "hga_plot_point.h"
-#include "hga_select_buffer.h"
-#include "hga_swap_buffers.h"
-#include "hga_unplot_multi_point.h"
-#include "hga_unplot_point.h"
-#include "hga_video_mode.h"
-#include "hga_write_pixel.h"
+#include "hga_graphics_cls.h"
+#include "hga_graphics_constants.h"
+#include "hga_graphics_count_plot_multi_point.h"
+#include "hga_graphics_count_relative_plot_multi_point.h"
+#include "hga_graphics_is_plot_point.h"
+#include "hga_graphics_plot_functors.h"
+#include "hga_graphics_plot_multi_point.h"
+#include "hga_graphics_plot_point.h"
+#include "hga_graphics_select_buffer.h"
+#include "hga_graphics_swap_buffers.h"
+#include "hga_graphics_unplot_multi_point.h"
+#include "hga_graphics_unplot_point.h"
+#include "hga_graphics_video_mode.h"
+#include "hga_graphics_write_pixel.h"
 
 #endif

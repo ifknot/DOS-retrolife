@@ -5,10 +5,10 @@
  * DS:SI points to a bitmap structure
  * word width
  * word height
- * word offset in bytes to raw pixel data
+ * byte offset in bytes to raw pixel data
  * word size in bytes of raw pixel data
  * byte depth
- * byte mode - DOS screen modes + HGA0, HGA1, HGA2 (for herc, herc+, herc incolor)
+ * byte mode - BIOS screen modes + HGA0, HGA1, HGA2 (for herc, herc+, herc incolor)
  * ...
  * raw pixel data
  *  @author    Jeremy Thornton

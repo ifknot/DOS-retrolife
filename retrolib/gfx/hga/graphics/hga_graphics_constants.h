@@ -2,7 +2,12 @@
  *
  *  @file      hga_constants.h
  *  @brief     HGA macro definitions for assembly
- *  @details Everything is hard coded to shave a few clock cycles off the execution time
+ *  @details   The founder of Hercules Computer Technology, Van Suwannukul, created the Hercules Graphics
+ *             Card so that he could work on his doctoral thesis on an IBM PC using the Thai alphabet,
+ *             which was impossible at the low resolution of CGA or the fixed character set of MDA.
+ *             It initially retailed in 1982 for $499.
+ *  @url https://en.wikipedia.org/wiki/Hercules_Graphics_Card
+ * Everything is hard coded to shave a few clock cycles off the execution time
  * Using #define enables immediate addressing mode - in which the data operand is a part of the instruction itself
  * This matters on an 8088 where reg,imm is only 4 clock cycles as opposed to 12+EA for reg,mem
  * This advantage dwindles on the 286 (2:5) and 386 (2:4), vanishing on the 486(1:1) and beyond
@@ -11,8 +16,8 @@
  *  @copyright © Jeremy Thornton, 2022. All right reserved.
  *
  */
-#ifndef HGA_CONSTANTS_H
-#define HGA_CONSTANTS_H
+#ifndef HGA_GRAPHICS_CONSTANTS_H
+#define HGA_GRAPHICS_CONSTANTS_H
 
 #include <stdint.h>
 
@@ -125,21 +130,38 @@
 
 namespace hga {
 
-    typedef uint16_t size_type;
+    namespace graphics {
 
-    const char mode_names[2][255] = {
-        "text mode",
-        "graphics mode"
-    };
+        typedef uint16_t size_type;
 
-    typedef uint8_t colour_t;
-
-    namespace colour {
-
-        enum inks {
-            black = 0x00,
-            white = 0x80
+        /**
+         * Hercules Graphics Adapter video modes.
+         * NB high bit is set
+         */
+        enum video_mode_t {
+            TEXT_MONOCHROME_80X25 = 0x80,       // TEXT_MONOCHROME_80X25 ie BIOS MODE 7 (MDA) 
+            HERCULES_GRAPHICS,                  // Hercules 720x348 pixel-addressable graphics mode (1982) 
+            HERCULES_GRAPHICS_PLUS,             // Support for redefinable fonts called RAMFONT in MDA compatible text mode (1986)
+            HERCULES_GRAPHICS_IN_COLOR          // Colour capabilities similar to the EGA, with 16 colors from a palette of 64 (1987)
         };
+
+        const char mode_names[4][255] = {
+            "text mode",
+            "graphics mode",
+            "graphics pluse mode",
+            "graphics in color mode"
+        };
+
+        typedef uint8_t colour_t;
+
+        namespace colour {
+
+            enum inks {
+                black = 0x00,
+                white = 0x80
+            };
+
+        }
 
     }
 

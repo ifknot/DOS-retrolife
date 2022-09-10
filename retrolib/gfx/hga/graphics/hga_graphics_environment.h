@@ -7,15 +7,18 @@
  *  @copyright © Jeremy Thornton, 2022. All right reserved.
  *
  */
-#ifndef HGA_ENVIRONMENT_H
-#define HGA_ENVIRONMENT_H
+#ifndef HGA_GRAPHICS_ENVIRONMENT_H
+#define HGA_GRAPHICS_ENVIRONMENT_H
 
 #include <stdint.h>
 
 namespace hga {
 
-	uint8_t active_buffer = 0;	// 0 = default B000:000 1 = B000:8000 second display page buffer
+	namespace graphics {
 
+		uint8_t active_buffer = 0;	// 0 = default B000:000 1 = B000:8000 second display page buffer
+
+	}
 }
 
 #endif
