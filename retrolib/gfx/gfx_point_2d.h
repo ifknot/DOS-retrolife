@@ -7,8 +7,8 @@
  *  @copyright © Jeremy Thornton, 2022. All right reserved.
  *
  */
-#ifndef POINT_2D_H
-#define POINT_2D_H
+#ifndef GFX_POINT_2D_H
+#define GFX_POINT_2D_H
 
 #include <stdint.h>
 

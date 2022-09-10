@@ -18,14 +18,14 @@
 #include "../gfx/hga/hga_graphics.h"
 #include "../gfx/hga/hga_plot_functors.h"
 
-#include "point_vector_2d.h"
+#include "gfx_point_vector_2d.h"
 
 namespace test_point_vector_2d {
 
 	void run() {
 		std::cout << "test_point_vector_2d... \n";
 		{
-			jtl::point_vector_2d<256> a, b;
+			gfx::point_vector_2d<256> a, b;
 			std::cout << std::hex;
 			std::cout << a.size() << ' ' << a << '\n';
 			a.add(0, 0);

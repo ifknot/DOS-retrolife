@@ -7,8 +7,8 @@
  *  @copyright © Jeremy Thornton, 2022. All right reserved.
  *
  */
-#ifndef DIMENSION_2D_H
-#define DIMENSION_2D_H
+#ifndef GFX_DIMENSION_2D_H
+#define GFX_DIMENSION_2D_H
 
 #include <stdint.h>
 

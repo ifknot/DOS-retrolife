@@ -15,7 +15,7 @@
 #include <fstream>
 #include <stdio.h>
 
-#include "glyph.h"
+#include "gfx_glyph.h"
 
 namespace test_glyph {
 

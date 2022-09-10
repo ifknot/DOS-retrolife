@@ -8,8 +8,8 @@
  *  @copyright © Jeremy Thornton, 2022. All right reserved.
  *
  */
-#ifndef CODE_PAGE_437_CONSTANT_H
-#define CODE_PAGE_437_CONSTANT_H
+#ifndef GFX_CODE_PAGE_437_CONSTANT_H
+#define GFX_CODE_PAGE_437_CONSTANT_H
 
 // Unicode Character 'NULL' (U+0000)
 #define NUL					0

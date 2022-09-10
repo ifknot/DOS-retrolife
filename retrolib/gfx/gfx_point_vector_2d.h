@@ -7,8 +7,8 @@
  *  @copyright © Jeremy Thornton, 2022. All right reserved.
  *
  */
-#ifndef POINT_VECTOR_2D_H
-#define POINT_VECTOR_2D_H
+#ifndef GFX_POINT_VECTOR_2D_H
+#define GFX_POINT_VECTOR_2D_H
 
 #include <fstream>
 #include <string>
@@ -21,7 +21,7 @@
 #include "../memory/size_t.h"
 
 
-#include "point_2d.h"
+#include "gfx_point_2d.h"
 
 namespace gfx {
 

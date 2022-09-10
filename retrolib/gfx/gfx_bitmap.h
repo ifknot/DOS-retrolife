@@ -7,8 +7,8 @@
  *  @copyright © Jeremy Thornton, 2022. All right reserved.
  *
  */
-#ifndef BITMAP_H
-#define BITMAP_H
+#ifndef GFX_BITMAP_H
+#define GFX_BITMAP_H
 
 #include <stdint.h>
 

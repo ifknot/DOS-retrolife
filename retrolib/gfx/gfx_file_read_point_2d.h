@@ -7,8 +7,8 @@
  *  @copyright © Jeremy Thornton, 2022. All right reserved.
  *
  */
-#ifndef FILE_READ_POINT_2D_H
-#define FILE_READ_POINT_2D_H
+#ifndef GFX_FILE_READ_POINT_2D_H
+#define GFX_FILE_READ_POINT_2D_H
 
 #include <fstream>
 #include <iostream>
@@ -17,7 +17,7 @@
 
 #include "../dos/dos_error_messages.h"
 
-#include "point_2d.h"
+#include "gfx_point_2d.h"
 
 namespace gfx {
 
