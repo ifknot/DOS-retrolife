@@ -1,14 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\maze",
     "\\retrolib",
     "\\retrolib\\gfx",
-    "\\retrolib\\gfx\\mda",
     "\\retrolib\\gfx\\mda\\mode7",
     "\\retrolib\\statistics",
     "\\retrolib\\system"
   ],
-  "SelectedNode": "\\maze\\maze_draw_wall.h",
+  "SelectedNode": "\\retrolib\\gfx\\bitmap.h",
   "PreviewInSolutionExplorer": false
 }

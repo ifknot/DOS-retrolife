@@ -16,13 +16,11 @@ namespace gfx {
 
 	struct bitmap {
 
-		enum interleaved_t { LINEAR, HGA, CGA };
-
 		uint16_t size;			// size in bytes of the raw bitmap data
 		uint16_t width;			// bitmap width in pixels
 		uint16_t height;		// bitmap height in pixels
 		uint8_t depth;			// bits per pixel, ie color depth of the image, typical values are 1, 4, 8, 16, 24 and 32
-		uint8_t interleaved;	// LINEAR, HGA, CGA
+		uint8_t mode;			// DOS screen mode - 
 
 		uint8_t* data;			// pointer to size bytes of raw pixel data
 
