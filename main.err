@@ -1,0 +1,2 @@
+retrolib/gfx/mda/mode7/test_mode7.h(126): Warning! W007: col(50) '&array' may not produce intended result
+retrolib/gfx/mda/mode7/test_mode7.h(126): Note! N393: col(50) included from main.cpp(18)

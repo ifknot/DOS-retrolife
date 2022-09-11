@@ -114,15 +114,16 @@ namespace test_mode7 {
 		}*/
 		{
 			wait_key_ascii();
-			uint8_t bmp_data[] = {
+			uint8_t bmp_data[30] = {
+				'-', reverse, '-', reverse, '-', reverse,
 				MEDIUM_SHADE, reverse, MEDIUM_SHADE, reverse, MEDIUM_SHADE, reverse,
 				MEDIUM_SHADE, reverse, MEDIUM_SHADE, reverse, MEDIUM_SHADE, reverse,
 				MEDIUM_SHADE, reverse, MEDIUM_SHADE, reverse, MEDIUM_SHADE, reverse,
-				MEDIUM_SHADE, reverse, MEDIUM_SHADE, reverse, MEDIUM_SHADE, reverse,
-				MEDIUM_SHADE, reverse, MEDIUM_SHADE, reverse, MEDIUM_SHADE, reverse,
+				'-', reverse, '-', reverse, '-', reverse
 			};
-			gfx::bitmap bmp(3, 5, COLOUR_DEPTH, bios::TEXT_MONOCHROME_80X25);
-			std::cout << bmp.size << std::endl;
+			gfx::bitmap bmp(3, 5, COLOUR_DEPTH, bios::TEXT_MONOCHROME_80X25, bmp_data);
+			screen_bound::write_bitmap(10, 10, &bmp);
+			std::cout << std::hex << &bmp_data << std::endl;
 		}
 		wait_key_ascii();
 		exit();

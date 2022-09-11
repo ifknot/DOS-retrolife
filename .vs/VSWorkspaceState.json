@@ -1,12 +1,14 @@
 {
   "ExpandedNodes": [
     "",
+    "\\maze",
     "\\retrolib",
     "\\retrolib\\gfx",
+    "\\retrolib\\gfx\\mda",
     "\\retrolib\\gfx\\mda\\mode7",
     "\\retrolib\\statistics",
     "\\retrolib\\system"
   ],
-  "SelectedNode": "\\retrolib\\gfx\\test_point_vector_2d.h",
+  "SelectedNode": "\\retrolib\\gfx\\mda\\mode7\\mda_mode7_cls.h",
   "PreviewInSolutionExplorer": false
 }

@@ -25,19 +25,18 @@
 
 #include "../../../dos/dos_address_t.h"
 
+#include <iostream>
+
 namespace mda {
 
 	namespace mode7 {
 
         namespace screen_bound {
 
-            void write_bitmap(size_type x, size_type y, uint8_t* data) {
-                dos::address_t addr((uint32_t)data);
-				uint16_t addr_segment = addr.memory.segment;
-				uint16_t addr_offset = addr.memory.offset;
+            void write_bitmap(size_type x, size_type y, gfx::bitmap* bmp) {
                 __asm {
                     .8086
-            
+					push bp
 					//calculate ES:DI to point to x,y
 					mov		ax, MDA_VIDEO_RAM_SEGMENT
 					mov		es, ax						; ES:DI will point to x,y screen byte 
@@ -64,28 +63,33 @@ namespace mda {
 					shl		bx, 1						; x * 2 as 2 bytes per character cell
 					add		di, bx						; di = (y * 80 ) + x
             
-          			// DS:SI to point to bitmap and read width and height 
-          			mov   	ax, addr_segment
-          			mov   	ds, ax
-          			mov   	ax, addr_offset
-          			mov   	si, ax                 		; DS:SI points to bitmap
-          			mov   	bx, ds:[si + BMP_WIDTH]   	; copy of width in BX
-          			mov   	cx, ds:[si + BMP_HEIGHT]  	; load CX with height
-					add   	si, ds:[si + BMP_OFFSET]    ; point DS:SI to raw pixel data
-			
+          			// DS:SI to point to bitmap and read width, height, offset pixels 			             							
+					lds		si, bmp						; DS:SI points to bitmap   
+          			mov   	bp, ds:[si + BMP_WIDTH]		; copy of width in BP
+					// todo adjust width to fit screen
+          			mov   	cx, ds:[si + BMP_HEIGHT]	; copy of height in CX
+					// todo adjust height to fit screen
+					mov		si, ds:[si + BMP_DATA]		; load the pixel data offset
+							
+          			// prepare BX = bytes to add to align next line
+					mov		bx, BYTES_PER_LINE	
+					sub		bx, bp						; subtract the width					
+					sub		bx, bp						; twice for the attribute byte
+
 					// copy pixel data to character bytes rectangle x,y,w,h
-          			cld									; increment DS:SI and ES:DI
+					cld									; increment DS:SI and ES:DI
 L0:					mov 	dx, cx						; copy height into DX
 					// draw row
-					mov 	cx, bx						; load width
+					mov 	cx, bp						; load width
  	  				rep		movsw						; bmp data to screen in 16 bit chr:attrib word
-		
+					add		di, bx						; next line
 					mov 	cx, dx						; restore row count
 					loop 	L0							; next y
-END:
+					
+END:				pop		bp
                 }
             }
-
+			
         }
 
         namespace torus_bound {
