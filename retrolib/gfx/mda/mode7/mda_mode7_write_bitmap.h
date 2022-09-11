@@ -76,7 +76,7 @@ namespace mda {
 					sub		bx, bp						; subtract the width					
 					sub		bx, bp						; twice for the attribute byte
 
-					// copy pixel data to character bytes rectangle x,y,w,h
+					// copy pixel data to character bytes rectangle x,y,w,h using only registers 
 					cld									; increment DS:SI and ES:DI
 L0:					mov 	dx, cx						; copy height into DX
 					// draw row
