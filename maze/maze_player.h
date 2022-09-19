@@ -10,7 +10,7 @@
 #ifndef MAZE_PLAYER_H
 #define MAZE_PLAYER_H
 
-#include "../retrolib/gfx/point_2d.h"
+#include "../retrolib/gfx/gfx_point_2d.h"
 
 #include "maze.h"
 

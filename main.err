@@ -1,2 +1,8 @@
 retrolib/gfx/mda/mode7/test_mode7.h(126): Warning! W007: col(50) '&array' may not produce intended result
 retrolib/gfx/mda/mode7/test_mode7.h(126): Note! N393: col(50) included from main.cpp(18)
+C:\WATCOM\h\memory(128): Warning! W014: col(61) no reference to symbol 'left_wall_x'
+maze/test_maze.h(54): Note! N392: col(37) definition: 'unsigned short const game::left_wall_x[7]'
+C:\WATCOM\h\memory(128): Warning! W014: col(61) no reference to symbol 'right_wall_x'
+maze/test_maze.h(55): Note! N392: col(37) definition: 'unsigned short const game::right_wall_x[7]'
+C:\WATCOM\h\memory(128): Warning! W014: col(61) no reference to symbol 'wall_y'
+maze/test_maze.h(56): Note! N392: col(37) definition: 'unsigned short const game::wall_y[7]'

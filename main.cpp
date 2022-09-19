@@ -31,11 +31,11 @@
 //#include "retrolib/automata/test_count_neighbours.h"
 
 //#include "gamelife/dosgol.h"
-//#include "maze/test_maze.h"
+#include "maze/test_maze.h"
 
 //int main(int argc, char* argv[]) {
 int main() {
 
-	test_mode7::run();
+	game::run();
 
 }

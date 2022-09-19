@@ -14,18 +14,20 @@
 
 #include "../retrolib/bios/bios_services.h"
 
-#include "../retrolib/gfx/point_2d.h"
-#include "../retrolib/gfx/dimension_2d.h"
+#include "../retrolib/gfx/gfx_point_2d.h"
+#include "../retrolib/gfx/gfx_dimension_2d.h"
 
 #include "../retrolib/gfx/mda/mode7/mda_mode7.h"
 #include "../retrolib/gfx/mda/mode7/mda_mode7_write_character.h"
 #include "../retrolib/gfx/mda/mode7/mda_mode7_fill_area.h"
+#include "../retrolib/gfx/mda/mode7/mda_mode7_write_bitmap.h"
 
 #include "../retrolib/memory/size_t.h"
 
 #include "maze.h"
 #include "maze_player.h"
 #include "maze_draw_wall.h"
+#include "maze_bitmaps.h"
 
 using namespace bios;
 using namespace mda::mode7;
@@ -100,7 +102,13 @@ namespace game {
 			m.reveal_neighbours(player.position().coord.x, player.position().coord.y);
 			draw_map(m, player.position().coord.x, player.position().coord.y, screen_map_p.coord.x, screen_map_p.coord.y);
 	
-			draw_walls(m, player.position().coord.x, player.position().coord.y, screen_walls.coord.x, screen_walls.coord.y);
+			//draw_walls(m, player.position().coord.x, player.position().coord.y, screen_walls.coord.x, screen_walls.coord.y);
+			gfx::bitmap lw0(1, 25, COLOUR_DEPTH, bios::TEXT_MONOCHROME_80X25, left_wall_0);
+			screen_bound::write_bitmap(0, 0, &lw0);
+			gfx::bitmap rw0(1, 25, COLOUR_DEPTH, bios::TEXT_MONOCHROME_80X25, right_wall_0);
+			screen_bound::write_bitmap(50, 0, &rw0);
+			gfx::bitmap lw1(8, 23, COLOUR_DEPTH, bios::TEXT_MONOCHROME_80X25, left_wall_1);
+			screen_bound::write_bitmap(1, 1, &lw1);
 			
 			while (m.is_locked()) {
 				//m.key(wait_key_scan_code());
