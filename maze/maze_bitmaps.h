@@ -199,6 +199,25 @@ namespace game {
 		SPACE,reverse,SPACE,reverse,UPPER_HALF_BLOCK,reverse,FULL_BLOCK,reverse,
 	};
 
+	// distance 4 walls are 3x5 =  15words = 30 bytes
+	// width, height, capped
+	//	3,		 5,		0,	
+	uint8_t left_wall_4[30] = {
+		FULL_BLOCK,reverse,LOWER_HALF_BLOCK,reverse,SPACE,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,		
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,UPPER_HALF_BLOCK,reverse,SPACE,reverse
+	};
+
+	uint8_t right_wall_4[30] = {
+		SPACE,reverse,LOWER_HALF_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		SPACE,reverse,UPPER_HALF_BLOCK,reverse,FULL_BLOCK,reverse,
+	};
+
 }
 
 #endif
