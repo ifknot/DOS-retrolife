@@ -77,7 +77,7 @@ namespace game {
 		FULL_BLOCK,reverse,
 		UPPER_HALF_BLOCK, reverse,
 	};
-
+	
 	// distance 1 walls are 8x23 = 184 words = 368 bytes
 	// width, height, capped
 	//	8,		23,		0,		
@@ -104,12 +104,55 @@ namespace game {
 		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,UPPER_HALF_BLOCK,reverse,
 		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,UPPER_HALF_BLOCK,reverse,SPACE,reverse,SPACE,reverse,
 		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,UPPER_HALF_BLOCK,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse,
-		FULL_BLOCK,reverse,UPPER_HALF_BLOCK,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse,
+		FULL_BLOCK,reverse,UPPER_HALF_BLOCK,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse
 	};
 
-	//uint8_t right_wall_1[368] = {
+	uint8_t right_wall_1[368] = {
+		SPACE,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse,LOWER_HALF_BLOCK,reverse,FULL_BLOCK,reverse,
+		SPACE,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse,LOWER_HALF_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		SPACE,reverse,SPACE,reverse,LOWER_HALF_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		LOWER_HALF_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		UPPER_HALF_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		SPACE,reverse,SPACE,reverse,UPPER_HALF_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		SPACE,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse,UPPER_HALF_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		SPACE,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse,UPPER_HALF_BLOCK,reverse,FULL_BLOCK,reverse,
+	};
 
-	//};
+	// distance 2 walls are 6x15 =  90 words = 180 bytes
+	// width, height, capped
+	//	6,		15,		0,	
+	uint8_t left_wall_2[180] = {
+		FULL_BLOCK,reverse,LOWER_HALF_BLOCK,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,LOWER_HALF_BLOCK,reverse,SPACE,reverse,SPACE,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,LOWER_HALF_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,UPPER_HALF_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,UPPER_HALF_BLOCK,reverse,SPACE,reverse,SPACE,reverse,
+		FULL_BLOCK,reverse,UPPER_HALF_BLOCK,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse
+	};
 
 }
 

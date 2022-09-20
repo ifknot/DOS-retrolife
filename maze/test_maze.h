@@ -107,9 +107,15 @@ namespace game {
 			screen_bound::write_bitmap(0, 0, &lw0);
 			gfx::bitmap rw0(1, 25, COLOUR_DEPTH, bios::TEXT_MONOCHROME_80X25, right_wall_0);
 			screen_bound::write_bitmap(50, 0, &rw0);
+
 			gfx::bitmap lw1(8, 23, COLOUR_DEPTH, bios::TEXT_MONOCHROME_80X25, left_wall_1);
 			screen_bound::write_bitmap(1, 1, &lw1);
+			gfx::bitmap rw1(8, 23, COLOUR_DEPTH, bios::TEXT_MONOCHROME_80X25, right_wall_1);
+			screen_bound::write_bitmap(42, 1, &rw1);
 			
+			gfx::bitmap lw2(6, 15, COLOUR_DEPTH, bios::TEXT_MONOCHROME_80X25, left_wall_2);
+			screen_bound::write_bitmap(9, 5, &lw2);
+
 			while (m.is_locked()) {
 				//m.key(wait_key_scan_code());
 				k = wait_key_ascii();
