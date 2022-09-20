@@ -51,9 +51,9 @@ namespace game {
 	static const mda::size_type neighbourhood[18] = { 0, 0, 1, 0, 1, 1, 0, 1, -1, 1, -1, 0, -1, -1, 0, -1, 1, -1 };
 
 	// screen x offsets for left and right walls and their common screen y offsets
-	static const mda::size_type left_wall_x[7] = { 0, 1, 9, 15, 19, 22, 24 };
-	static const mda::size_type right_wall_x[7] ={ 50, 49, 41, 35, 31, 28, 26 };
-	static const mda::size_type wall_y[7] =	{ 1, 1, 5, 8, 10, 12, 12};
+	static const mda::size_type left_wall_x[7] =	{  0,  1,  9, 15, 19, 22, 24 };
+	static const mda::size_type right_wall_x[7] =	{ 50, 49, 41, 35, 31, 28, 26 };
+	static const mda::size_type wall_y[7] =			{  1,  1,  5,  8, 10, 12, 12};
 
 	template<mda::size_type T>
 	void draw_map(maze_t<T>& maze, mda::size_type ox, mda::size_type oy, mda::size_type x, mda::size_type y) {
@@ -115,6 +115,13 @@ namespace game {
 			
 			gfx::bitmap lw2(6, 15, COLOUR_DEPTH, bios::TEXT_MONOCHROME_80X25, left_wall_2);
 			screen_bound::write_bitmap(9, 5, &lw2);
+			gfx::bitmap rw2(6, 15, COLOUR_DEPTH, bios::TEXT_MONOCHROME_80X25, right_wall_2);
+			screen_bound::write_bitmap(36, 5, &rw2);
+
+			gfx::bitmap lw3(4, 9, COLOUR_DEPTH, bios::TEXT_MONOCHROME_80X25, left_wall_3);
+			screen_bound::write_bitmap(15, 8, &lw3);
+			gfx::bitmap rw3(4, 9, COLOUR_DEPTH, bios::TEXT_MONOCHROME_80X25, right_wall_3);
+			screen_bound::write_bitmap(32, 8, &rw3);
 
 			while (m.is_locked()) {
 				//m.key(wait_key_scan_code());

@@ -154,6 +154,51 @@ namespace game {
 		FULL_BLOCK,reverse,UPPER_HALF_BLOCK,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse
 	};
 
+	uint8_t right_wall_2[180] = {
+		SPACE,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse,LOWER_HALF_BLOCK,reverse,FULL_BLOCK,reverse,
+		SPACE,reverse,SPACE,reverse,LOWER_HALF_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		LOWER_HALF_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		UPPER_HALF_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		SPACE,reverse,SPACE,reverse,UPPER_HALF_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		SPACE,reverse,SPACE,reverse,SPACE,reverse,SPACE,reverse,UPPER_HALF_BLOCK,reverse,FULL_BLOCK,reverse,
+	};
+
+	// distance 3 walls are 4x9 =  36 words = 72 bytes
+	// width, height, capped
+	//	4,		 9,		0,	
+	uint8_t left_wall_3[72] = {
+		FULL_BLOCK,reverse,LOWER_HALF_BLOCK,reverse,SPACE,reverse,SPACE,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,LOWER_HALF_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,UPPER_HALF_BLOCK,reverse,
+		FULL_BLOCK,reverse,UPPER_HALF_BLOCK,reverse,SPACE,reverse,SPACE,reverse
+	};
+
+	uint8_t right_wall_3[72] = {
+		SPACE,reverse,SPACE,reverse,LOWER_HALF_BLOCK,reverse,FULL_BLOCK,reverse,
+		LOWER_HALF_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		UPPER_HALF_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,FULL_BLOCK,reverse,
+		SPACE,reverse,SPACE,reverse,UPPER_HALF_BLOCK,reverse,FULL_BLOCK,reverse,
+	};
+
 }
 
 #endif
